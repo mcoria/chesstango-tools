@@ -26,7 +26,7 @@ replay_pid*
 matches.pgn
 
 .idea/
-uci-arena-tv/
+uci-arena-tv/target/
 uci-arena/target/
 uci-arena-ipc/target/
 engine-tools/target/

@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.chesstango</groupId>
-    <artifactId>chesstango-tools-parent</artifactId>
+    <artifactId>tools-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -169,7 +169,7 @@
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
-                <artifactId>uci-engine</artifactId>
+                <artifactId>engine-uci</artifactId>
                 <version>${chesstango-engine.version}</version>
                 <exclusions>
                     <exclusion>

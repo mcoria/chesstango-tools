@@ -4,7 +4,6 @@ import net.chesstango.board.Game;
 import net.chesstango.board.representations.fen.FEN;
 import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.board.representations.pgn.PGNStringDecoder;
-import net.chesstango.evaluation.evaluators.EvaluatorImp05;
 import net.chesstango.evaluation.evaluators.EvaluatorImp04;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
 import net.chesstango.uci.arena.MatchMultiple;
@@ -50,8 +49,7 @@ public class MatchMain {
      * -Dcom.sun.management.jmxremote.ssl=false
      */
     public static void main(String[] args) {
-        Supplier<EngineController> tangoSupplier = () ->
-                EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorImp05::new);
+        Supplier<EngineController> engine1Supplier = EngineControllerFactory::createTangoController;
                         /*
                         .createTangoControllerWithDefaultEvaluator(AlphaBetaBuilder.class,
                         builder -> builder
@@ -69,10 +67,10 @@ public class MatchMain {
         //Supplier<EngineController> opponentSupplier = () -> EngineControllerFactory.createProxyController("Spike", null);
 
 
-        Supplier<EngineController> opponentSupplier = () -> EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorImp04::new);
+        Supplier<EngineController> engine2Supplier = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp04::new);
 
 
-        List<MatchResult> matchResult = new MatchMain(tangoSupplier, opponentSupplier)
+        List<MatchResult> matchResult = new MatchMain(engine1Supplier, engine2Supplier)
                 .play();
 
 
@@ -107,26 +105,26 @@ public class MatchMain {
         //List<String> fenList = List.of(FENDecoder.INITIAL_FEN);
         //List<String> fenList =  List.of("1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
         //List<String> fenList =  List.of(FENDecoder.INITIAL_FEN, "1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
-        //List<String> fenList = new Transcoding().pgnFileToFenPositions(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
-        //List<String> fenList = new Transcoding().pgnFileToFenPositions(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
-        //List<String> fenList = new Transcoding().pgnFileToFenPositions(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
-        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
-        //List<String> fenList = new Transcoding().pgnFileToFenPositions(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
+        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
         return pgnStream.map(PGN::toGame).map(Game::getCurrentFEN);
     }
 
-    private final Supplier<EngineController> mainEngineSupplier;
-    private final Supplier<EngineController> oppponentEngineSupplier;
+    private final Supplier<EngineController> engine1Supplier;
+    private final Supplier<EngineController> engine2Supplier;
 
-    public MatchMain(Supplier<EngineController> mainEngineSupplier, Supplier<EngineController> oppponentEngineSupplier) {
-        this.mainEngineSupplier = mainEngineSupplier;
-        this.oppponentEngineSupplier = oppponentEngineSupplier;
+    public MatchMain(Supplier<EngineController> engine1Supplier, Supplier<EngineController> engine2Supplier) {
+        this.engine1Supplier = engine1Supplier;
+        this.engine2Supplier = engine2Supplier;
     }
 
     private List<MatchResult> play() {
 
-        try (ObjectPool<EngineController> mainPool = new GenericObjectPool<>(new EngineControllerPoolFactory(mainEngineSupplier));
-             ObjectPool<EngineController> opponentPool = new GenericObjectPool<>(new EngineControllerPoolFactory(oppponentEngineSupplier))) {
+        try (ObjectPool<EngineController> mainPool = new GenericObjectPool<>(new EngineControllerPoolFactory(engine1Supplier));
+             ObjectPool<EngineController> opponentPool = new GenericObjectPool<>(new EngineControllerPoolFactory(engine2Supplier))) {
 
             MatchMultiple match = new MatchMultiple(mainPool, opponentPool, MATCH_TYPE)
                     .setDebugEnabled(MATCH_DEBUG)

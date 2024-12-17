@@ -32,8 +32,8 @@ public class TournamentMain {
     private static final MatchByDepth matchType = new MatchByDepth(2);
 
     public static void main(String[] args) {
-        Supplier<EngineController> main = () -> EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorByMaterialAndPST::new);
-        Supplier<EngineController> evaluatorImp02 = () -> EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorImp02::new);
+        Supplier<EngineController> main = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorByMaterialAndPST::new);
+        Supplier<EngineController> evaluatorImp02 = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp02::new);
         /*
         EngineControllerPoolFactory factory1 = new EngineControllerPoolFactory(() -> EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorByMaterial.class));
         EngineControllerPoolFactory factory2 = new EngineControllerPoolFactory(() -> EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorByMaterialAndMoves.class));

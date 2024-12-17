@@ -22,14 +22,30 @@ public class EngineControllerFactory {
         return new EngineControllerImp(proxy);
     }
 
-    public static EngineController createTangoController(Supplier<Search> searchMoveSupplier) {
+    /**
+     * Tango without any customization
+     * @return
+     */
+    public static EngineController createTangoController() {
+        return new EngineControllerImp(new UciTango());
+    }
+
+    /**
+     * Tango with search customization
+     * @return
+     */
+    public static EngineController createTangoControllerWithSearch(Supplier<Search> searchMoveSupplier) {
         Search search = searchMoveSupplier.get();
 
         return new EngineControllerImp(new UciTango(new Tango(searchMoveSupplier.get())))
                 .overrideEngineName(search.getClass().getSimpleName());
     }
 
-    public static EngineController createTangoControllerWithDefaultSearch(Supplier<Evaluator> gameEvaluatorSupplier) {
+    /**
+     * Tango with evaluator customization
+     * @return
+     */
+    public static EngineController createTangoControllerWithEvaluator(Supplier<Evaluator> gameEvaluatorSupplier) {
         Evaluator evaluator = gameEvaluatorSupplier.get();
 
         Search search = new DefaultSearch(evaluator);

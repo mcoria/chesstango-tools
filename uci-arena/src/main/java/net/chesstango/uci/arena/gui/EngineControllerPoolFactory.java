@@ -1,14 +1,9 @@
 package net.chesstango.uci.arena.gui;
 
-import lombok.Getter;
-import net.chesstango.uci.arena.gui.EngineController;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Supplier;
 
 /**

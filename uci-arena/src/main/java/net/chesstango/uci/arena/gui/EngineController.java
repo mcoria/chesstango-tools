@@ -3,7 +3,7 @@ package net.chesstango.uci.arena.gui;
 import net.chesstango.uci.protocol.requests.CmdGo;
 import net.chesstango.uci.protocol.requests.CmdPosition;
 import net.chesstango.uci.protocol.responses.RspBestMove;
-import net.chesstango.uci.ServiceElement;
+import net.chesstango.uci.engine.ServiceElement;
 
 /**
  * @author Mauricio Coria

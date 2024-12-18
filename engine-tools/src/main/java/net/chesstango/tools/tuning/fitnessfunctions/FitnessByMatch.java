@@ -18,7 +18,7 @@ import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.arena.matchtypes.MatchType;
-import net.chesstango.uci.engine.UciTango;
+import net.chesstango.uci.engine.states.UciTango;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 

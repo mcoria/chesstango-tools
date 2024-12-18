@@ -15,6 +15,7 @@ import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.MatchListenerToMBean;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
+import net.chesstango.uci.arena.matchtypes.MatchByTime;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
@@ -33,8 +34,8 @@ import java.util.stream.Stream;
 public class MatchMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchMain.class);
 
-    private static final MatchType MATCH_TYPE = new MatchByDepth(3);
-    //private static final MatchType MATCH_TYPE = new MatchByTime(200);
+    //private static final MatchType MATCH_TYPE = new MatchByDepth(3);
+    private static final MatchType MATCH_TYPE = new MatchByTime(500);
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
     private static final boolean MATCH_DEBUG = false;
@@ -108,8 +109,8 @@ public class MatchMain {
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
-        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
-        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
+        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
         return pgnStream.map(PGN::toGame).map(Game::getCurrentFEN);
     }
 

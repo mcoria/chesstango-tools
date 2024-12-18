@@ -1,7 +1,7 @@
 package net.chesstango.uci.arena.gui;
 
+import net.chesstango.uci.engine.proxy.UciProxy;
 import net.chesstango.uci.protocol.requests.go.CmdGoDepth;
-import net.chesstango.uci.proxy.UciProxy;
 import net.chesstango.uci.protocol.requests.CmdPosition;
 import net.chesstango.uci.protocol.responses.RspBestMove;
 import org.junit.jupiter.api.Test;

@@ -4,7 +4,7 @@ module net.chesstango.uci.arena {
     exports net.chesstango.uci.arena.listeners;
     exports net.chesstango.uci.arena.matchtypes;
 
-    requires net.chesstango.uci;
+    requires net.chesstango.uci.protocol;
     requires net.chesstango.uci.engine;
     requires net.chesstango.evaluation;
     requires net.chesstango.board;

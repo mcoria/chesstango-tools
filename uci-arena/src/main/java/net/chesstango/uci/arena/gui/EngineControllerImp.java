@@ -1,13 +1,13 @@
 package net.chesstango.uci.arena.gui;
 
+import net.chesstango.uci.engine.Service;
+import net.chesstango.uci.engine.ServiceVisitor;
 import net.chesstango.uci.protocol.UCIGui;
 import net.chesstango.uci.protocol.UCIRequest;
 import net.chesstango.uci.protocol.UCIResponse;
 import net.chesstango.uci.protocol.requests.*;
 import net.chesstango.uci.protocol.responses.*;
 import net.chesstango.uci.protocol.stream.UCIOutputStreamGuiExecutor;
-import net.chesstango.uci.Service;
-import net.chesstango.uci.ServiceVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

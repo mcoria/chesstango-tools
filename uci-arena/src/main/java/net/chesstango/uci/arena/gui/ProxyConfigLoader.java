@@ -1,8 +1,10 @@
 package net.chesstango.uci.arena.gui;
 
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.chesstango.uci.proxy.ProxyConfig;
+import net.chesstango.uci.engine.proxy.ProxyConfig;
+
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -4,10 +4,10 @@ import lombok.Getter;
 import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.engine.Session;
 import net.chesstango.engine.Tango;
-import net.chesstango.uci.ServiceVisitor;
+import net.chesstango.uci.engine.ServiceVisitor;
 import net.chesstango.uci.arena.gui.EngineController;
-import net.chesstango.uci.engine.UciTango;
-import net.chesstango.uci.proxy.UciProxy;
+import net.chesstango.uci.engine.proxy.UciProxy;
+import net.chesstango.uci.engine.states.UciTango;
 
 import java.util.function.Consumer;
 

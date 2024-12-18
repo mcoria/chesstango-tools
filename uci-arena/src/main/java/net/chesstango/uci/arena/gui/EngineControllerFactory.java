@@ -5,7 +5,7 @@ import net.chesstango.evaluation.Evaluator;
 import net.chesstango.search.DefaultSearch;
 import net.chesstango.search.Search;
 import net.chesstango.uci.engine.proxy.UciProxy;
-import net.chesstango.uci.engine.states.UciTango;
+import net.chesstango.uci.engine.engine.UciTango;
 
 
 import java.util.function.Consumer;

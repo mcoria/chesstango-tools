@@ -1,7 +1,7 @@
 package net.chesstango.uci.arena.gui;
 
 
-import net.chesstango.uci.engine.Service;
+import net.chesstango.uci.protocol.UciService;
 import net.chesstango.uci.engine.engine.UciTango;
 import net.chesstango.uci.protocol.requests.CmdPosition;
 import net.chesstango.uci.protocol.requests.go.CmdGoDepth;
@@ -18,9 +18,9 @@ public class EngineControllerImpTangoTest {
 
     @Test
     public void test_Tango() {
-        Service service = new UciTango();
+        UciTango service = new UciTango();
 
-        EngineControllerImp client = new EngineControllerImp(service);
+        EngineControllerImp client = new EngineControllerTango(service);
 
         client.send_CmdUci();
 

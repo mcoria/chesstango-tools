@@ -7,6 +7,7 @@ import net.chesstango.search.dummy.Dummy;
 import net.chesstango.uci.arena.gui.EngineController;
 import net.chesstango.uci.arena.gui.EngineControllerImp;
 import net.chesstango.uci.arena.gui.EngineControllerPoolFactory;
+import net.chesstango.uci.arena.gui.EngineControllerTango;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.engine.engine.UciTango;
 import org.apache.commons.pool2.ObjectPool;
@@ -34,12 +35,12 @@ public class MatchMultipleTest {
     @BeforeEach
     public void setup() {
         smartEnginePool = new GenericObjectPool<>(new EngineControllerPoolFactory(() ->
-                new EngineControllerImp(new UciTango())
+                new EngineControllerTango(new UciTango())
                         .overrideEngineName("Smart")
         ));
 
         dummyEnginePool = new GenericObjectPool<>(new EngineControllerPoolFactory(() ->
-                new EngineControllerImp(new UciTango(new Tango(new Dummy())))
+                new EngineControllerTango(new UciTango(new Tango(new Dummy())))
                         .overrideEngineName("Dummy")
         ));
     }

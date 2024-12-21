@@ -5,6 +5,7 @@ import net.chesstango.board.representations.fen.FENDecoder;
 import net.chesstango.engine.Tango;
 import net.chesstango.search.dummy.Dummy;
 import net.chesstango.uci.arena.gui.EngineControllerImp;
+import net.chesstango.uci.arena.gui.EngineControllerTango;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.engine.engine.UciTango;
 import org.junit.jupiter.api.AfterEach;
@@ -24,10 +25,10 @@ public class MatchTest {
 
     @BeforeEach
     public void setup() {
-        smartEngine = new EngineControllerImp(new UciTango())
+        smartEngine = new EngineControllerTango(new UciTango())
                 .overrideEngineName("Smart");
 
-        dummyEngine = new EngineControllerImp(new UciTango(new Tango(new Dummy())))
+        dummyEngine = new EngineControllerTango(new UciTango(new Tango(new Dummy())))
                 .overrideEngineName("Dummy");
 
         smartEngine.startEngine();

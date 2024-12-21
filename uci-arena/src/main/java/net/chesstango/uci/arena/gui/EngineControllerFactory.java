@@ -20,7 +20,7 @@ public class EngineControllerFactory {
         if (fnProxySetup != null) {
             fnProxySetup.accept(proxy);
         }
-        return new EngineControllerImp(proxy);
+        return new EngineControllerProxy(proxy);
     }
 
     /**
@@ -28,7 +28,7 @@ public class EngineControllerFactory {
      * @return
      */
     public static EngineController createTangoController() {
-        return new EngineControllerImp(new UciTango());
+        return new EngineControllerTango(new UciTango());
     }
 
     /**
@@ -38,7 +38,7 @@ public class EngineControllerFactory {
     public static EngineController createTangoControllerWithSearch(Supplier<Search> searchMoveSupplier) {
         Search search = searchMoveSupplier.get();
 
-        return new EngineControllerImp(new UciTango(new Tango(searchMoveSupplier.get())))
+        return new EngineControllerTango(new UciTango(new Tango(searchMoveSupplier.get())))
                 .overrideEngineName(search.getClass().getSimpleName());
     }
 
@@ -51,7 +51,7 @@ public class EngineControllerFactory {
 
         Search search = new DefaultSearch(evaluator);
 
-        return new EngineControllerImp(new UciTango(new Tango(search)))
+        return new EngineControllerTango(new UciTango(new Tango(search)))
                 .overrideEngineName(evaluator.getClass().getSimpleName());
     }
 

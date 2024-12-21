@@ -34,8 +34,8 @@ import java.util.stream.Stream;
 public class MatchMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchMain.class);
 
-    //private static final MatchType MATCH_TYPE = new MatchByDepth(3);
-    private static final MatchType MATCH_TYPE = new MatchByTime(500);
+    private static final MatchType MATCH_TYPE = new MatchByDepth(3);
+    //private static final MatchType MATCH_TYPE = new MatchByTime(500);
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
     private static final boolean MATCH_DEBUG = false;
@@ -65,10 +65,10 @@ public class MatchMain {
                         );*/
         ;
 
-        //Supplier<EngineController> opponentSupplier = () -> EngineControllerFactory.createProxyController("Spike", null);
+        Supplier<EngineController> engine2Supplier = () -> EngineControllerFactory.createProxyController("Spike", null);
 
 
-        Supplier<EngineController> engine2Supplier = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp04::new);
+        //Supplier<EngineController> engine2Supplier = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp04::new);
 
 
         List<MatchResult> matchResult = new MatchMain(engine1Supplier, engine2Supplier)

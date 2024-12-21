@@ -1,10 +1,10 @@
 package net.chesstango.uci.arena.gui;
 
-import net.chesstango.uci.engine.Service;
-import net.chesstango.uci.engine.ServiceVisitor;
+
 import net.chesstango.uci.protocol.UCIGui;
 import net.chesstango.uci.protocol.UCIRequest;
 import net.chesstango.uci.protocol.UCIResponse;
+import net.chesstango.uci.protocol.UciService;
 import net.chesstango.uci.protocol.requests.*;
 import net.chesstango.uci.protocol.responses.*;
 import net.chesstango.uci.protocol.stream.UCIOutputStreamGuiExecutor;
@@ -14,16 +14,19 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Mauricio Coria
  */
-public class EngineControllerImp implements EngineController {
+public abstract class EngineControllerImp implements EngineController {
     private static final Logger logger = LoggerFactory.getLogger(EngineControllerImp.class);
-    private final Service service;
+
+    private final UciService service;
+
     private volatile UCIGui currentState;
     private volatile UCIResponse response;
+
     private String engineName;
     private String engineAuthor;
     private CmdGo cmdGo;
 
-    public EngineControllerImp(Service service) {
+    public EngineControllerImp(UciService service) {
         UCIGui messageExecutor = new UCIGui() {
             @Override
             public void do_uciOk(RspUciOk rspUciOk) {
@@ -104,11 +107,6 @@ public class EngineControllerImp implements EngineController {
     @Override
     public String getEngineAuthor() {
         return engineAuthor;
-    }
-
-    @Override
-    public void accept(ServiceVisitor serviceVisitor) {
-        service.accept(serviceVisitor);
     }
 
 

@@ -10,10 +10,7 @@ import net.chesstango.search.DefaultSearch;
 import net.chesstango.tools.MatchMain;
 import net.chesstango.uci.arena.MatchMultiple;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.gui.EngineController;
-import net.chesstango.uci.arena.gui.EngineControllerFactory;
-import net.chesstango.uci.arena.gui.EngineControllerImp;
-import net.chesstango.uci.arena.gui.EngineControllerPoolFactory;
+import net.chesstango.uci.arena.gui.*;
 import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
@@ -60,7 +57,7 @@ public class FitnessByMatch implements FitnessFunction {
     @Override
     public long fitness(Supplier<Evaluator> tangoEvaluatorSupplier) {
         Supplier<EngineController> tangoEngineSupplier = () ->
-                new EngineControllerImp(new UciTango(new Tango(new DefaultSearch(tangoEvaluatorSupplier.get()))))
+                new EngineControllerTango(new UciTango(new Tango(new DefaultSearch(tangoEvaluatorSupplier.get()))))
                         .overrideEngineName(ENGINE_NAME);
 
         List<MatchResult> matchResult = fitnessEval(tangoEngineSupplier);

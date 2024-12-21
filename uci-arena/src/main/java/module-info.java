@@ -14,9 +14,8 @@ module net.chesstango.uci.arena {
 
     requires org.apache.commons.pool2;
     requires java.management;
-    requires com.fasterxml.jackson.core;
-    requires com.fasterxml.jackson.databind;
     requires org.slf4j;
 
     requires static lombok;
+    requires net.chesstango.uci.proxy;
 }

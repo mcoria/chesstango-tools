@@ -1,9 +1,10 @@
 package net.chesstango.uci.arena.gui;
 
-import net.chesstango.uci.engine.proxy.UciProxy;
+import net.chesstango.uci.proxy.UciProxy;
 import net.chesstango.uci.protocol.requests.go.CmdGoDepth;
 import net.chesstango.uci.protocol.requests.CmdPosition;
 import net.chesstango.uci.protocol.responses.RspBestMove;
+import net.chesstango.uci.proxy.ProxyConfigLoader;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +21,7 @@ public class EngineControllerImpProxyIntegrationTest {
     public void test_Proxy() {
         UciProxy engine = new UciProxy(ProxyConfigLoader.loadEngineConfig("Spike"));
 
-        EngineControllerImp client = new EngineControllerImp(engine);
+        EngineControllerImp client = new EngineControllerProxy(engine);
 
         client.send_CmdUci();
 

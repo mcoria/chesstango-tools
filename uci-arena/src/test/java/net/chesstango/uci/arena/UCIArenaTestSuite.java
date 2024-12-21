@@ -3,7 +3,6 @@ package net.chesstango.uci.arena;
 
 
 import net.chesstango.uci.arena.gui.EngineControllerImpTangoTest;
-import net.chesstango.uci.arena.gui.ProxyConfigTest;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
@@ -12,7 +11,7 @@ import org.junit.platform.suite.api.Suite;
  *
  */
 @Suite
-@SelectClasses({ MatchTest.class, EngineControllerImpTangoTest.class, ProxyConfigTest.class })
+@SelectClasses({ MatchTest.class, EngineControllerImpTangoTest.class })
 public class UCIArenaTestSuite {
 
 }

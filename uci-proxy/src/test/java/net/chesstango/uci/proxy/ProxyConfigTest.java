@@ -1,7 +1,6 @@
-package net.chesstango.uci.arena.gui;
+package net.chesstango.uci.proxy;
 
 
-import net.chesstango.uci.engine.proxy.ProxyConfig;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

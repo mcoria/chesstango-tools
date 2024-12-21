@@ -15,6 +15,7 @@
         <module>uci-arena-ipc</module>
         <module>uci-arena</module>
         <module>engine-tools</module>
+        <module>uci-proxy</module>
     </modules>
 
     <properties>
@@ -182,6 +183,11 @@
             <dependency>
                 <groupId>net.chesstango</groupId>
                 <artifactId>uci-arena-ipc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.chesstango</groupId>
+                <artifactId>uci-proxy</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

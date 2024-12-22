@@ -21,7 +21,7 @@ public class EngineControllerImpProxyIntegrationTest {
     public void test_Proxy() {
         UciProxy engine = new UciProxy(ProxyConfigLoader.loadEngineConfig("Spike"));
 
-        EngineControllerImp client = new EngineControllerProxy(engine);
+        EngineControllerAbstract client = new EngineControllerProxy(engine);
 
         client.send_CmdUci();
 

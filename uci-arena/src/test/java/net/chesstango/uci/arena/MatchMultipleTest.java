@@ -5,7 +5,6 @@ import net.chesstango.board.representations.fen.FENDecoder;
 import net.chesstango.engine.Tango;
 import net.chesstango.search.dummy.Dummy;
 import net.chesstango.uci.arena.gui.EngineController;
-import net.chesstango.uci.arena.gui.EngineControllerImp;
 import net.chesstango.uci.arena.gui.EngineControllerPoolFactory;
 import net.chesstango.uci.arena.gui.EngineControllerTango;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;

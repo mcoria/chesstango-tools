@@ -5,7 +5,7 @@ import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.engine.Session;
 import net.chesstango.engine.Tango;
 import net.chesstango.uci.arena.gui.EngineController;
-import net.chesstango.uci.arena.gui.ServiceVisitor;
+import net.chesstango.uci.arena.gui.EngineControllerVisitor;
 import net.chesstango.uci.proxy.UciProxy;
 import net.chesstango.uci.engine.engine.UciTango;
 
@@ -14,21 +14,15 @@ import java.util.function.Consumer;
 /**
  * @author Mauricio Coria
  */
+@Getter
 public class MatchResult {
-    @Getter
     private final String mathId;
-    @Getter
     private final PGN pgn;
-    @Getter
     private final EngineController engineWhite;
-    @Getter
     private final EngineController engineBlack;
-    @Getter
     private final EngineController winner;
 
-    @Getter
     private Session sessionWhite;
-    @Getter
     private Session sessionBlack;
 
     public MatchResult(String mathId, PGN pgn, EngineController engineWhite, EngineController engineBlack, EngineController winner) {
@@ -45,7 +39,7 @@ public class MatchResult {
     }
 
     private static void discoverEngineController(EngineController controller, Consumer<Session> sessionSetter) {
-        controller.accept(new ServiceVisitor() {
+        controller.accept(new EngineControllerVisitor() {
 
             @Override
             public void visit(UciTango uciTango) {

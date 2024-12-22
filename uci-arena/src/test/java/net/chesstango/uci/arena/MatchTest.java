@@ -4,7 +4,7 @@ import net.chesstango.board.representations.fen.FEN;
 import net.chesstango.board.representations.fen.FENDecoder;
 import net.chesstango.engine.Tango;
 import net.chesstango.search.dummy.Dummy;
-import net.chesstango.uci.arena.gui.EngineControllerImp;
+import net.chesstango.uci.arena.gui.EngineControllerAbstract;
 import net.chesstango.uci.arena.gui.EngineControllerTango;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.engine.engine.UciTango;
@@ -19,9 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class MatchTest {
 
-    private EngineControllerImp smartEngine;
+    private EngineControllerAbstract smartEngine;
 
-    private EngineControllerImp dummyEngine;
+    private EngineControllerAbstract dummyEngine;
 
     @BeforeEach
     public void setup() {

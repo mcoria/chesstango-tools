@@ -37,9 +37,9 @@ public interface EngineController {
 
     String getEngineAuthor();
 
-    EngineControllerImp overrideEngineName(String name);
+    EngineControllerAbstract overrideEngineName(String name);
 
     EngineController overrideCmdGo(CmdGo cmdGo);
 
-    void accept(ServiceVisitor serviceVisitor);
+    void accept(EngineControllerVisitor engineControllerVisitor);
 }

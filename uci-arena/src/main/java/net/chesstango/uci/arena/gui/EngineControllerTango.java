@@ -5,7 +5,7 @@ import net.chesstango.uci.engine.engine.UciTango;
 /**
  * @author Mauricio Coria
  */
-public class EngineControllerTango extends EngineControllerImp {
+public class EngineControllerTango extends EngineControllerAbstract {
     private final UciTango uciTango;
 
     public EngineControllerTango(UciTango uciTango) {
@@ -14,7 +14,7 @@ public class EngineControllerTango extends EngineControllerImp {
     }
 
     @Override
-    public void accept(ServiceVisitor serviceVisitor) {
-        serviceVisitor.visit(uciTango);
+    public void accept(EngineControllerVisitor engineControllerVisitor) {
+        engineControllerVisitor.visit(uciTango);
     }
 }

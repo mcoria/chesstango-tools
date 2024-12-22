@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Mauricio Coria
  */
-public abstract class EngineControllerImp implements EngineController {
-    private static final Logger logger = LoggerFactory.getLogger(EngineControllerImp.class);
+public abstract class EngineControllerAbstract implements EngineController {
+    private static final Logger logger = LoggerFactory.getLogger(EngineControllerAbstract.class);
 
     private final UciService service;
 
@@ -26,7 +26,7 @@ public abstract class EngineControllerImp implements EngineController {
     private String engineAuthor;
     private CmdGo cmdGo;
 
-    public EngineControllerImp(UciService service) {
+    public EngineControllerAbstract(UciService service) {
         UCIGui messageExecutor = new UCIGui() {
             @Override
             public void do_uciOk(RspUciOk rspUciOk) {
@@ -111,7 +111,7 @@ public abstract class EngineControllerImp implements EngineController {
 
 
     @Override
-    public EngineControllerImp overrideEngineName(String name) {
+    public EngineControllerAbstract overrideEngineName(String name) {
         this.engineName = name;
         return this;
     }

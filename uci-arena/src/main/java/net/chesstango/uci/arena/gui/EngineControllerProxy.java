@@ -5,7 +5,7 @@ import net.chesstango.uci.proxy.UciProxy;
 /**
  * @author Mauricio Coria
  */
-public class EngineControllerProxy extends EngineControllerImp {
+public class EngineControllerProxy extends EngineControllerAbstract {
     private final UciProxy uciProxy;
 
     public EngineControllerProxy(UciProxy uciProxy) {
@@ -14,7 +14,7 @@ public class EngineControllerProxy extends EngineControllerImp {
     }
 
     @Override
-    public void accept(ServiceVisitor serviceVisitor) {
-        serviceVisitor.visit(uciProxy);
+    public void accept(EngineControllerVisitor engineControllerVisitor) {
+        engineControllerVisitor.visit(uciProxy);
     }
 }

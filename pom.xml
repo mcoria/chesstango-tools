@@ -16,6 +16,7 @@
         <module>uci-arena</module>
         <module>engine-tools</module>
         <module>uci-proxy</module>
+        <module>uci-gui</module>
     </modules>
 
     <properties>
@@ -188,6 +189,11 @@
             <dependency>
                 <groupId>net.chesstango</groupId>
                 <artifactId>uci-proxy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.chesstango</groupId>
+                <artifactId>uci-gui</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

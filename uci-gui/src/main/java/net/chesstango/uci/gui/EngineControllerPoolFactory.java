@@ -1,4 +1,4 @@
-package net.chesstango.uci.arena.gui;
+package net.chesstango.uci.gui;
 
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;

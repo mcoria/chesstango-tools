@@ -1,8 +1,6 @@
 package net.chesstango.uci.arena;
 
 
-
-import net.chesstango.uci.arena.gui.EngineControllerImpTangoTest;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
@@ -11,7 +9,7 @@ import org.junit.platform.suite.api.Suite;
  *
  */
 @Suite
-@SelectClasses({ MatchTest.class, EngineControllerImpTangoTest.class })
+@SelectClasses({ MatchTest.class, MatchMultipleTest.class })
 public class UCIArenaTestSuite {
 
 }

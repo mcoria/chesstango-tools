@@ -1,13 +1,12 @@
-package net.chesstango.uci.arena.gui;
+package net.chesstango.uci.gui;
 
 import net.chesstango.engine.Tango;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.search.DefaultSearch;
 import net.chesstango.search.Search;
+import net.chesstango.uci.engine.engine.UciTango;
 import net.chesstango.uci.proxy.ProxyConfigLoader;
 import net.chesstango.uci.proxy.UciProxy;
-import net.chesstango.uci.engine.engine.UciTango;
-
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;

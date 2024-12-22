@@ -1,7 +1,7 @@
 package net.chesstango.tools.search.reports.arena;
 
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.gui.EngineController;
+import net.chesstango.uci.gui.EngineController;
 
 import java.io.PrintStream;
 import java.util.ArrayList;

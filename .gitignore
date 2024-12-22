@@ -32,3 +32,4 @@ uci-arena-ipc/target/
 engine-tools/target/
 engine-tools/scripts/venv/
 uci-proxy/target/
+uci-gui/target/

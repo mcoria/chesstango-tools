@@ -1,7 +1,7 @@
 package net.chesstango.tools.tuning.fitnessfunctions;
 
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.gui.EngineController;
+import net.chesstango.uci.gui.EngineController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

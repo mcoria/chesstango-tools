@@ -24,6 +24,7 @@ module net.chesstango.tools {
 
     requires static lombok;
     requires org.apache.commons.cli;
+    requires net.chesstango.uci.gui;
 
     opens net.chesstango.tools.search.reports.summary to com.fasterxml.jackson.databind;
 }

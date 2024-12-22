@@ -10,7 +10,7 @@ import net.chesstango.search.DefaultSearch;
 import net.chesstango.tools.MatchMain;
 import net.chesstango.uci.arena.MatchMultiple;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.gui.*;
+import net.chesstango.uci.gui.*;
 import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;

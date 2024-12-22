@@ -1,10 +1,10 @@
-package net.chesstango.uci.arena.gui;
+package net.chesstango.uci.gui;
 
-import net.chesstango.uci.proxy.UciProxy;
-import net.chesstango.uci.protocol.requests.go.CmdGoDepth;
 import net.chesstango.uci.protocol.requests.CmdPosition;
+import net.chesstango.uci.protocol.requests.go.CmdGoDepth;
 import net.chesstango.uci.protocol.responses.RspBestMove;
 import net.chesstango.uci.proxy.ProxyConfigLoader;
+import net.chesstango.uci.proxy.UciProxy;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,6 +1,6 @@
 package net.chesstango.uci.arena.matchtypes;
 
-import net.chesstango.uci.arena.gui.EngineController;
+import net.chesstango.uci.gui.EngineController;
 import net.chesstango.uci.protocol.requests.CmdGo;
 import net.chesstango.uci.protocol.requests.go.CmdGoDepth;
 import net.chesstango.uci.protocol.responses.RspBestMove;

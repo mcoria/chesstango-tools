@@ -5,7 +5,7 @@ import net.chesstango.board.moves.Move;
 import net.chesstango.board.representations.pgn.PGNStringEncoder;
 import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.gui.EngineController;
+import net.chesstango.uci.gui.EngineController;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

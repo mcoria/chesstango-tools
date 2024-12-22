@@ -4,8 +4,8 @@ import lombok.Getter;
 import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.engine.Session;
 import net.chesstango.engine.Tango;
-import net.chesstango.uci.arena.gui.EngineController;
-import net.chesstango.uci.arena.gui.EngineControllerVisitor;
+import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.EngineControllerVisitor;
 import net.chesstango.uci.proxy.UciProxy;
 import net.chesstango.uci.engine.engine.UciTango;
 

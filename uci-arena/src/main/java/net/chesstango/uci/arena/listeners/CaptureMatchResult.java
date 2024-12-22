@@ -4,7 +4,7 @@ import lombok.Getter;
 import net.chesstango.board.Game;
 import net.chesstango.board.moves.Move;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.gui.EngineController;
+import net.chesstango.uci.gui.EngineController;
 
 import java.util.Collections;
 import java.util.LinkedList;

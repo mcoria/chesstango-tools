@@ -12,7 +12,7 @@ import net.chesstango.mbeans.Arena;
 import net.chesstango.mbeans.GameDescriptionCurrent;
 import net.chesstango.mbeans.GameDescriptionInitial;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.gui.EngineController;
+import net.chesstango.uci.gui.EngineController;
 
 import java.util.*;
 

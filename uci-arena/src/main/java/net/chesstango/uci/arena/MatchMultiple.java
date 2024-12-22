@@ -3,7 +3,7 @@ package net.chesstango.uci.arena;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.chesstango.board.representations.fen.FEN;
-import net.chesstango.uci.arena.gui.EngineController;
+import net.chesstango.uci.gui.EngineController;
 import net.chesstango.uci.arena.listeners.MatchListener;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import org.apache.commons.pool2.ObjectPool;

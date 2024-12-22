@@ -3,7 +3,7 @@ package net.chesstango.tools.search.reports.arena;
 import net.chesstango.engine.Session;
 import net.chesstango.search.SearchResult;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.gui.EngineController;
+import net.chesstango.uci.gui.EngineController;
 import net.chesstango.tools.search.reports.arena.sessionreport_ui.PrintCutoffStatics;
 import net.chesstango.tools.search.reports.arena.sessionreport_ui.PrintNodesVisitedStatistics;
 

@@ -4,7 +4,7 @@ package net.chesstango.uci.gui;
 import net.chesstango.uci.protocol.UCIGui;
 import net.chesstango.uci.protocol.UCIRequest;
 import net.chesstango.uci.protocol.UCIResponse;
-import net.chesstango.uci.protocol.UciService;
+import net.chesstango.uci.protocol.UCIService;
 import net.chesstango.uci.protocol.requests.*;
 import net.chesstango.uci.protocol.responses.*;
 import net.chesstango.uci.protocol.stream.UCIOutputStreamGuiExecutor;
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public abstract class EngineControllerAbstract implements EngineController {
     private static final Logger logger = LoggerFactory.getLogger(EngineControllerAbstract.class);
 
-    private final UciService service;
+    private final UCIService service;
 
     private volatile UCIGui currentState;
     private volatile UCIResponse response;
@@ -26,7 +26,7 @@ public abstract class EngineControllerAbstract implements EngineController {
     private String engineAuthor;
     private CmdGo cmdGo;
 
-    public EngineControllerAbstract(UciService service) {
+    public EngineControllerAbstract(UCIService service) {
         UCIGui messageExecutor = new UCIGui() {
             @Override
             public void do_uciOk(RspUciOk rspUciOk) {

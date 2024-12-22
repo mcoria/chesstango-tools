@@ -1,7 +1,7 @@
 package net.chesstango.uci.proxy;
 
 import net.chesstango.uci.protocol.UCIMessage;
-import net.chesstango.uci.protocol.UciService;
+import net.chesstango.uci.protocol.UCIService;
 import net.chesstango.uci.protocol.stream.UCIActiveStreamReader;
 import net.chesstango.uci.protocol.stream.UCIInputStreamAdapter;
 import net.chesstango.uci.protocol.stream.UCIOutputStream;
@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 /**
  * @author Mauricio Coria
  */
-public class UciProxy implements UciService {
+public class UciProxy implements UCIService {
     private static final Logger logger = LoggerFactory.getLogger(UciProxy.class);
 
     private final UCIActiveStreamReader pipe;

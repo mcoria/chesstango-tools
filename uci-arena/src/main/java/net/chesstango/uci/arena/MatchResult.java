@@ -7,7 +7,7 @@ import net.chesstango.engine.Tango;
 import net.chesstango.uci.gui.EngineController;
 import net.chesstango.uci.gui.EngineControllerVisitor;
 import net.chesstango.uci.proxy.UciProxy;
-import net.chesstango.uci.engine.engine.UciTango;
+import net.chesstango.uci.engine.UciTango;
 
 import java.util.function.Consumer;
 

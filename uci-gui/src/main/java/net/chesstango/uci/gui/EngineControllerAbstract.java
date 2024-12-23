@@ -111,7 +111,7 @@ public abstract class EngineControllerAbstract implements EngineController {
 
 
     @Override
-    public EngineControllerAbstract overrideEngineName(String name) {
+    public EngineController overrideEngineName(String name) {
         this.engineName = name;
         return this;
     }

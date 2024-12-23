@@ -1,6 +1,6 @@
 package net.chesstango.uci.gui;
 
-import net.chesstango.uci.engine.engine.UciTango;
+import net.chesstango.uci.engine.UciTango;
 
 /**
  * @author Mauricio Coria

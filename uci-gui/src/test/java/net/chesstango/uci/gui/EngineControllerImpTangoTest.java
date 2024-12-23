@@ -1,7 +1,7 @@
 package net.chesstango.uci.gui;
 
 
-import net.chesstango.uci.engine.engine.UciTango;
+import net.chesstango.uci.engine.UciTango;
 import net.chesstango.uci.protocol.requests.CmdPosition;
 import net.chesstango.uci.protocol.requests.go.CmdGoDepth;
 import net.chesstango.uci.protocol.responses.RspBestMove;

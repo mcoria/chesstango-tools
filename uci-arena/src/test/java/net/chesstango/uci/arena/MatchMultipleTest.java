@@ -8,7 +8,7 @@ import net.chesstango.uci.gui.EngineController;
 import net.chesstango.uci.gui.EngineControllerPoolFactory;
 import net.chesstango.uci.gui.EngineControllerTango;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
-import net.chesstango.uci.engine.engine.UciTango;
+import net.chesstango.uci.engine.UciTango;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.junit.jupiter.api.BeforeEach;

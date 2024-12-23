@@ -1,7 +1,7 @@
 package net.chesstango.tools.tuning.fitnessfunctions;
 
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,10 +23,10 @@ public class FitnessByMatchTest {
     private FitnessByMatch fitnessFn;
 
     @Mock
-    private EngineController engineTango;
+    private Controller engineTango;
 
     @Mock
-    private EngineController opponent;
+    private Controller opponent;
 
 
     @BeforeEach

@@ -11,7 +11,7 @@ import net.chesstango.board.representations.fen.FEN;
 import net.chesstango.board.representations.fen.FENDecoder;
 import net.chesstango.board.representations.move.SimpleMoveDecoder;
 import net.chesstango.board.representations.pgn.PGN;
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 import net.chesstango.uci.arena.listeners.MatchListener;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import net.chesstango.uci.protocol.requests.CmdPosition;
@@ -29,8 +29,8 @@ import java.util.UUID;
  */
 class Match {
     private static final Logger logger = LoggerFactory.getLogger(Match.class);
-    private final EngineController white;
-    private final EngineController black;
+    private final Controller white;
+    private final Controller black;
     private final MatchType matchType;
     private final String mathId;
     private final SimpleMoveDecoder simpleMoveDecoder = new SimpleMoveDecoder();
@@ -51,7 +51,7 @@ class Match {
     private MatchListener matchListener;
 
 
-    public Match(EngineController white, EngineController black, MatchType matchType) {
+    public Match(Controller white, Controller black, MatchType matchType) {
         this.white = white;
         this.black = black;
         this.matchType = matchType;
@@ -83,7 +83,7 @@ class Match {
 
         final List<String> executedMovesStr = new ArrayList<>();
 
-        EngineController currentTurn;
+        Controller currentTurn;
 
         if (Color.WHITE.equals(game.getChessPosition().getCurrentTurn())) {
             currentTurn = white;
@@ -130,7 +130,7 @@ class Match {
 
 
     protected MatchResult createResult() {
-        EngineController winner = null;
+        Controller winner = null;
 
         if (GameStatus.DRAW_BY_FOLD_REPETITION.equals(game.getStatus())) {
             logger.info("[{}] DRAW (por fold repetition)", mathId);
@@ -168,7 +168,7 @@ class Match {
         black.startNewGame();
     }
 
-    private String retrieveBestMoveFromController(EngineController currentTurn, List<String> moves) {
+    private String retrieveBestMoveFromController(Controller currentTurn, List<String> moves) {
         if (FEN.of(FENDecoder.INITIAL_FEN).equals(fen)) {
             currentTurn.send_CmdPosition(new CmdPosition(moves));
         } else {

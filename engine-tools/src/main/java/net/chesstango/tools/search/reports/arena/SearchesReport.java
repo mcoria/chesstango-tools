@@ -8,7 +8,7 @@ import net.chesstango.tools.search.reports.nodes.NodesReportModel;
 import net.chesstango.tools.search.reports.pv.PrincipalVariationReport;
 import net.chesstango.tools.search.reports.pv.PrincipalVariationReportModel;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 
 import java.io.PrintStream;
 import java.util.LinkedList;
@@ -48,7 +48,7 @@ public class SearchesReport {
         return this;
     }
 
-    public SearchesReport withMathResults(List<EngineController> enginesOrder, List<MatchResult> matchResult) {
+    public SearchesReport withMathResults(List<Controller> enginesOrder, List<MatchResult> matchResult) {
         enginesOrder.forEach(engineController -> {
             matchResult.stream()
                     .filter(result -> result.getEngineWhite() == engineController && result.getSessionWhite() != null)

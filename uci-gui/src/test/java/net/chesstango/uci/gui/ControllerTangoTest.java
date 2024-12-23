@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Mauricio Coria
  */
-public class EngineControllerImpTangoTest {
+public class ControllerTangoTest {
 
     @Test
     public void test_Tango() {
         UciTango service = new UciTango();
 
-        EngineControllerAbstract client = new EngineControllerTango(service);
+        ControllerAbstract client = new ControllerTango(service);
 
         client.send_CmdUci();
 

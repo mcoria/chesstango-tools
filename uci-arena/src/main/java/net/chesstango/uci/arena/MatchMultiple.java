@@ -3,7 +3,7 @@ package net.chesstango.uci.arena;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.chesstango.board.representations.fen.FEN;
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 import net.chesstango.uci.arena.listeners.MatchListener;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import org.apache.commons.pool2.ObjectPool;
@@ -23,9 +23,9 @@ import java.util.stream.Stream;
 public class MatchMultiple {
     private static final Logger logger = LoggerFactory.getLogger(MatchMultiple.class);
 
-    private final ObjectPool<EngineController> controllerPool1;
+    private final ObjectPool<Controller> controllerPool1;
 
-    private final ObjectPool<EngineController> controllerPool2;
+    private final ObjectPool<Controller> controllerPool2;
 
     private final MatchType matchType;
 
@@ -44,7 +44,7 @@ public class MatchMultiple {
     private MatchListener matchListener;
 
 
-    public MatchMultiple(ObjectPool<EngineController> controllerPool1, ObjectPool<EngineController> controllerPool2, MatchType matchType) {
+    public MatchMultiple(ObjectPool<Controller> controllerPool1, ObjectPool<Controller> controllerPool2, MatchType matchType) {
         this.controllerPool1 = controllerPool1;
         this.controllerPool2 = controllerPool2;
         this.matchType = matchType;
@@ -67,11 +67,11 @@ public class MatchMultiple {
     }
 
     private void play(FEN fen,
-                      ObjectPool<EngineController> thePool1,
-                      ObjectPool<EngineController> thePool2) {
+                      ObjectPool<Controller> thePool1,
+                      ObjectPool<Controller> thePool2) {
 
-        EngineController controller1 = null;
-        EngineController controller2 = null;
+        Controller controller1 = null;
+        Controller controller2 = null;
 
         try {
             controller1 = getControllerFromPool(thePool1);
@@ -96,7 +96,7 @@ public class MatchMultiple {
         }
     }
 
-    private static EngineController getControllerFromPool(ObjectPool<EngineController> pool) {
+    private static Controller getControllerFromPool(ObjectPool<Controller> pool) {
         try {
             return pool.borrowObject();
         } catch (Exception e) {
@@ -105,7 +105,7 @@ public class MatchMultiple {
         }
     }
 
-    private static void invalidateObject(EngineController controller, ObjectPool<EngineController> pool) {
+    private static void invalidateObject(Controller controller, ObjectPool<Controller> pool) {
         if (controller != null && pool != null) {
             try {
                 pool.invalidateObject(controller);

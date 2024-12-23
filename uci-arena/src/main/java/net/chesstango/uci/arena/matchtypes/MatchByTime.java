@@ -1,6 +1,6 @@
 package net.chesstango.uci.arena.matchtypes;
 
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 import net.chesstango.uci.protocol.requests.CmdGo;
 import net.chesstango.uci.protocol.requests.go.CmdGoTime;
 import net.chesstango.uci.protocol.responses.RspBestMove;
@@ -16,7 +16,7 @@ public class MatchByTime implements MatchType {
     }
 
     @Override
-    public RspBestMove retrieveBestMoveFromController(EngineController currentTurn, boolean isWhite) {
+    public RspBestMove retrieveBestMoveFromController(Controller currentTurn, boolean isWhite) {
         return currentTurn.send_CmdGo(cmdGo);
     }
 }

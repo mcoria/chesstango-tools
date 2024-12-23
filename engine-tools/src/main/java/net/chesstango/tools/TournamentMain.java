@@ -9,8 +9,8 @@ import net.chesstango.evaluation.evaluators.EvaluatorImp02;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
 import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.arena.Tournament;
-import net.chesstango.uci.gui.EngineController;
-import net.chesstango.uci.gui.EngineControllerFactory;
+import net.chesstango.uci.gui.Controller;
+import net.chesstango.uci.arena.gui.ControllerFactory;
 import net.chesstango.uci.arena.listeners.CaptureMatchResult;
 import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.MatchListenerToMBeans;
@@ -32,8 +32,8 @@ public class TournamentMain {
     private static final MatchByDepth matchType = new MatchByDepth(2);
 
     public static void main(String[] args) {
-        Supplier<EngineController> main = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorByMaterialAndPST::new);
-        Supplier<EngineController> evaluatorImp02 = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp02::new);
+        Supplier<Controller> main = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorByMaterialAndPST::new);
+        Supplier<Controller> evaluatorImp02 = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp02::new);
         /*
         EngineControllerPoolFactory factory1 = new EngineControllerPoolFactory(() -> EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorByMaterial.class));
         EngineControllerPoolFactory factory2 = new EngineControllerPoolFactory(() -> EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorByMaterialAndMoves.class));
@@ -41,10 +41,10 @@ public class TournamentMain {
 
         EngineControllerPoolFactory factory5 = new EngineControllerPoolFactory(() -> EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorSimplifiedEvaluator.class));
          */
-        Supplier<EngineController> spike = () -> EngineControllerFactory.createProxyController("Spike", null);
+        Supplier<Controller> spike = () -> ControllerFactory.createProxyController("Spike", null);
 
 
-        List<Supplier<EngineController>> engineSupplierList = Arrays.asList(main, evaluatorImp02, spike);
+        List<Supplier<Controller>> engineSupplierList = Arrays.asList(main, evaluatorImp02, spike);
 
         List<MatchResult> matchResult = new TournamentMain(engineSupplierList)
                 .play(getFenList());
@@ -61,9 +61,9 @@ public class TournamentMain {
         return pgnStream.map(PGN::toGame).map(Game::getCurrentFEN);
     }
 
-    private final List<Supplier<EngineController>> engineSupplierList;
+    private final List<Supplier<Controller>> engineSupplierList;
 
-    public TournamentMain(List<Supplier<EngineController>> engineSupplierList) {
+    public TournamentMain(List<Supplier<Controller>> engineSupplierList) {
         this.engineSupplierList = engineSupplierList;
     }
 

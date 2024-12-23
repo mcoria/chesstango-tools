@@ -9,5 +9,4 @@ module net.chesstango.uci.gui {
     requires net.chesstango.engine;
     requires net.chesstango.search;
     requires net.chesstango.evaluation;
-    requires org.apache.commons.pool2;
 }

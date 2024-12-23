@@ -1,6 +1,6 @@
 package net.chesstango.uci.arena.matchtypes;
 
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 import net.chesstango.uci.protocol.responses.RspBestMove;
 
 /**
@@ -8,5 +8,5 @@ import net.chesstango.uci.protocol.responses.RspBestMove;
  */
 public interface MatchType {
     
-    RspBestMove retrieveBestMoveFromController(EngineController currentTurn, boolean isWhite);
+    RspBestMove retrieveBestMoveFromController(Controller currentTurn, boolean isWhite);
 }

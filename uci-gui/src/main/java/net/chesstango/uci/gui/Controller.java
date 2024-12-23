@@ -7,7 +7,7 @@ import net.chesstango.uci.protocol.responses.RspBestMove;
 /**
  * @author Mauricio Coria
  */
-public interface EngineController {
+public interface Controller {
 
     void send_CmdUci();
 
@@ -37,9 +37,9 @@ public interface EngineController {
 
     String getEngineAuthor();
 
-    EngineController overrideEngineName(String name);
+    Controller overrideEngineName(String name);
 
-    EngineController overrideCmdGo(CmdGo cmdGo);
+    Controller overrideCmdGo(CmdGo cmdGo);
 
-    void accept(EngineControllerVisitor engineControllerVisitor);
+    void accept(ControllerVisitor controllerVisitor);
 }

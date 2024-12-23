@@ -4,18 +4,16 @@ import net.chesstango.board.Game;
 import net.chesstango.board.representations.fen.FEN;
 import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.board.representations.pgn.PGNStringDecoder;
-import net.chesstango.evaluation.evaluators.EvaluatorImp04;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
 import net.chesstango.uci.arena.MatchMultiple;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.EngineController;
-import net.chesstango.uci.gui.EngineControllerFactory;
-import net.chesstango.uci.gui.EngineControllerPoolFactory;
+import net.chesstango.uci.gui.Controller;
+import net.chesstango.uci.arena.gui.ControllerFactory;
+import net.chesstango.uci.arena.gui.ControllerPoolFactory;
 import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.MatchListenerToMBean;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
-import net.chesstango.uci.arena.matchtypes.MatchByTime;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
@@ -50,7 +48,7 @@ public class MatchMain {
      * -Dcom.sun.management.jmxremote.ssl=false
      */
     public static void main(String[] args) {
-        Supplier<EngineController> engine1Supplier = EngineControllerFactory::createTangoController;
+        Supplier<Controller> engine1Supplier = ControllerFactory::createTangoController;
                         /*
                         .createTangoControllerWithDefaultEvaluator(AlphaBetaBuilder.class,
                         builder -> builder
@@ -65,7 +63,7 @@ public class MatchMain {
                         );*/
         ;
 
-        Supplier<EngineController> engine2Supplier = () -> EngineControllerFactory.createProxyController("Spike", null);
+        Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController("Spike", null);
 
 
         //Supplier<EngineController> engine2Supplier = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp04::new);
@@ -114,18 +112,18 @@ public class MatchMain {
         return pgnStream.map(PGN::toGame).map(Game::getCurrentFEN);
     }
 
-    private final Supplier<EngineController> engine1Supplier;
-    private final Supplier<EngineController> engine2Supplier;
+    private final Supplier<Controller> engine1Supplier;
+    private final Supplier<Controller> engine2Supplier;
 
-    public MatchMain(Supplier<EngineController> engine1Supplier, Supplier<EngineController> engine2Supplier) {
+    public MatchMain(Supplier<Controller> engine1Supplier, Supplier<Controller> engine2Supplier) {
         this.engine1Supplier = engine1Supplier;
         this.engine2Supplier = engine2Supplier;
     }
 
     private List<MatchResult> play() {
 
-        try (ObjectPool<EngineController> mainPool = new GenericObjectPool<>(new EngineControllerPoolFactory(engine1Supplier));
-             ObjectPool<EngineController> opponentPool = new GenericObjectPool<>(new EngineControllerPoolFactory(engine2Supplier))) {
+        try (ObjectPool<Controller> mainPool = new GenericObjectPool<>(new ControllerPoolFactory(engine1Supplier));
+             ObjectPool<Controller> opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(engine2Supplier))) {
 
             MatchMultiple match = new MatchMultiple(mainPool, opponentPool, MATCH_TYPE)
                     .setDebugEnabled(MATCH_DEBUG)

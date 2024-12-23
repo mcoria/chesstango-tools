@@ -1,7 +1,7 @@
 package net.chesstango.tools.search.reports.arena;
 
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -32,8 +32,8 @@ public class SummaryReport {
     public SummaryReport withMatchResults(List<MatchResult> matchResults) {
         Set<String> engineNames = new HashSet<>();
 
-        matchResults.stream().map(MatchResult::getEngineWhite).map(EngineController::getEngineName).forEach(engineNames::add);
-        matchResults.stream().map(MatchResult::getEngineBlack).map(EngineController::getEngineName).forEach(engineNames::add);
+        matchResults.stream().map(MatchResult::getEngineWhite).map(Controller::getEngineName).forEach(engineNames::add);
+        matchResults.stream().map(MatchResult::getEngineBlack).map(Controller::getEngineName).forEach(engineNames::add);
 
         engineNames.stream().map(engineName -> createRowModel(engineName, matchResults)).forEach(reportRowModels::add);
 

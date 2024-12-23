@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * @author Mauricio Coria
  */
-public class EngineControllerImpProxyIntegrationTest {
+public class ControllerProxyIntegrationTest {
 
     @Test
     public void test_Proxy() {
         UciProxy engine = new UciProxy(ProxyConfigLoader.loadEngineConfig("Spike"));
 
-        EngineControllerAbstract client = new EngineControllerProxy(engine);
+        ControllerAbstract client = new ControllerProxy(engine);
 
         client.send_CmdUci();
 

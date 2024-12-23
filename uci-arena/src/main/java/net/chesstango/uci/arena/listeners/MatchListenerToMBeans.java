@@ -4,7 +4,7 @@ import net.chesstango.board.Game;
 import net.chesstango.board.moves.Move;
 import net.chesstango.mbeans.Arena;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.PooledObject;
@@ -28,7 +28,7 @@ public class MatchListenerToMBeans implements MatchListener {
     private List<Arena> arenaList = Collections.synchronizedList(new ArrayList<>());
 
     @Override
-    public void notifyNewGame(Game game, EngineController white, EngineController black) {
+    public void notifyNewGame(Game game, Controller white, Controller black) {
         MatchListenerToMBean matchListenerToMBean = gameMatchListenerToMBeanMap.computeIfAbsent(game, gameKey -> new MatchListenerToMBean(borrowArena()));
 
         matchListenerToMBean.notifyNewGame(game, white, black);

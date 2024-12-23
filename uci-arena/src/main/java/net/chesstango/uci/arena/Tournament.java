@@ -3,8 +3,8 @@ package net.chesstango.uci.arena;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.chesstango.board.representations.fen.FEN;
-import net.chesstango.uci.gui.EngineController;
-import net.chesstango.uci.gui.EngineControllerPoolFactory;
+import net.chesstango.uci.arena.gui.ControllerPoolFactory;
+import net.chesstango.uci.gui.Controller;
 import net.chesstango.uci.arena.listeners.MatchListener;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import org.apache.commons.pool2.ObjectPool;
@@ -26,13 +26,13 @@ public class Tournament {
 
     private final MatchType matchType;
 
-    private final List<Supplier<EngineController>> engineSupplierList;
+    private final List<Supplier<Controller>> engineSupplierList;
 
     @Setter
     @Accessors(chain = true)
     private MatchListener matchListener;
 
-    public Tournament(List<Supplier<EngineController>> engineSupplierList, MatchType matchType) {
+    public Tournament(List<Supplier<Controller>> engineSupplierList, MatchType matchType) {
         this.engineSupplierList = engineSupplierList;
         this.matchType = matchType;
     }
@@ -41,11 +41,11 @@ public class Tournament {
 
         List<MatchResult> matchResults = Collections.synchronizedList(new LinkedList<>());
 
-        Supplier<EngineController> mainEngineSupplier = engineSupplierList.getFirst();
+        Supplier<Controller> mainEngineSupplier = engineSupplierList.getFirst();
 
-        try (ObjectPool<EngineController> mainPool = new GenericObjectPool<>(new EngineControllerPoolFactory(mainEngineSupplier))) {
-            for (Supplier<EngineController> opponentEngineSupplier : engineSupplierList) {
-                try (ObjectPool<EngineController> opponentPool = new GenericObjectPool<>(new EngineControllerPoolFactory(opponentEngineSupplier))) {
+        try (ObjectPool<Controller> mainPool = new GenericObjectPool<>(new ControllerPoolFactory(mainEngineSupplier))) {
+            for (Supplier<Controller> opponentEngineSupplier : engineSupplierList) {
+                try (ObjectPool<Controller> opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(opponentEngineSupplier))) {
                     if (mainEngineSupplier != opponentEngineSupplier) {
                         MatchMultiple matchMultiple = new MatchMultiple(mainPool, opponentPool, matchType)
                                 .setSwitchChairs(true)

@@ -4,7 +4,7 @@ import lombok.Getter;
 import net.chesstango.board.Game;
 import net.chesstango.board.moves.Move;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -23,7 +23,7 @@ public class CaptureMatchResult implements MatchListener {
     }
 
     @Override
-    public void notifyNewGame(Game game, EngineController white, EngineController black) {
+    public void notifyNewGame(Game game, Controller white, Controller black) {
     }
 
     @Override

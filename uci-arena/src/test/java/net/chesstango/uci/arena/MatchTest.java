@@ -6,8 +6,8 @@ import net.chesstango.engine.Tango;
 import net.chesstango.search.dummy.Dummy;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.engine.UciTango;
-import net.chesstango.uci.gui.EngineController;
-import net.chesstango.uci.gui.EngineControllerTango;
+import net.chesstango.uci.gui.Controller;
+import net.chesstango.uci.gui.ControllerTango;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,16 +19,16 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class MatchTest {
 
-    private EngineController smartEngine;
+    private Controller smartEngine;
 
-    private EngineController dummyEngine;
+    private Controller dummyEngine;
 
     @BeforeEach
     public void setup() {
-        smartEngine = new EngineControllerTango(new UciTango())
+        smartEngine = new ControllerTango(new UciTango())
                 .overrideEngineName("Smart");
 
-        dummyEngine = new EngineControllerTango(new UciTango(new Tango(new Dummy())))
+        dummyEngine = new ControllerTango(new UciTango(new Tango(new Dummy())))
                 .overrideEngineName("Dummy");
 
         smartEngine.startEngine();

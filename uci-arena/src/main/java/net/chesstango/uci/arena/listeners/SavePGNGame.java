@@ -5,7 +5,7 @@ import net.chesstango.board.moves.Move;
 import net.chesstango.board.representations.pgn.PGNStringEncoder;
 import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class SavePGNGame implements MatchListener {
     @Override
-    public void notifyNewGame(Game game, EngineController white, EngineController black) {
+    public void notifyNewGame(Game game, Controller white, Controller black) {
     }
 
     @Override

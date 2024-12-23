@@ -8,6 +8,8 @@ import net.chesstango.engine.Tango;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.search.DefaultSearch;
 import net.chesstango.tools.MatchMain;
+import net.chesstango.uci.arena.gui.ControllerFactory;
+import net.chesstango.uci.arena.gui.ControllerPoolFactory;
 import net.chesstango.uci.arena.MatchMultiple;
 import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.gui.*;
@@ -31,14 +33,14 @@ public class FitnessByMatch implements FitnessFunction {
 
     private static final String ENGINE_NAME = "TANGO";
 
-    private ObjectPool<EngineController> opponentPool;
+    private ObjectPool<Controller> opponentPool;
 
     private Stream<FEN> fenList;
 
 
     @Override
     public void start() {
-        Supplier<EngineController> opponentSupplier = () -> EngineControllerFactory.createProxyController("Spike", null);
+        Supplier<Controller> opponentSupplier = () -> ControllerFactory.createProxyController("Spike", null);
 
         Stream<PGN> pgnGames = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
         //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
@@ -46,7 +48,7 @@ public class FitnessByMatch implements FitnessFunction {
         //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
 
         this.fenList = pgnGames.map(PGN::toGame).map(Game::getCurrentFEN);
-        this.opponentPool = new GenericObjectPool<>(new EngineControllerPoolFactory(opponentSupplier));
+        this.opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(opponentSupplier));
     }
 
     @Override
@@ -56,8 +58,8 @@ public class FitnessByMatch implements FitnessFunction {
 
     @Override
     public long fitness(Supplier<Evaluator> tangoEvaluatorSupplier) {
-        Supplier<EngineController> tangoEngineSupplier = () ->
-                new EngineControllerTango(new UciTango(new Tango(new DefaultSearch(tangoEvaluatorSupplier.get()))))
+        Supplier<Controller> tangoEngineSupplier = () ->
+                new ControllerTango(new UciTango(new Tango(new DefaultSearch(tangoEvaluatorSupplier.get()))))
                         .overrideEngineName(ENGINE_NAME);
 
         List<MatchResult> matchResult = fitnessEval(tangoEngineSupplier);
@@ -66,8 +68,8 @@ public class FitnessByMatch implements FitnessFunction {
     }
 
 
-    private List<MatchResult> fitnessEval(Supplier<EngineController> tangoEngineSupplier) {
-        try (ObjectPool<EngineController> tangoPool = new GenericObjectPool<>(new EngineControllerPoolFactory(tangoEngineSupplier))) {
+    private List<MatchResult> fitnessEval(Supplier<Controller> tangoEngineSupplier) {
+        try (ObjectPool<Controller> tangoPool = new GenericObjectPool<>(new ControllerPoolFactory(tangoEngineSupplier))) {
             return new MatchMultiple(tangoPool, opponentPool, MATCH_TYPE)
                     .setSwitchChairs(true)
                     .setMatchListener(new MatchBroadcaster()

@@ -12,7 +12,7 @@ import net.chesstango.mbeans.Arena;
 import net.chesstango.mbeans.GameDescriptionCurrent;
 import net.chesstango.mbeans.GameDescriptionInitial;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.EngineController;
+import net.chesstango.uci.gui.Controller;
 
 import java.util.*;
 
@@ -36,7 +36,7 @@ public class MatchListenerToMBean implements MatchListener {
 
 
     @Override
-    public void notifyNewGame(Game game, EngineController white, EngineController black) {
+    public void notifyNewGame(Game game, Controller white, Controller black) {
         currentGameId = UUID.randomUUID().toString();
 
         String whiteName = white.getEngineName();

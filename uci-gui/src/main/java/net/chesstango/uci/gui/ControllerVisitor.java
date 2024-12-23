@@ -6,7 +6,7 @@ import net.chesstango.uci.proxy.UciProxy;
 /**
  * @author Mauricio Coria
  */
-public interface EngineControllerVisitor {
+public interface ControllerVisitor {
 
     void visit(UciTango uciTango);
 

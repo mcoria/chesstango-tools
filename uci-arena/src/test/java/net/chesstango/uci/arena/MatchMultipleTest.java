@@ -4,9 +4,9 @@ import net.chesstango.board.representations.fen.FEN;
 import net.chesstango.board.representations.fen.FENDecoder;
 import net.chesstango.engine.Tango;
 import net.chesstango.search.dummy.Dummy;
-import net.chesstango.uci.gui.EngineController;
-import net.chesstango.uci.gui.EngineControllerPoolFactory;
-import net.chesstango.uci.gui.EngineControllerTango;
+import net.chesstango.uci.arena.gui.ControllerPoolFactory;
+import net.chesstango.uci.gui.Controller;
+import net.chesstango.uci.gui.ControllerTango;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.engine.UciTango;
 import org.apache.commons.pool2.ObjectPool;
@@ -26,20 +26,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MatchMultipleTest {
 
-    private ObjectPool<EngineController> smartEnginePool;
+    private ObjectPool<Controller> smartEnginePool;
 
-    private ObjectPool<EngineController> dummyEnginePool;
+    private ObjectPool<Controller> dummyEnginePool;
 
 
     @BeforeEach
     public void setup() {
-        smartEnginePool = new GenericObjectPool<>(new EngineControllerPoolFactory(() ->
-                new EngineControllerTango(new UciTango())
+        smartEnginePool = new GenericObjectPool<>(new ControllerPoolFactory(() ->
+                new ControllerTango(new UciTango())
                         .overrideEngineName("Smart")
         ));
 
-        dummyEnginePool = new GenericObjectPool<>(new EngineControllerPoolFactory(() ->
-                new EngineControllerTango(new UciTango(new Tango(new Dummy())))
+        dummyEnginePool = new GenericObjectPool<>(new ControllerPoolFactory(() ->
+                new ControllerTango(new UciTango(new Tango(new Dummy())))
                         .overrideEngineName("Dummy")
         ));
     }
@@ -57,7 +57,7 @@ public class MatchMultipleTest {
         assertEquals(2, matchResult.stream()
                 .map(MatchResult::getWinner)
                 .filter(Objects::nonNull)
-                .map(EngineController::getEngineName)
+                .map(Controller::getEngineName)
                 .filter("Smart"::equals)
                 .count()
         );

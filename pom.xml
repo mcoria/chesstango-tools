@@ -36,7 +36,7 @@
         <jenetics.version>8.0.0</jenetics.version>
         <py4j.version>0.10.9.7</py4j.version>
         <commons-cli.version>1.8.0</commons-cli.version>
-        <uci-protocol.version>1.0.1-SNAPSHOT</uci-protocol.version>
+        <uci-protocol.version>1.0.1</uci-protocol.version>
         <chesstango-engine.version>1.0.0-SNAPSHOT</chesstango-engine.version>
     </properties>
 

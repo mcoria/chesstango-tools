@@ -70,37 +70,37 @@ public abstract class ControllerAbstract implements Controller {
     @Override
     public void send_CmdUci() {
         service.open();
-        sendRequest(new WaitRspUciOk(this), new CmdUci(), true);
+        sendRequestWaitResponse(new WaitRspUciOk(this), new CmdUci());
     }
 
     @Override
     public void send_CmdIsReady() {
-        sendRequest(new WaitRspReadyOk(this), new CmdIsReady(), true);
+        sendRequestWaitResponse(new WaitRspReadyOk(this), new CmdIsReady());
     }
 
     @Override
     public void send_CmdUciNewGame() {
-        sendRequest(new NoWaitRsp(), new CmdUciNewGame(), false);
+        sendRequestNoWaitResponse(new CmdUciNewGame());
     }
 
     @Override
     public void send_CmdPosition(CmdPosition cmdPosition) {
-        sendRequest(new NoWaitRsp(), cmdPosition, false);
+        sendRequestNoWaitResponse(cmdPosition);
     }
 
     @Override
     public RspBestMove send_CmdGo(CmdGo cmdGo) {
-        return (RspBestMove) sendRequest(new WaitRspBestMove(this), this.cmdGo == null ? cmdGo : this.cmdGo, true);
+        return (RspBestMove) sendRequestWaitResponse(new WaitRspBestMove(this), this.cmdGo == null ? cmdGo : this.cmdGo);
     }
 
     @Override
     public void send_CmdStop() {
-        sendRequest(new NoWaitRsp(), new CmdStop(), false);
+        sendRequestNoWaitResponse(new CmdStop());
     }
 
     @Override
     public void send_CmdQuit() {
-        sendRequest(new NoWaitRsp(), new CmdQuit(), false);
+        sendRequestNoWaitResponse(new CmdQuit());
         service.close();
     }
 
@@ -126,30 +126,36 @@ public abstract class ControllerAbstract implements Controller {
         return this;
     }
 
-    public synchronized UCIResponse sendRequest(UCIGui newState, UCIRequest request, boolean waitResponse) {
+    public synchronized void sendRequestNoWaitResponse(UCIRequest request) {
+        this.response = null;
+        this.currentState = new NoWaitRsp();
+        service.accept(request);
+    }
+
+    public synchronized UCIResponse sendRequestWaitResponse(UCIGui newState, UCIRequest request) {
         this.response = null;
         this.currentState = newState;
         service.accept(request);
-        if (waitResponse) {
-            try {
-                int waitingCounter = 0;
-                while (response == null && waitingCounter < 20 ) {
-                    wait(1000);
-                    waitingCounter++;
-                }
-                if (response == null) {
-                    logger.error("Engine {} has not provided any response after sending: {}", engineName, request);
-                    throw new RuntimeException("Perhaps engine has closed its output");
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        try {
+            /**
+             * Luego de service.accept(request), el mismo thread puede llamar a responseReceived y no bloquearse.
+             * Por lo tanto esperamos solo si todavia no recibimos resuesta.
+             */
+            if (response == null) {
+                wait(20000);
             }
+            if (response == null) {
+                logger.error("Engine {} has not provided any response after sending: {}", engineName, request);
+                throw new RuntimeException("Perhaps engine has closed its output");
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
         return response;
     }
 
-    public synchronized void responseReceived(UCIGui newState, UCIResponse response) {
-        this.currentState = newState;
+    public synchronized void responseReceived(UCIResponse response) {
+        this.currentState = new NoWaitRsp();
         this.response = response;
         notifyAll();
     }

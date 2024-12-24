@@ -20,7 +20,7 @@ public class WaitRspReadyOk implements UCIGui {
 
     @Override
     public void do_readyOk(RspReadyOk rspReadyOk) {
-        controllerAbstract.responseReceived(new NoWaitRsp(), rspReadyOk);
+        controllerAbstract.responseReceived(rspReadyOk);
     }
 
     @Override

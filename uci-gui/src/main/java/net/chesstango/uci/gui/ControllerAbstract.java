@@ -1,6 +1,11 @@
 package net.chesstango.uci.gui;
 
 
+import lombok.Setter;
+import net.chesstango.uci.gui.states.NoWaitRsp;
+import net.chesstango.uci.gui.states.WaitRspBestMove;
+import net.chesstango.uci.gui.states.WaitRspReadyOk;
+import net.chesstango.uci.gui.states.WaitRspUciOk;
 import net.chesstango.uci.protocol.UCIGui;
 import net.chesstango.uci.protocol.UCIRequest;
 import net.chesstango.uci.protocol.UCIResponse;
@@ -19,11 +24,16 @@ public abstract class ControllerAbstract implements Controller {
 
     private final UCIService service;
 
+    @Setter
     private volatile UCIGui currentState;
     private volatile UCIResponse response;
 
+    @Setter
     private String engineName;
+
+    @Setter
     private String engineAuthor;
+
     private CmdGo cmdGo;
 
     public ControllerAbstract(UCIService service) {
@@ -62,13 +72,13 @@ public abstract class ControllerAbstract implements Controller {
     @Override
     public void send_CmdUci() {
         service.open();
-		currentState = new WaitRspUciOk();
+		currentState = new WaitRspUciOk(this);
         sendRequest(new CmdUci(), true);
     }
 
     @Override
     public void send_CmdIsReady() {
-        currentState = new WaitRspReadyOk();
+        currentState = new WaitRspReadyOk(this);
         sendRequest(new CmdIsReady(), true);
     }
 
@@ -84,7 +94,7 @@ public abstract class ControllerAbstract implements Controller {
 
     @Override
     public RspBestMove send_CmdGo(CmdGo cmdGo) {
-        currentState = new WaitRspBestMove();
+        currentState = new WaitRspBestMove(this);
         return (RspBestMove) sendRequest(this.cmdGo == null ? cmdGo : this.cmdGo, true);
     }
 
@@ -108,7 +118,6 @@ public abstract class ControllerAbstract implements Controller {
     public String getEngineAuthor() {
         return engineAuthor;
     }
-
 
     @Override
     public Controller overrideEngineName(String name) {
@@ -143,114 +152,10 @@ public abstract class ControllerAbstract implements Controller {
         return response;
     }
 
-    protected synchronized void responseReceived(UCIResponse response) {
+    public synchronized void responseReceived(UCIResponse response) {
         this.response = response;
         notifyAll();
     }
 
 
-    private class NoWaitRsp implements UCIGui {
-        @Override
-        public void do_uciOk(RspUciOk rspUciOk) {
-        }
-
-        @Override
-        public void do_readyOk(RspReadyOk rspReadyOk) {
-        }
-
-        @Override
-        public void do_bestMove(RspBestMove rspBestMove) {
-        }
-
-        @Override
-        public void do_info(RspInfo rspInfo) {
-
-        }
-
-        @Override
-        public void do_id(RspId rspId) {
-        }
-    }
-
-    private class WaitRspUciOk implements UCIGui {
-        @Override
-        public void do_uciOk(RspUciOk rspUciOk) {
-            responseReceived(rspUciOk);
-            currentState = new NoWaitRsp();
-        }
-
-        @Override
-        public void do_readyOk(RspReadyOk rspReadyOk) {
-        }
-
-        @Override
-        public void do_bestMove(RspBestMove rspBestMove) {
-        }
-
-        @Override
-        public void do_info(RspInfo rspInfo) {
-
-        }
-
-        @Override
-        public void do_id(RspId rspId) {
-            if (RspId.RspIdType.NAME.equals(rspId.getIdType()) && engineName == null) {
-                engineName = rspId.getText();
-            }
-            if (RspId.RspIdType.AUTHOR.equals(rspId.getIdType())) {
-                engineAuthor = rspId.getText();
-            }
-        }
-
-    }
-
-    private class WaitRspReadyOk implements UCIGui {
-        @Override
-        public void do_uciOk(RspUciOk rspUciOk) {
-        }
-
-        @Override
-        public void do_readyOk(RspReadyOk rspReadyOk) {
-            responseReceived(rspReadyOk);
-            currentState = new NoWaitRsp();
-        }
-
-        @Override
-        public void do_bestMove(RspBestMove rspBestMove) {
-        }
-
-        @Override
-        public void do_info(RspInfo rspInfo) {
-
-        }
-
-        @Override
-        public void do_id(RspId rspId) {
-        }
-    }
-
-
-    private class WaitRspBestMove implements UCIGui {
-        @Override
-        public void do_uciOk(RspUciOk rspUciOk) {
-        }
-
-        @Override
-        public void do_readyOk(RspReadyOk rspReadyOk) {
-        }
-
-        @Override
-        public void do_bestMove(RspBestMove rspBestMove) {
-            responseReceived(rspBestMove);
-            currentState = new NoWaitRsp();
-        }
-
-        @Override
-        public void do_info(RspInfo rspInfo) {
-        }
-
-        @Override
-        public void do_id(RspId rspId) {
-        }
-    }
 }

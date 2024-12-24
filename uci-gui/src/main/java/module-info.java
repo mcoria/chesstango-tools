@@ -1,5 +1,6 @@
 module net.chesstango.uci.gui {
     exports net.chesstango.uci.gui;
+    exports net.chesstango.uci.gui.states;
     requires net.chesstango.uci.protocol;
     requires org.slf4j;
 

@@ -21,7 +21,6 @@ public class NoWaitRsp implements UCIGui {
 
     @Override
     public void do_info(RspInfo rspInfo) {
-
     }
 
     @Override

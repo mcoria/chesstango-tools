@@ -24,8 +24,7 @@ public class WaitRspBestMove implements UCIGui {
 
     @Override
     public void do_bestMove(RspBestMove rspBestMove) {
-        controllerAbstract.responseReceived(rspBestMove);
-        controllerAbstract.setCurrentState(new NoWaitRsp());
+        controllerAbstract.responseReceived(new NoWaitRsp(), rspBestMove);
     }
 
     @Override

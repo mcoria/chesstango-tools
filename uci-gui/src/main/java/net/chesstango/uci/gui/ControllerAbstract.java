@@ -24,7 +24,6 @@ public abstract class ControllerAbstract implements Controller {
 
     private final UCIService service;
 
-    @Setter
     private volatile UCIGui currentState;
     private volatile UCIResponse response;
 
@@ -66,46 +65,42 @@ public abstract class ControllerAbstract implements Controller {
 
         this.service = service;
         this.service.setResponseOutputStream(new UCIOutputStreamGuiExecutor(messageExecutor));
-        this.currentState = new NoWaitRsp();
     }
 
     @Override
     public void send_CmdUci() {
         service.open();
-		currentState = new WaitRspUciOk(this);
-        sendRequest(new CmdUci(), true);
+        sendRequest(new WaitRspUciOk(this), new CmdUci(), true);
     }
 
     @Override
     public void send_CmdIsReady() {
-        currentState = new WaitRspReadyOk(this);
-        sendRequest(new CmdIsReady(), true);
+        sendRequest(new WaitRspReadyOk(this), new CmdIsReady(), true);
     }
 
     @Override
     public void send_CmdUciNewGame() {
-        sendRequest(new CmdUciNewGame(), false);
+        sendRequest(new NoWaitRsp(), new CmdUciNewGame(), false);
     }
 
     @Override
     public void send_CmdPosition(CmdPosition cmdPosition) {
-        sendRequest(cmdPosition, false);
+        sendRequest(new NoWaitRsp(), cmdPosition, false);
     }
 
     @Override
     public RspBestMove send_CmdGo(CmdGo cmdGo) {
-        currentState = new WaitRspBestMove(this);
-        return (RspBestMove) sendRequest(this.cmdGo == null ? cmdGo : this.cmdGo, true);
+        return (RspBestMove) sendRequest(new WaitRspBestMove(this), this.cmdGo == null ? cmdGo : this.cmdGo, true);
     }
 
     @Override
     public void send_CmdStop() {
-        sendRequest(new CmdStop(), false);
+        sendRequest(new NoWaitRsp(), new CmdStop(), false);
     }
 
     @Override
     public void send_CmdQuit() {
-        sendRequest(new CmdQuit(), false);
+        sendRequest(new NoWaitRsp(), new CmdQuit(), false);
         service.close();
     }
 
@@ -131,8 +126,9 @@ public abstract class ControllerAbstract implements Controller {
         return this;
     }
 
-    public synchronized UCIResponse sendRequest(UCIRequest request, boolean waitResponse) {
+    public synchronized UCIResponse sendRequest(UCIGui newState, UCIRequest request, boolean waitResponse) {
         this.response = null;
+        this.currentState = newState;
         service.accept(request);
         if (waitResponse) {
             try {
@@ -152,7 +148,8 @@ public abstract class ControllerAbstract implements Controller {
         return response;
     }
 
-    public synchronized void responseReceived(UCIResponse response) {
+    public synchronized void responseReceived(UCIGui newState, UCIResponse response) {
+        this.currentState = newState;
         this.response = response;
         notifyAll();
     }

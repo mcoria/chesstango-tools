@@ -16,8 +16,7 @@ public class WaitRspUciOk implements UCIGui {
 
     @Override
     public void do_uciOk(RspUciOk rspUciOk) {
-        controllerAbstract.responseReceived(rspUciOk);
-        controllerAbstract.setCurrentState(new NoWaitRsp());
+        controllerAbstract.responseReceived(new NoWaitRsp(), rspUciOk);
     }
 
     @Override

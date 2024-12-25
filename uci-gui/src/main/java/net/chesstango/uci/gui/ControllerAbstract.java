@@ -68,8 +68,17 @@ public abstract class ControllerAbstract implements Controller {
     }
 
     @Override
-    public void send_CmdUci() {
+    public void open() {
         service.open();
+    }
+
+    @Override
+    public void close() {
+        service.close();
+    }
+
+    @Override
+    public void send_CmdUci() {
         sendRequestWaitResponse(new WaitRspUciOk(this), new CmdUci());
     }
 
@@ -101,7 +110,6 @@ public abstract class ControllerAbstract implements Controller {
     @Override
     public void send_CmdQuit() {
         sendRequestNoWaitResponse(new CmdQuit());
-        service.close();
     }
 
     @Override

@@ -21,6 +21,8 @@ public class ControllerTangoTest {
 
         ControllerAbstract client = new ControllerTango(service);
 
+        client.open();
+
         client.send_CmdUci();
 
         assertEquals("Mauricio Coria", client.getEngineAuthor());
@@ -37,6 +39,8 @@ public class ControllerTangoTest {
         assertNotNull(bestmove);
 
         client.send_CmdQuit();
+
+        client.close();
     }
 
 

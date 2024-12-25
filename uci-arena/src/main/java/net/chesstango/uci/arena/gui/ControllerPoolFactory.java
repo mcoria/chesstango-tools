@@ -35,7 +35,9 @@ public class ControllerPoolFactory extends BasePooledObjectFactory<Controller> {
 
     @Override
     public void destroyObject(PooledObject<Controller> pooledController) {
-        pooledController.getObject().send_CmdQuit();
+        Controller controller = pooledController.getObject();
+
+        controller.stopEngine();
     }
 
     @Override

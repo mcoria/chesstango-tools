@@ -9,6 +9,10 @@ import net.chesstango.uci.protocol.responses.RspBestMove;
  */
 public interface Controller {
 
+    void open();
+
+    void close();
+
     void send_CmdUci();
 
     void send_CmdIsReady();
@@ -24,8 +28,14 @@ public interface Controller {
     void send_CmdQuit();
 
     default void startEngine() {
+        open();
         send_CmdUci();
         send_CmdIsReady();
+    }
+
+    default void stopEngine() {
+        send_CmdQuit();
+        close();
     }
 
     default void startNewGame() {

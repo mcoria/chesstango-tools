@@ -33,7 +33,7 @@ public abstract class ControllerAbstract implements Controller {
     @Setter
     private String engineAuthor;
 
-    private CmdGo cmdGo;
+    private ReqGo cmdGo;
 
     public ControllerAbstract(UCIService service) {
         UCIGui messageExecutor = new UCIGui() {
@@ -64,7 +64,7 @@ public abstract class ControllerAbstract implements Controller {
         };
 
         this.service = service;
-        this.service.setResponseOutputStream(new UCIOutputStreamGuiExecutor(messageExecutor));
+        this.service.setOutputStream(new UCIOutputStreamGuiExecutor(messageExecutor));
     }
 
     @Override
@@ -78,38 +78,38 @@ public abstract class ControllerAbstract implements Controller {
     }
 
     @Override
-    public void send_CmdUci() {
-        sendRequestWaitResponse(new WaitRspUciOk(this), new CmdUci());
+    public void send_ReqUci() {
+        sendRequestWaitResponse(new WaitRspUciOk(this), new ReqUci());
     }
 
     @Override
-    public void send_CmdIsReady() {
-        sendRequestWaitResponse(new WaitRspReadyOk(this), new CmdIsReady());
+    public void send_ReqIsReady() {
+        sendRequestWaitResponse(new WaitRspReadyOk(this), new ReqIsReady());
     }
 
     @Override
-    public void send_CmdUciNewGame() {
-        sendRequestNoWaitResponse(new CmdUciNewGame());
+    public void send_ReqUciNewGame() {
+        sendRequestNoWaitResponse(new ReqUciNewGame());
     }
 
     @Override
-    public void send_CmdPosition(CmdPosition cmdPosition) {
+    public void send_ReqPosition(ReqPosition cmdPosition) {
         sendRequestNoWaitResponse(cmdPosition);
     }
 
     @Override
-    public RspBestMove send_CmdGo(CmdGo cmdGo) {
+    public RspBestMove send_ReqGo(ReqGo cmdGo) {
         return (RspBestMove) sendRequestWaitResponse(new WaitRspBestMove(this), this.cmdGo == null ? cmdGo : this.cmdGo);
     }
 
     @Override
-    public void send_CmdStop() {
-        sendRequestNoWaitResponse(new CmdStop());
+    public void send_ReqStop() {
+        sendRequestNoWaitResponse(new ReqStop());
     }
 
     @Override
-    public void send_CmdQuit() {
-        sendRequestNoWaitResponse(new CmdQuit());
+    public void send_ReqQuit() {
+        sendRequestNoWaitResponse(new ReqQuit());
     }
 
     @Override
@@ -129,7 +129,7 @@ public abstract class ControllerAbstract implements Controller {
     }
 
     @Override
-    public Controller overrideCmdGo(CmdGo cmdGo) {
+    public Controller overrideReqGo(ReqGo cmdGo) {
         this.cmdGo = cmdGo;
         return this;
     }

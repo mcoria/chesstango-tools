@@ -2,8 +2,8 @@ package net.chesstango.uci.gui;
 
 
 import net.chesstango.uci.engine.UciTango;
-import net.chesstango.uci.protocol.requests.CmdPosition;
-import net.chesstango.uci.protocol.requests.go.CmdGoDepth;
+import net.chesstango.uci.protocol.requests.ReqPosition;
+import net.chesstango.uci.protocol.requests.go.ReqGoDepth;
 import net.chesstango.uci.protocol.responses.RspBestMove;
 import org.junit.jupiter.api.Test;
 
@@ -23,22 +23,22 @@ public class ControllerTangoTest {
 
         client.open();
 
-        client.send_CmdUci();
+        client.send_ReqUci();
 
         assertEquals("Mauricio Coria", client.getEngineAuthor());
         assertTrue(client.getEngineName().startsWith("Tango"));
 
-        client.send_CmdIsReady();
+        client.send_ReqIsReady();
 
-        client.send_CmdUciNewGame();
+        client.send_ReqUciNewGame();
 
-        client.send_CmdPosition(new CmdPosition());
+        client.send_ReqPosition(new ReqPosition());
 
-        RspBestMove bestmove = client.send_CmdGo(new CmdGoDepth().setDepth(1));
+        RspBestMove bestmove = client.send_ReqGo(new ReqGoDepth().setDepth(1));
 
         assertNotNull(bestmove);
 
-        client.send_CmdQuit();
+        client.send_ReqQuit();
 
         client.close();
     }

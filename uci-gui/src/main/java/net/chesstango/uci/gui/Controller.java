@@ -1,7 +1,8 @@
 package net.chesstango.uci.gui;
 
-import net.chesstango.uci.protocol.requests.CmdGo;
-import net.chesstango.uci.protocol.requests.CmdPosition;
+
+import net.chesstango.uci.protocol.requests.ReqGo;
+import net.chesstango.uci.protocol.requests.ReqPosition;
 import net.chesstango.uci.protocol.responses.RspBestMove;
 
 /**
@@ -13,34 +14,34 @@ public interface Controller {
 
     void close();
 
-    void send_CmdUci();
+    void send_ReqUci();
 
-    void send_CmdIsReady();
+    void send_ReqIsReady();
 
-    void send_CmdUciNewGame();
+    void send_ReqUciNewGame();
 
-    void send_CmdPosition(CmdPosition cmdPosition);
+    void send_ReqPosition(ReqPosition ReqPosition);
 
-    RspBestMove send_CmdGo(CmdGo cmdGo);
+    RspBestMove send_ReqGo(ReqGo ReqGo);
 
-    void send_CmdStop();
+    void send_ReqStop();
 
-    void send_CmdQuit();
+    void send_ReqQuit();
 
     default void startEngine() {
         open();
-        send_CmdUci();
-        send_CmdIsReady();
+        send_ReqUci();
+        send_ReqIsReady();
     }
 
     default void stopEngine() {
-        send_CmdQuit();
+        send_ReqQuit();
         close();
     }
 
     default void startNewGame() {
-        send_CmdUciNewGame();
-        send_CmdIsReady();
+        send_ReqUciNewGame();
+        send_ReqIsReady();
     }
 
     String getEngineName();
@@ -49,7 +50,7 @@ public interface Controller {
 
     Controller overrideEngineName(String name);
 
-    Controller overrideCmdGo(CmdGo cmdGo);
+    Controller overrideReqGo(ReqGo ReqGo);
 
     void accept(ControllerVisitor controllerVisitor);
 }

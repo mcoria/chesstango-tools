@@ -37,8 +37,8 @@ public class MatchTest {
 
     @AfterEach
     public void tearDown() {
-        smartEngine.send_CmdQuit();
-        dummyEngine.send_CmdQuit();
+        smartEngine.send_ReqQuit();
+        dummyEngine.send_ReqQuit();
     }
 
     @Test

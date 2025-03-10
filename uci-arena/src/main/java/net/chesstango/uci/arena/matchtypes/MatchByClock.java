@@ -1,8 +1,8 @@
 package net.chesstango.uci.arena.matchtypes;
 
 import net.chesstango.uci.gui.Controller;
-import net.chesstango.uci.protocol.requests.CmdGo;
-import net.chesstango.uci.protocol.requests.go.CmdGoFast;
+import net.chesstango.uci.protocol.requests.ReqGo;
+import net.chesstango.uci.protocol.requests.go.ReqGoFast;
 import net.chesstango.uci.protocol.responses.RspBestMove;
 
 import java.time.Duration;
@@ -25,7 +25,7 @@ public class MatchByClock implements MatchType {
 
     @Override
     public RspBestMove retrieveBestMoveFromController(Controller currentTurn, boolean isWhite) {
-        CmdGo cmdGo = new CmdGoFast()
+        ReqGo ReqGo = new ReqGoFast()
                 .setWTime(wTime)
                 .setBTime(bTime)
                 .setWInc(inc)
@@ -33,7 +33,7 @@ public class MatchByClock implements MatchType {
 
         Instant start = Instant.now();
 
-        RspBestMove bestMove = currentTurn.send_CmdGo(cmdGo);
+        RspBestMove bestMove = currentTurn.send_ReqGo(ReqGo);
 
         long timeElapsed = Duration.between(start, Instant.now()).toMillis();
 

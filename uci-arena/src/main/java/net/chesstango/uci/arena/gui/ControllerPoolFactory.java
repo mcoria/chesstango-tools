@@ -42,7 +42,7 @@ public class ControllerPoolFactory extends BasePooledObjectFactory<Controller> {
 
     @Override
     public void activateObject(PooledObject<Controller> pooledController) throws Exception {
-        pooledController.getObject().send_CmdIsReady();
+        pooledController.getObject().send_ReqIsReady();
     }
 
 }

@@ -2,7 +2,7 @@ package net.chesstango.uci.proxy;
 
 import net.chesstango.uci.protocol.UCIService;
 import net.chesstango.uci.protocol.stream.UCIActiveStreamReader;
-import net.chesstango.uci.protocol.stream.UCIInputStreamAdapter;
+import net.chesstango.uci.protocol.stream.UCIInputStreamFromStringAdapter;
 import net.chesstango.uci.protocol.stream.UCIOutputStreamToStringAdapter;
 import net.chesstango.uci.protocol.stream.strings.StringConsumer;
 import net.chesstango.uci.protocol.stream.strings.StringSupplier;
@@ -34,15 +34,13 @@ public class UciMain implements Runnable {
         this.in = in;
         this.out = out;
         this.pipe = new UCIActiveStreamReader();
-
+        this.service.setOutputStream(new UCIOutputStreamToStringAdapter(new StringConsumer(new OutputStreamWriter(out))));
+        this.pipe.setInputStream(new UCIInputStreamFromStringAdapter(new StringSupplier(new InputStreamReader(in))));
+        this.pipe.setOutputStream(service::accept);
     }
 
     @Override
     public void run() {
-        this.service.setResponseOutputStream(new UCIOutputStreamToStringAdapter(new StringConsumer(new OutputStreamWriter(out))));
-        this.pipe.setInputStream(new UCIInputStreamAdapter(new StringSupplier(new InputStreamReader(in))));
-        this.pipe.setOutputStream(this.service);
-
         try {
             service.open();
 

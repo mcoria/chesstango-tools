@@ -1,9 +1,9 @@
 package net.chesstango.uci.proxy;
 
-import net.chesstango.uci.protocol.UCIMessage;
+import net.chesstango.uci.protocol.UCICommand;
 import net.chesstango.uci.protocol.UCIService;
 import net.chesstango.uci.protocol.stream.UCIActiveStreamReader;
-import net.chesstango.uci.protocol.stream.UCIInputStreamAdapter;
+import net.chesstango.uci.protocol.stream.UCIInputStreamFromStringAdapter;
 import net.chesstango.uci.protocol.stream.UCIOutputStream;
 import net.chesstango.uci.protocol.stream.strings.StringActionSupplier;
 import net.chesstango.uci.protocol.stream.strings.StringSupplier;
@@ -37,7 +37,7 @@ public class UciProxy implements UCIService {
 
 
     @Override
-    public void accept(UCIMessage message) {
+    public void accept(UCICommand message) {
         if (uciProcess.outputStreamProcess == null) {
             uciProcess.waitProcessStart();
         }
@@ -55,7 +55,7 @@ public class UciProxy implements UCIService {
 
         stringSupplier = new StringActionSupplier(stringSupplier, line -> logger.trace("proxy << {}", line));
 
-        pipe.setInputStream(new UCIInputStreamAdapter(stringSupplier));
+        pipe.setInputStream(new UCIInputStreamFromStringAdapter(stringSupplier));
         pipe.setOutputStream(responseOutputStream);
 
         readingPipeThread = new Thread(this::readFromProcess);
@@ -78,7 +78,7 @@ public class UciProxy implements UCIService {
     }
 
     @Override
-    public void setResponseOutputStream(UCIOutputStream output) {
+    public void setOutputStream(UCIOutputStream output) {
         this.responseOutputStream = output;
     }
 

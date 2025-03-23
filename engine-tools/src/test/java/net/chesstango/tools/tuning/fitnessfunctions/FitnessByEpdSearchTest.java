@@ -477,7 +477,7 @@ public class FitnessByEpdSearchTest {
     private EPD createEpdEntry(Game game, List<Move> actualBestMove) {
         EPD epd = new EPD();
         epd.setFenWithoutClocks(game.getInitialFEN());
-        epd.setBestMoves(actualBestMove);
+        //epd.setBestMoves(actualBestMove);
         return epd;
     }
 

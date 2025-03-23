@@ -35,14 +35,14 @@ public class PerftBrute implements Perft {
             if (maxLevel > 1) {
 
                 long zobristHashMove = game.getChessPosition().getZobristHash(move);
-                game.executeMove(move);
+                move.executeMove();
                 if (zobristHashMove != game.getChessPosition().getZobristHash()) {
                     throw new RuntimeException("Invalid game.getChessPosition().getZobristHash(move);");
                 }
                 nodeCount = visitChild(game, 2);
 
 
-                game.undoMove();
+                move.undoMove();
                 long zobristHashAfter = game.getChessPosition().getZobristHash();
                 if (zobristHashBefore != zobristHashAfter) {
                     throw new RuntimeException("hashBefore != hashAfter");
@@ -74,14 +74,14 @@ public class PerftBrute implements Perft {
             for (Move move : movimientosPosible) {
 
                 long zobristHashMove = game.getChessPosition().getZobristHash(move);
-                game.executeMove(move);
+                move.executeMove();
                 if (zobristHashMove != game.getChessPosition().getZobristHash()) {
                     throw new RuntimeException("Invalid game.getChessPosition().getZobristHash(move);");
                 }
 
                 totalNodes += visitChild(game, level + 1);
 
-                game.undoMove();
+                move.undoMove();
                 long zobristHashAfter = game.getChessPosition().getZobristHash();
                 if (zobristHashBefore != zobristHashAfter) {
                     throw new RuntimeException("hashBefore != hashAfter");

@@ -53,9 +53,9 @@ public class PerftWithMap<T> implements Perft {
             long nodeCount = 0;
 
             if (maxLevel > 1) {
-                game.executeMove(move);
+                move.executeMove();
                 nodeCount = visitChild(game, 2);
-                game.undoMove();
+                move.undoMove();
             } else {
                 nodeCount = 1;
             }
@@ -79,12 +79,11 @@ public class PerftWithMap<T> implements Perft {
         if (level < this.maxLevel) {
 
             for (Move move : movimientosPosible) {
-
-                game.executeMove(move);
+                move.executeMove();
 
                 totalNodes += searchNode(game, level);
 
-                game.undoMove();
+                move.undoMove();
             }
         } else {
             totalNodes = movimientosPosible.size();

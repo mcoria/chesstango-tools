@@ -13,18 +13,18 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author Mauricio Coria
  *
  */
-public class PerftWithMapIterateDeepingTest {
+public class PerftWithMapIterateDeepeningTest {
 
     @Test
     public void initialPosition(){
-        PerftWithMapIterateDeeping<Long> perft = new PerftWithMapIterateDeeping<Long>(PerftWithMapIterateDeeping::getZobristGameId);
+        PerftWithMapIterateDeepening<Long> perft = new PerftWithMapIterateDeepening<>(PerftWithMapIterateDeepening::getZobristGameId);
         perft.depth = 6;
         long result;
 
-        Long initialGameId = PerftWithMapIterateDeeping.getZobristGameId(FENDecoder.loadGame(FENDecoder.INITIAL_FEN));
-        Long initialGameIdCounts[] = perft.transpositionTable.computeIfAbsent(initialGameId, k -> new Long[perft.depth]);
+        Long initialGameId = PerftWithMapIterateDeepening.getZobristGameId(FENDecoder.loadGame(FENDecoder.INITIAL_FEN));
+        Long[] initialGameIdCounts = perft.transpositionTable.computeIfAbsent(initialGameId, k -> new Long[perft.depth]);
 
-        Long b1a3 = PerftWithMapIterateDeeping.getZobristGameId(FENDecoder.loadGame(FENDecoder.INITIAL_FEN).executeMove(Square.b1, Square.a3));
+        Long b1a3 = PerftWithMapIterateDeepening.getZobristGameId(FENDecoder.loadGame(FENDecoder.INITIAL_FEN).executeMove(Square.b1, Square.a3));
 
         perft.maxLevel = 1;
         result = perft.visitChild(FENDecoder.loadGame(FENDecoder.INITIAL_FEN), 1, initialGameIdCounts);
@@ -113,14 +113,13 @@ public class PerftWithMapIterateDeepingTest {
     }
 
     @Test // 39segs !!!!!
-    @Disabled
     public void initialPosition_level7() {
-        PerftWithMapIterateDeeping<Long> perft = new PerftWithMapIterateDeeping<Long>(PerftWithMapIterateDeeping::getZobristGameId);
+        PerftWithMapIterateDeepening<Long> perft = new PerftWithMapIterateDeepening<>(PerftWithMapIterateDeepening::getZobristGameId);
         perft.depth = 7;
         perft.maxLevel = 7;
 
-        Long initialGameId = PerftWithMapIterateDeeping.getZobristGameId(FENDecoder.loadGame(FENDecoder.INITIAL_FEN));
-        Long initialGameIdCounts[] = perft.transpositionTable.computeIfAbsent(initialGameId, k -> new Long[perft.depth]);
+        Long initialGameId = PerftWithMapIterateDeepening.getZobristGameId(FENDecoder.loadGame(FENDecoder.INITIAL_FEN));
+        Long[] initialGameIdCounts = perft.transpositionTable.computeIfAbsent(initialGameId, k -> new Long[perft.depth]);
 
         long result = perft.visitChild(FENDecoder.loadGame(FENDecoder.INITIAL_FEN), 1, initialGameIdCounts);
         assertEquals(3195901860L, result);
@@ -128,11 +127,10 @@ public class PerftWithMapIterateDeepingTest {
 
 
     @Test // 43segs !!!!!
-    @Disabled
     public void initialPosition_level7_iterative() {
-        PerftWithMapIterateDeeping<Long> peft = new PerftWithMapIterateDeeping<Long>(PerftWithMapIterateDeeping::getZobristGameId);
+        PerftWithMapIterateDeepening<Long> perft = new PerftWithMapIterateDeepening<>(PerftWithMapIterateDeepening::getZobristGameId);
 
-        PerftResult result = peft.start(FENDecoder.loadGame(FENDecoder.INITIAL_FEN), 7);
+        PerftResult result = perft.start(FENDecoder.loadGame(FENDecoder.INITIAL_FEN), 7);
         assertEquals(20, result.getMovesCount());
         assertEquals(3195901860L, result.getTotalNodes());
     }
@@ -140,9 +138,9 @@ public class PerftWithMapIterateDeepingTest {
 
     @Test
     public void test_level7_iterative() {
-        PerftWithMapIterateDeeping<Long> peft = new PerftWithMapIterateDeeping<Long>(PerftWithMapIterateDeeping::getZobristGameId);
+        PerftWithMapIterateDeepening<Long> perft = new PerftWithMapIterateDeepening<>(PerftWithMapIterateDeepening::getZobristGameId);
 
-        PerftResult result = peft.start(FENDecoder.loadGame("4k3/7p/8/8/8/8/P7/4K3 w - - 1 1"), 7);
+        PerftResult result = perft.start(FENDecoder.loadGame("4k3/7p/8/8/8/8/P7/4K3 w - - 1 1"), 7);
         assertEquals(7, result.getMovesCount());
         assertEquals(1804144, result.getTotalNodes());
     }

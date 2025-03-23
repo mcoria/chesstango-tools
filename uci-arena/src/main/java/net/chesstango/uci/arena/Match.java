@@ -106,7 +106,7 @@ class Match {
                 throw new RuntimeException(String.format("No move found %s", moveStr));
             }
 
-            game.executeMove(move);
+            move.executeMove();
 
             executedMovesStr.add(moveStr);
 

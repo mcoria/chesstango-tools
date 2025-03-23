@@ -318,12 +318,13 @@ public class AlphaBetaStatisticsTest {
 
 
     @Test
-    public void test_40H_2820() {
+    public void test_40H_2820_mirror() {
         Search moveFinder = new AlphaBetaBuilder()
                 .withGameEvaluator(new EvaluatorByMaterial())
                 .withIterativeDeepening()
                 .withAspirationWindows()
                 .withStatistics()
+                //.withDebugSearchTree(null, false, true, true)
                 .build();
 
 
@@ -360,9 +361,6 @@ public class AlphaBetaStatisticsTest {
             assertEquals(visitedNodesQuiescenceCounter[i], visitedNodesQuiescenceCounter1[i]);
         }
 
-        /**
-         * Esta fallando esta linea, podriamos hacer un dump de la ejecucion de los movimientos
-         */
         assertEquals(searchResult.getExecutedMoves(), searchResult1.getExecutedMoves());
     }
 }

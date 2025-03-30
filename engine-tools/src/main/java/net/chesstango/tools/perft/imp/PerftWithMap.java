@@ -47,9 +47,7 @@ public class PerftWithMap<T> implements Perft {
         PerftResult perftResult = new PerftResult();
         long totalNodes = 0;
 
-        Iterable<Move> movimientosPosible = game.getPossibleMoves();
-
-        for (Move move : movimientosPosible) {
+        for (Move move : game.getPossibleMoves()) {
             long nodeCount = 0;
 
             if (maxLevel > 1) {
@@ -74,7 +72,7 @@ public class PerftWithMap<T> implements Perft {
     private long visitChild(Game game, int level) {
         long totalNodes = 0;
 
-        MoveContainerReader<Move> movimientosPosible = game.getPossibleMoves();
+        MoveContainerReader<? extends Move> movimientosPosible = game.getPossibleMoves();
 
         if (level < this.maxLevel) {
 

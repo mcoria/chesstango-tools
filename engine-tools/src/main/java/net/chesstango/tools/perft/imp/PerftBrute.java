@@ -26,10 +26,8 @@ public class PerftBrute implements Perft {
         PerftResult perftResult = new PerftResult();
         long totalNodes = 0;
 
-        Iterable<Move> possibleMoves = game.getPossibleMoves();
-
         long zobristHashBefore = game.getChessPosition().getZobristHash();
-        for (Move move : possibleMoves) {
+        for (Move move : game.getPossibleMoves()) {
             long nodeCount = 0;
 
             if (maxLevel > 1) {
@@ -61,7 +59,7 @@ public class PerftBrute implements Perft {
     private long visitChild(Game game, int level) {
         long totalNodes = 0;
 
-        MoveContainerReader<Move> movimientosPosible = game.getPossibleMoves();
+        MoveContainerReader<? extends Move> movimientosPosible = game.getPossibleMoves();
 
         if (level < this.maxLevel) {
             long zobristHashBefore = game.getChessPosition().getZobristHash();

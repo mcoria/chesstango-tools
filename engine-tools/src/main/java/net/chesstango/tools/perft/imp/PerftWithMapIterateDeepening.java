@@ -1,7 +1,7 @@
 package net.chesstango.tools.perft.imp;
 
 import net.chesstango.board.Game;
-import net.chesstango.board.builders.ChessPositionBuilder;
+import net.chesstango.board.builders.PositionBuilder;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.moves.containers.MoveContainerReader;
 import net.chesstango.board.representations.fen.FENEncoderWithoutClocks;
@@ -134,7 +134,7 @@ public class PerftWithMapIterateDeepening<T> implements Perft {
     }
 
 
-    private static final ChessPositionBuilder<String> coder = new FENEncoderWithoutClocks();
+    private static final PositionBuilder<String> coder = new FENEncoderWithoutClocks();
 
     //TODO: este metodo se esta morfando una parte significativa de la ejecucion
     public static String getStringGameId(Game game) {

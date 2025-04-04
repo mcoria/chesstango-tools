@@ -20,9 +20,9 @@ import java.util.stream.Stream;
 /**
  * @author Mauricio Coria
  */
+@Setter
 public class EpdFilter {
 
-    @Setter
     private Predicate<EPD> filter;
 
     public static void main(String[] args) {

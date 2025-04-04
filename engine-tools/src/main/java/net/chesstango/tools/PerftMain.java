@@ -3,7 +3,6 @@ package net.chesstango.tools;
 import lombok.Getter;
 import net.chesstango.board.Game;
 import net.chesstango.board.builders.GameBuilder;
-import net.chesstango.board.factory.ChessFactory;
 import net.chesstango.board.representations.fen.FENDecoder;
 import net.chesstango.tools.perft.Perft;
 import net.chesstango.tools.perft.PerftResult;
@@ -21,7 +20,7 @@ import java.util.concurrent.*;
  */
 public class PerftMain {
 
-    private static List<String> fenTested = new ArrayList<>();
+    private static final List<String> fenTested = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -256,7 +255,7 @@ public class PerftMain {
     }
 
     private Game getGame() {
-        GameBuilder builder = new GameBuilder(new ChessFactory());
+        GameBuilder builder = new GameBuilder();
 
         FENDecoder parser = new FENDecoder(builder);
 

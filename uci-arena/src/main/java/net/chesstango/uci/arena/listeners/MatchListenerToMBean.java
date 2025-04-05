@@ -3,7 +3,8 @@ package net.chesstango.uci.arena.listeners;
 import lombok.Getter;
 import net.chesstango.board.Color;
 import net.chesstango.board.Game;
-import net.chesstango.board.GameVisitor;
+import net.chesstango.board.iterators.state.FirstToLast;
+import net.chesstango.board.iterators.state.StateIterator;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.moves.generators.pseudo.MoveGenerator;
 import net.chesstango.board.position.ChessPositionReader;
@@ -55,33 +56,14 @@ public class MatchListenerToMBean implements MatchListener {
     public void notifyMove(Game game, Move move) {
         List<String> theMoves = new ArrayList<>();
 
-        //Arreglarlo
-        game.accept(new GameVisitor() {
-            @Override
-            public void visit(ChessPositionReader chessPositionReader) {
+        StateIterator stateIterator = new FirstToLast(game.getState());
+        while (stateIterator.hasNext()) {
+            GameStateReader gameState = stateIterator.next();
 
-            }
+            Move aMove = gameState.getSelectedMove();
 
-            @Override
-            public void visit(GameStateReader gameState) {
-                List<Move> theMovesReversed = new LinkedList<>();
-                GameStateReader currentGameState = gameState.getPreviousState();
-                while (currentGameState != null) {
-                    theMovesReversed.add(currentGameState.getSelectedMove());
-                    currentGameState = currentGameState.getPreviousState();
-                }
-                Collections.reverse(theMovesReversed);
-                theMovesReversed
-                        .stream()
-                        .map(MatchListenerToMBean::encodeMove)
-                        .forEach(theMoves::add);
-            }
-
-            @Override
-            public void visit(MoveGenerator moveGenerator) {
-
-            }
-        });
+            theMoves.add(encodeMove(aMove));
+        }
 
         String[] arrayMoveStr = theMoves.toArray(String[]::new);
 

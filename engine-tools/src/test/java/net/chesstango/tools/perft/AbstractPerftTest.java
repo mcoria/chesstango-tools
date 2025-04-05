@@ -1,6 +1,3 @@
-/**
- * 
- */
 package net.chesstango.tools.perft;
 
 import net.chesstango.board.Game;
@@ -15,45 +12,44 @@ import java.util.Map;
 
 /**
  * @author Mauricio Coria
- *
  */
 public abstract class AbstractPerftTest {
 
-	protected Game getGame(String string) {		
-		//GameBuilder builder = new GameBuilder(new ChessFactoryDebug());
-		GameBuilder builder = new GameBuilder();
+    protected Game getGame(String string) {
+        //GameBuilder builder = new GameBuilderDebug();
+        GameBuilder builder = new GameBuilder();
 
-		FENDecoder parser = new FENDecoder(builder);
-		
-		parser.parseFEN(string);
-		
-		return builder.getChessRepresentation();
-	}
+        FENDecoder parser = new FENDecoder(builder);
 
-	protected Perft createPerft(){
-		return new PerftBrute();
-		//return new PerftWithMapIterateDeeping<Long>(PerftWithMapIterateDeeping::getZobristGameId);
-		//return new PerftWithMap<Long>(PerftWithMap::getZobristGameId);
-	}
+        parser.parseFEN(string);
 
-	protected boolean contieneMove(MoveContainerReader<? extends Move> movimientos, Square from, Square to) {
-		for (Move move : movimientos) {
-			if(from.equals(move.getFrom().getSquare()) && to.equals(move.getTo().getSquare())){
-				return true;
-			}
-		}
-		return false;
-	}
+        return builder.getChessRepresentation();
+    }
 
-	protected void printForUnitTest(PerftResult result) {
+    protected Perft createPerft() {
+        return new PerftBrute();
+        //return new PerftWithMapIterateDeeping<Long>(PerftWithMapIterateDeeping::getZobristGameId);
+        //return new PerftWithMap<Long>(PerftWithMap::getZobristGameId);
+    }
 
-		Map<Move, Long> childs = result.getChilds();
+    protected boolean contieneMove(MoveContainerReader<? extends Move> movimientos, Square from, Square to) {
+        for (Move move : movimientos) {
+            if (from.equals(move.getFrom().getSquare()) && to.equals(move.getTo().getSquare())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-		childs.forEach((move, count) ->{
-			System.out.printf("assertEquals(%d, result.getChildNode(Square.%s, Square.%s));\n", count, move.getFrom().getSquare(), move.getTo().getSquare());
-		});
+    protected void printForUnitTest(PerftResult result) {
 
-		System.out.printf("assertEquals(%d, result.getMovesCount());\n", childs.size());
-		System.out.printf("assertEquals(%d, result.getTotalNodes());\n", result.getTotalNodes());
-	}
+        Map<Move, Long> childs = result.getChilds();
+
+        childs.forEach((move, count) -> {
+            System.out.printf("assertEquals(%d, result.getChildNode(Square.%s, Square.%s));\n", count, move.getFrom().getSquare(), move.getTo().getSquare());
+        });
+
+        System.out.printf("assertEquals(%d, result.getMovesCount());\n", childs.size());
+        System.out.printf("assertEquals(%d, result.getTotalNodes());\n", result.getTotalNodes());
+    }
 }

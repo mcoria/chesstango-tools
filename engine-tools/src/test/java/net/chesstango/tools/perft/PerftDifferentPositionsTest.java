@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 /**
- * @author Mauricio Coria
  *
+ * @author Mauricio Coria
  */
 public class PerftDifferentPositionsTest extends AbstractPerftTest {
 

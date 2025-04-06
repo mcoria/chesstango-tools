@@ -55,7 +55,7 @@ public class MatchListenerToMBean implements MatchListener {
     public void notifyMove(Game game, Move move) {
         List<String> theMoves = new ArrayList<>();
 
-        Iterator<CareTakerRecord> recordIterator = game.stateIteratorReverse();
+        Iterator<CareTakerRecord> recordIterator = game.getHistory().iteratorReverse();
 
         while (recordIterator.hasNext()) {
             CareTakerRecord gameStateHistory = recordIterator.next();

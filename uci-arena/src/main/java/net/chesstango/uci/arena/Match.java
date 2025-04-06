@@ -85,7 +85,7 @@ class Match {
 
         Controller currentTurn;
 
-        if (Color.WHITE.equals(game.getChessPosition().getCurrentTurn())) {
+        if (Color.WHITE.equals(game.getPosition().getCurrentTurn())) {
             currentTurn = white;
         } else {
             currentTurn = black;
@@ -142,11 +142,11 @@ class Match {
             logger.info("[{}] DRAW", mathId);
 
         } else if (GameStatus.MATE.equals(game.getStatus())) {
-            if (Color.WHITE.equals(game.getChessPosition().getCurrentTurn())) {
+            if (Color.WHITE.equals(game.getPosition().getCurrentTurn())) {
                 logger.info("[{}] BLACK WON {}", mathId, black.getEngineName());
                 winner = black;
 
-            } else if (Color.BLACK.equals(game.getChessPosition().getCurrentTurn())) {
+            } else if (Color.BLACK.equals(game.getPosition().getCurrentTurn())) {
                 logger.info("[{}] WHITE WON {}", mathId, white.getEngineName());
                 winner = white;
 

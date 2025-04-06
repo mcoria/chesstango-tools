@@ -138,11 +138,11 @@ public class PerftWithMapIterateDeepening<T> implements Perft {
 
     //TODO: este metodo se esta morfando una parte significativa de la ejecucion
     public static String getStringGameId(Game game) {
-        game.getChessPosition().constructChessPositionRepresentation(coder);
+        game.getPosition().constructChessPositionRepresentation(coder);
         return coder.getChessRepresentation();
     }
 
     public static Long getZobristGameId(Game game) {
-        return game.getChessPosition().getZobristHash();
+        return game.getPosition().getZobristHash();
     }
 }

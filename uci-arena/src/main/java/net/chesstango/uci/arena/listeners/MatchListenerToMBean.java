@@ -43,7 +43,7 @@ public class MatchListenerToMBean implements MatchListener {
 
         String blackName = black.getEngineName();
 
-        String turn = Color.WHITE.equals(game.getChessPosition().getCurrentTurn()) ? "white" : "black";
+        String turn = Color.WHITE.equals(game.getPosition().getCurrentTurn()) ? "white" : "black";
 
         GameDescriptionInitial gameDescriptionInitial = new GameDescriptionInitial(currentGameId, game.getInitialFEN().toString(), whiteName, blackName, turn);
 
@@ -67,7 +67,7 @@ public class MatchListenerToMBean implements MatchListener {
 
         String[] arrayMoveStr = theMoves.toArray(String[]::new);
 
-        String turn = Color.WHITE.equals(game.getChessPosition().getCurrentTurn()) ? "white" : "black";
+        String turn = Color.WHITE.equals(game.getPosition().getCurrentTurn()) ? "white" : "black";
 
         String lastMove = encodeMove(move);
 

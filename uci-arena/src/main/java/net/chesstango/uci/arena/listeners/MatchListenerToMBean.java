@@ -3,19 +3,18 @@ package net.chesstango.uci.arena.listeners;
 import lombok.Getter;
 import net.chesstango.board.Color;
 import net.chesstango.board.Game;
-import net.chesstango.board.iterators.state.FirstToLast;
-import net.chesstango.board.iterators.state.StateIterator;
 import net.chesstango.board.moves.Move;
-import net.chesstango.board.moves.generators.pseudo.MoveGenerator;
-import net.chesstango.board.position.ChessPositionReader;
-import net.chesstango.board.position.GameStateReader;
+import net.chesstango.board.position.CareTakerRecord;
 import net.chesstango.mbeans.Arena;
 import net.chesstango.mbeans.GameDescriptionCurrent;
 import net.chesstango.mbeans.GameDescriptionInitial;
 import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.gui.Controller;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Mauricio Coria
@@ -56,11 +55,12 @@ public class MatchListenerToMBean implements MatchListener {
     public void notifyMove(Game game, Move move) {
         List<String> theMoves = new ArrayList<>();
 
-        StateIterator stateIterator = new FirstToLast(game.getState());
-        while (stateIterator.hasNext()) {
-            GameStateReader gameState = stateIterator.next();
+        Iterator<CareTakerRecord> recordIterator = game.stateIteratorReverse();
 
-            Move aMove = gameState.getSelectedMove();
+        while (recordIterator.hasNext()) {
+            CareTakerRecord gameStateHistory = recordIterator.next();
+
+            Move aMove = gameStateHistory.playedMove();
 
             theMoves.add(encodeMove(aMove));
         }

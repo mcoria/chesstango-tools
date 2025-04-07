@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.chesstango.board.Color;
 import net.chesstango.board.Game;
-import net.chesstango.board.GameStatus;
+import net.chesstango.board.Status;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.representations.GameDebugEncoder;
 import net.chesstango.board.representations.fen.FEN;
@@ -132,16 +132,16 @@ class Match {
     protected MatchResult createResult() {
         Controller winner = null;
 
-        if (GameStatus.DRAW_BY_FOLD_REPETITION.equals(game.getStatus())) {
+        if (Status.DRAW_BY_FOLD_REPETITION.equals(game.getStatus())) {
             logger.info("[{}] DRAW (por fold repetition)", mathId);
 
-        } else if (GameStatus.DRAW_BY_FIFTY_RULE.equals(game.getStatus())) {
+        } else if (Status.DRAW_BY_FIFTY_RULE.equals(game.getStatus())) {
             logger.info("[{}] DRAW (por fold fiftyMoveRule)", mathId);
 
-        } else if (GameStatus.STALEMATE.equals(game.getStatus())) {
+        } else if (Status.STALEMATE.equals(game.getStatus())) {
             logger.info("[{}] DRAW", mathId);
 
-        } else if (GameStatus.MATE.equals(game.getStatus())) {
+        } else if (Status.MATE.equals(game.getStatus())) {
             if (Color.WHITE.equals(game.getPosition().getCurrentTurn())) {
                 logger.info("[{}] BLACK WON {}", mathId, black.getEngineName());
                 winner = black;

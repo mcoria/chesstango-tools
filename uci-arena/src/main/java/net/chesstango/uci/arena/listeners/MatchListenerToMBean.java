@@ -4,7 +4,7 @@ import lombok.Getter;
 import net.chesstango.board.Color;
 import net.chesstango.board.Game;
 import net.chesstango.board.moves.Move;
-import net.chesstango.board.position.CareTakerRecord;
+import net.chesstango.board.position.GameHistoryRecord;
 import net.chesstango.mbeans.Arena;
 import net.chesstango.mbeans.GameDescriptionCurrent;
 import net.chesstango.mbeans.GameDescriptionInitial;
@@ -55,10 +55,10 @@ public class MatchListenerToMBean implements MatchListener {
     public void notifyMove(Game game, Move move) {
         List<String> theMoves = new ArrayList<>();
 
-        Iterator<CareTakerRecord> recordIterator = game.getHistory().iteratorReverse();
+        Iterator<GameHistoryRecord> recordIterator = game.getHistory().iteratorReverse();
 
         while (recordIterator.hasNext()) {
-            CareTakerRecord gameStateHistory = recordIterator.next();
+            GameHistoryRecord gameStateHistory = recordIterator.next();
 
             Move aMove = gameStateHistory.playedMove();
 

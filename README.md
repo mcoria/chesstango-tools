@@ -1,4 +1,4 @@
-# ChessTango Project
+# ChessTango Tools Project
 
 ## Overview
 ChessTango is a comprehensive chess engine project that includes various modules for board evaluation, search algorithms, UCI protocol handling, and more. The project is built using Java and Maven, with some components in Python.
@@ -9,3 +9,7 @@ ChessTango is a comprehensive chess engine project that includes various modules
 - **uci-proxy**: Proxy for UCI communication.
 - **uci-gui**: Graphical User Interface for UCI.
 - **uci-arena**: UCI arena for engine testing.
+
+# Credits
+- [chessboard.js](https://chessboardjs.com) has been used for implementing ArenaTV UI
+- [jenetics](https://jenetics.io) has been used for game evaluation parameter tuning

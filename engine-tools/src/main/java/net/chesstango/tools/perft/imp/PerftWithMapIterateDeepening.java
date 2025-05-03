@@ -1,9 +1,9 @@
 package net.chesstango.tools.perft.imp;
 
 import net.chesstango.board.Game;
-import net.chesstango.board.builders.PositionBuilder;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.moves.containers.MoveContainerReader;
+import net.chesstango.board.representations.PositionBuilder;
 import net.chesstango.board.representations.fen.FENEncoderWithoutClocks;
 import net.chesstango.tools.perft.Perft;
 import net.chesstango.tools.perft.PerftResult;
@@ -139,7 +139,7 @@ public class PerftWithMapIterateDeepening<T> implements Perft {
     //TODO: este metodo se esta morfando una parte significativa de la ejecucion
     public static String getStringGameId(Game game) {
         game.getPosition().constructChessPositionRepresentation(coder);
-        return coder.getChessRepresentation();
+        return coder.getPositionRepresentation();
     }
 
     public static Long getZobristGameId(Game game) {

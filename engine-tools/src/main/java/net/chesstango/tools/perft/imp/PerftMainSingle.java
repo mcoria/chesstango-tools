@@ -30,7 +30,7 @@ public class PerftMainSingle {
 
 		exporter.exportFEN(FEN.of(fen));
 		
-		Game board = builder.getChessRepresentation();
+		Game board = builder.getPositionRepresentation();
 		
 		//Perft main = new PerftWithMap();
 		Perft main = new PerftBrute();

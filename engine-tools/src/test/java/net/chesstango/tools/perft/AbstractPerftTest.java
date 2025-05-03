@@ -24,7 +24,7 @@ public abstract class AbstractPerftTest {
 
         exporter.exportFEN(FEN.of(string));
 
-        return builder.getChessRepresentation();
+        return builder.getPositionRepresentation();
     }
 
     protected Perft createPerft() {

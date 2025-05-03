@@ -266,7 +266,7 @@ public class PerftMain {
 
         exporter.exportFEN(FEN.of(this.fen));
 
-        return builder.getChessRepresentation();
+        return builder.getPositionRepresentation();
     }
 
 

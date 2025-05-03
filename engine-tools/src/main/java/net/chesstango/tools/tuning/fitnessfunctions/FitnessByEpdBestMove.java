@@ -67,7 +67,7 @@ public class FitnessByEpdBestMove extends FitnessByEpdAbstract {
      * Esta funcion optimiza la mitad del juego donde existe mayor cantiaad de movimientos posibles
      */
     protected static long getPointsV1(EPD epd, SearchResult searchResult) {
-        Game game = FENParser.loadGame(epd.getFenWithoutClocks() + " 0 1");
+        Game game = Game.fromFEN(epd.getFenWithoutClocks() + " 0 1");
         int possibleMoves = game.getPossibleMoves().size();
         if (epd.isMoveSuccess(searchResult.getBestMove())) {
             return (possibleMoves - 1);
@@ -92,7 +92,7 @@ public class FitnessByEpdBestMove extends FitnessByEpdAbstract {
                 .map(SearchResultByDepth::getBestMove)
                 .toList();
 
-        Game game = FENParser.loadGame(epd.getFenWithoutClocks() + " 0 1");
+        Game game = Game.fromFEN(epd.getFenWithoutClocks() + " 0 1");
         int possibleMoves = game.getPossibleMoves().size();
 
         int points = 0;

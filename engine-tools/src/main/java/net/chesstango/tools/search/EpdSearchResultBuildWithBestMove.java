@@ -20,7 +20,7 @@ public class EpdSearchResultBuildWithBestMove implements EpdSearchResultBuilder 
 
     @Override
     public EpdSearchResult apply(EPD epd, SearchResult searchResult) {
-        Game game = FENParser.loadGame(epd.getFenWithoutClocks() + " 0 1");
+        Game game = Game.fromFEN(epd.getFenWithoutClocks() + " 0 1");
 
         Move bestMove = searchResult.getBestMove();
 

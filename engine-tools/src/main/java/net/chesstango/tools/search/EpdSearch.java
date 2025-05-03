@@ -126,7 +126,7 @@ public class EpdSearch {
 
 
     public EpdSearchResult run(Search search, EPD epd) {
-        Game game = FENParser.loadGame(epd.getFenWithoutClocks()+ " 0 1");
+        Game game = Game.fromFEN(epd.getFenWithoutClocks()+ " 0 1");
 
         search.setSearchParameter(SearchParameter.MAX_DEPTH, depth);
 

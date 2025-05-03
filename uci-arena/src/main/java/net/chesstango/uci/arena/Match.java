@@ -79,7 +79,7 @@ class Match {
 
 
     protected void compete() {
-        setGame(FENParser.loadGame(fen));
+        setGame(Game.from(fen));
 
         final List<String> executedMovesStr = new ArrayList<>();
 

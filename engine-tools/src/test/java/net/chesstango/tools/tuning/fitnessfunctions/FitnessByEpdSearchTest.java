@@ -55,7 +55,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENParser.loadGame(FENParser.INITIAL_FEN);
+        Game game = Game.fromFEN(FENParser.INITIAL_FEN);
 
         final Move bestMoveFound = game.getMove(Square.c2, Square.c3);
         final int bestMoveEvaluationFound = 100;
@@ -107,7 +107,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENParser.loadGame(FENParser.INITIAL_FEN);
+        Game game = Game.fromFEN(FENParser.INITIAL_FEN);
 
         final Move bestMoveFound = game.getMove(Square.c2, Square.c3);
         final int bestMoveEvaluationFound = 100;
@@ -164,7 +164,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENParser.loadGame(FENParser.INITIAL_FEN);
+        Game game = Game.fromFEN(FENParser.INITIAL_FEN);
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c2, Square.c3);
         final int bestEvaluationFoundBySearch = 100;
@@ -222,7 +222,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENParser.loadGame(FENParser.INITIAL_FEN);
+        Game game = Game.fromFEN(FENParser.INITIAL_FEN);
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c2, Square.c3);
         final int bestEvaluationFoundBySearch = 100;
@@ -279,7 +279,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENParser.loadGame(FENParser.INITIAL_FEN).mirror();
+        Game game = Game.fromFEN(FENParser.INITIAL_FEN).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -331,7 +331,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENParser.loadGame(FENParser.INITIAL_FEN).mirror();
+        Game game = Game.fromFEN(FENParser.INITIAL_FEN).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -388,7 +388,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENParser.loadGame(FENParser.INITIAL_FEN).mirror();
+        Game game = Game.fromFEN(FENParser.INITIAL_FEN).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -445,7 +445,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENParser.loadGame(FENParser.INITIAL_FEN).mirror();
+        Game game = Game.fromFEN(FENParser.INITIAL_FEN).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;

@@ -5,7 +5,8 @@ import net.chesstango.board.Square;
 import net.chesstango.board.builders.GameBuilder;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.moves.containers.MoveContainerReader;
-import net.chesstango.board.representations.fen.FENDecoder;
+import net.chesstango.board.representations.fen.FEN;
+import net.chesstango.board.representations.fen.FENExporter;
 import net.chesstango.tools.perft.imp.PerftBrute;
 
 import java.util.Map;
@@ -19,9 +20,9 @@ public abstract class AbstractPerftTest {
         //GameBuilder builder = new GameBuilderDebug();
         GameBuilder builder = new GameBuilder();
 
-        FENDecoder parser = new FENDecoder(builder);
+        FENExporter exporter = new FENExporter(builder);
 
-        parser.parseFEN(string);
+        exporter.exportFEN(FEN.of(string));
 
         return builder.getChessRepresentation();
     }

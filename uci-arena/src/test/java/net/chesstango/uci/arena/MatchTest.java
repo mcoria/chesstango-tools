@@ -1,7 +1,7 @@
 package net.chesstango.uci.arena;
 
 import net.chesstango.board.representations.fen.FEN;
-import net.chesstango.board.representations.fen.FENDecoder;
+import net.chesstango.board.representations.fen.FENParser;
 import net.chesstango.engine.Tango;
 import net.chesstango.search.dummy.Dummy;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
@@ -45,7 +45,7 @@ public class MatchTest {
     public void testCompete() {
         Match match = new Match(smartEngine, dummyEngine, new MatchByDepth(3));
 
-        match.setFen(FEN.of(FENDecoder.INITIAL_FEN));
+        match.setFen(FEN.of(FENParser.INITIAL_FEN));
 
         match.compete();
 
@@ -61,7 +61,7 @@ public class MatchTest {
         Match match = new Match(smartEngine, dummyEngine, new MatchByDepth(3));
         //match.setDebugEnabled(true);
 
-        MatchResult matchResult = match.play(FEN.of(FENDecoder.INITIAL_FEN));
+        MatchResult matchResult = match.play(FEN.of(FENParser.INITIAL_FEN));
 
         assertNotNull(matchResult);
 
@@ -74,7 +74,7 @@ public class MatchTest {
         Match match = new Match(smartEngine, dummyEngine, new MatchByDepth(1));
 
         match.setFen(FEN.of("8/P7/5Q1k/3p3p/3P2P1/1P1BP3/5P2/3K4 b - - 5 48"));
-        match.setGame(FENDecoder.loadGame("8/P7/5Q1k/3p3p/3P2P1/1P1BP3/5P2/3K4 b - - 5 48"));
+        match.setGame(FENParser.loadGame("8/P7/5Q1k/3p3p/3P2P1/1P1BP3/5P2/3K4 b - - 5 48"));
 
         MatchResult result = match.createResult();
 
@@ -88,7 +88,7 @@ public class MatchTest {
         Match match = new Match(smartEngine, dummyEngine, new MatchByDepth(1));
 
         match.setFen(FEN.of("3k4/5p2/1p1bp3/3p2p1/3P3P/5q1K/p7/8 w - - 0 48"));
-        match.setGame(FENDecoder.loadGame("3k4/5p2/1p1bp3/3p2p1/3P3P/5q1K/p7/8 w - - 0 48"));
+        match.setGame(FENParser.loadGame("3k4/5p2/1p1bp3/3p2p1/3P3P/5q1K/p7/8 w - - 0 48"));
 
         MatchResult result = match.createResult();
 
@@ -103,7 +103,7 @@ public class MatchTest {
         Match match = new Match(smartEngine, dummyEngine, new MatchByDepth(1));
 
         match.setFen(FEN.of("6Q1/P7/7k/3p3p/3P3P/1P1BP3/5P2/3K4 b - - 5 48"));
-        match.setGame(FENDecoder.loadGame("6Q1/P7/7k/3p3p/3P3P/1P1BP3/5P2/3K4 b - - 5 48"));
+        match.setGame(FENParser.loadGame("6Q1/P7/7k/3p3p/3P3P/1P1BP3/5P2/3K4 b - - 5 48"));
 
         MatchResult result = match.createResult();
 
@@ -117,7 +117,7 @@ public class MatchTest {
         Match match = new Match(smartEngine, dummyEngine, new MatchByDepth(1));
 
         match.setFen(FEN.of("3k4/5p2/1p1bp3/3p3p/3P3P/7K/p7/6q1 w - - 5 48"));
-        match.setGame(FENDecoder.loadGame("3k4/5p2/1p1bp3/3p3p/3P3P/7K/p7/6q1 w - - 5 48"));
+        match.setGame(FENParser.loadGame("3k4/5p2/1p1bp3/3p3p/3P3P/7K/p7/6q1 w - - 5 48"));
 
         MatchResult result = match.createResult();
 

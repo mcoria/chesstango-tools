@@ -8,7 +8,7 @@ import net.chesstango.board.Status;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.representations.GameDebugEncoder;
 import net.chesstango.board.representations.fen.FEN;
-import net.chesstango.board.representations.fen.FENDecoder;
+import net.chesstango.board.representations.fen.FENParser;
 import net.chesstango.board.representations.move.SimpleMoveDecoder;
 import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.uci.arena.listeners.MatchListener;
@@ -79,7 +79,7 @@ class Match {
 
 
     protected void compete() {
-        setGame(FENDecoder.loadGame(fen));
+        setGame(FENParser.loadGame(fen));
 
         final List<String> executedMovesStr = new ArrayList<>();
 
@@ -169,7 +169,7 @@ class Match {
     }
 
     private String retrieveBestMoveFromController(Controller currentTurn, List<String> moves) {
-        if (FEN.of(FENDecoder.INITIAL_FEN).equals(fen)) {
+        if (FEN.of(FENParser.INITIAL_FEN).equals(fen)) {
             currentTurn.send_ReqPosition(new ReqPosition(moves));
         } else {
             currentTurn.send_ReqPosition(new ReqPosition(fen.toString(), moves));

@@ -19,7 +19,7 @@ public class PlayerFilter implements Predicate<EPD> {
     @Override
     public boolean test(EPD epd) {
         if (epd.getC3() != null) {
-            if ("w".equals(epd.getFenWithoutClocks().getActiveColor()) &&
+            if ("w".equals(epd.getActiveColor()) &&
                     epd.getC3().toLowerCase().contains(playerName) &&
                     "result='1-0'".equals(epd.getC5())) {
                 return true;
@@ -27,7 +27,7 @@ public class PlayerFilter implements Predicate<EPD> {
         }
 
         if (epd.getC4() != null) {
-            if ("b".equals(epd.getFenWithoutClocks().getActiveColor()) &&
+            if ("b".equals(epd.getActiveColor()) &&
                     epd.getC4().toLowerCase().contains(playerName) &&
                     "result='0-1'".equals(epd.getC5())) {
                 return true;

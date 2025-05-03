@@ -4,7 +4,8 @@ import net.chesstango.board.Game;
 import net.chesstango.board.Square;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.representations.epd.EPD;
-import net.chesstango.board.representations.fen.FENDecoder;
+import net.chesstango.board.representations.fen.FEN;
+import net.chesstango.board.representations.fen.FENParser;
 import net.chesstango.evaluation.evaluators.EvaluatorByMaterialAndPST;
 import net.chesstango.evaluation.evaluators.EvaluatorImp04;
 import net.chesstango.evaluation.evaluators.EvaluatorImp05;
@@ -54,7 +55,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENDecoder.loadGame(FENDecoder.INITIAL_FEN);
+        Game game = FENParser.loadGame(FENParser.INITIAL_FEN);
 
         final Move bestMoveFound = game.getMove(Square.c2, Square.c3);
         final int bestMoveEvaluationFound = 100;
@@ -106,7 +107,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENDecoder.loadGame(FENDecoder.INITIAL_FEN);
+        Game game = FENParser.loadGame(FENParser.INITIAL_FEN);
 
         final Move bestMoveFound = game.getMove(Square.c2, Square.c3);
         final int bestMoveEvaluationFound = 100;
@@ -163,7 +164,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENDecoder.loadGame(FENDecoder.INITIAL_FEN);
+        Game game = FENParser.loadGame(FENParser.INITIAL_FEN);
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c2, Square.c3);
         final int bestEvaluationFoundBySearch = 100;
@@ -221,7 +222,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENDecoder.loadGame(FENDecoder.INITIAL_FEN);
+        Game game = FENParser.loadGame(FENParser.INITIAL_FEN);
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c2, Square.c3);
         final int bestEvaluationFoundBySearch = 100;
@@ -278,7 +279,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENDecoder.loadGame(FENDecoder.INITIAL_FEN).mirror();
+        Game game = FENParser.loadGame(FENParser.INITIAL_FEN).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -330,7 +331,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENDecoder.loadGame(FENDecoder.INITIAL_FEN).mirror();
+        Game game = FENParser.loadGame(FENParser.INITIAL_FEN).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -387,7 +388,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENDecoder.loadGame(FENDecoder.INITIAL_FEN).mirror();
+        Game game = FENParser.loadGame(FENParser.INITIAL_FEN).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -444,7 +445,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = FENDecoder.loadGame(FENDecoder.INITIAL_FEN).mirror();
+        Game game = FENParser.loadGame(FENParser.INITIAL_FEN).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -476,7 +477,11 @@ public class FitnessByEpdSearchTest {
 
     private EPD createEpdEntry(Game game, List<Move> actualBestMove) {
         EPD epd = new EPD();
-        epd.setFenWithoutClocks(game.getInitialFEN());
+        FEN fenGame = game.getCurrentFEN();
+        epd.setPiecePlacement(fenGame.getPiecePlacement());
+        epd.setActiveColor(fenGame.getActiveColor());
+        epd.setCastingsAllowed(fenGame.getCastingsAllowed());
+        epd.setEnPassantSquare(fenGame.getEnPassantSquare());
         //epd.setBestMoves(actualBestMove);
         return epd;
     }

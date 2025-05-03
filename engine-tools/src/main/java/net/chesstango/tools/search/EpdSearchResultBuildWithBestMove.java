@@ -3,7 +3,8 @@ package net.chesstango.tools.search;
 import net.chesstango.board.Game;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.representations.epd.EPD;
-import net.chesstango.board.representations.fen.FENDecoder;
+import net.chesstango.board.representations.fen.FENParser;
+import net.chesstango.board.representations.fen.FENParser;
 import net.chesstango.board.representations.move.SANEncoder;
 import net.chesstango.search.SearchResult;
 import net.chesstango.search.SearchResultByDepth;
@@ -19,7 +20,7 @@ public class EpdSearchResultBuildWithBestMove implements EpdSearchResultBuilder 
 
     @Override
     public EpdSearchResult apply(EPD epd, SearchResult searchResult) {
-        Game game = FENDecoder.loadGame(epd.getFenWithoutClocks());
+        Game game = FENParser.loadGame(epd.getFenWithoutClocks() + " 0 1");
 
         Move bestMove = searchResult.getBestMove();
 

@@ -3,7 +3,9 @@ package net.chesstango.tools;
 import lombok.Getter;
 import net.chesstango.board.Game;
 import net.chesstango.board.builders.GameBuilder;
-import net.chesstango.board.representations.fen.FENDecoder;
+import net.chesstango.board.representations.fen.FEN;
+import net.chesstango.board.representations.fen.FENExporter;
+import net.chesstango.board.representations.fen.FENParser;
 import net.chesstango.tools.perft.Perft;
 import net.chesstango.tools.perft.PerftResult;
 import net.chesstango.tools.perft.imp.PerftBrute;
@@ -12,7 +14,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -257,9 +262,9 @@ public class PerftMain {
     private Game getGame() {
         GameBuilder builder = new GameBuilder();
 
-        FENDecoder parser = new FENDecoder(builder);
+        FENExporter exporter = new FENExporter(builder);
 
-        parser.parseFEN(this.fen);
+        exporter.exportFEN(FEN.of(this.fen));
 
         return builder.getChessRepresentation();
     }

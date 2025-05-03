@@ -2,7 +2,9 @@ package net.chesstango.tools.perft.imp;
 
 import net.chesstango.board.Game;
 import net.chesstango.board.builders.GameBuilder;
-import net.chesstango.board.representations.fen.FENDecoder;
+import net.chesstango.board.representations.fen.FEN;
+import net.chesstango.board.representations.fen.FENExporter;
+import net.chesstango.board.representations.fen.FENParser;
 import net.chesstango.tools.perft.Perft;
 import net.chesstango.tools.perft.PerftResult;
 
@@ -23,10 +25,10 @@ public class PerftMainSingle {
 		System.out.println(String.format("FEN =  %s", fen));
 
 		GameBuilder builder = new GameBuilder();
-		
-		FENDecoder parser = new FENDecoder(builder);
 
-		parser.parseFEN(fen);
+		FENExporter exporter = new FENExporter(builder);
+
+		exporter.exportFEN(FEN.of(fen));
 		
 		Game board = builder.getChessRepresentation();
 		

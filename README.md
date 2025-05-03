@@ -11,5 +11,7 @@ ChessTango is a comprehensive chess engine project that includes various modules
 - **uci-arena**: UCI arena for engine testing.
 
 # Credits
+- [www.chessprogramming.org](https://www.chessprogramming.org) probably is one of the best chess programming help resources
 - [chessboard.js](https://chessboardjs.com) has been used for implementing ArenaTV UI
 - [jenetics](https://jenetics.io) has been used for game evaluation parameter tuning
+

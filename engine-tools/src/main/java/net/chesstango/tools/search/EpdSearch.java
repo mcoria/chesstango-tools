@@ -4,7 +4,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.chesstango.board.Game;
 import net.chesstango.board.representations.epd.EPD;
-import net.chesstango.board.representations.fen.FENParser;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchParameter;
 import net.chesstango.search.SearchResult;

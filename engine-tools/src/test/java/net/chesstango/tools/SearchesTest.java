@@ -1,7 +1,7 @@
 package net.chesstango.tools;
 
 import net.chesstango.board.Game;
-import net.chesstango.board.representations.fen.FENParser;
+import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.board.representations.move.SimpleMoveEncoder;
 import net.chesstango.board.representations.pgn.PGNStringDecoder;
 import net.chesstango.board.representations.pgn.PGN;

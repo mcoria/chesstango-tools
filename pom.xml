@@ -50,6 +50,7 @@
         <commons-cli.version>1.8.0</commons-cli.version>
         <uci-protocol.version>1.0.3</uci-protocol.version>
         <chesstango-engine.version>1.0.0-SNAPSHOT</chesstango-engine.version>
+        <gardel.version>1.0-SNAPSHOT</gardel.version>
     </properties>
 
     <build>
@@ -180,6 +181,11 @@
                 <groupId>net.chesstango</groupId>
                 <artifactId>uci-protocol</artifactId>
                 <version>${uci-protocol.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.chesstango</groupId>
+                <artifactId>gardel</artifactId>
+                <version>${gardel.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>

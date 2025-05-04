@@ -2,7 +2,7 @@ package net.chesstango.uci.arena;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.board.representations.fen.FEN;
+import net.chesstango.gardel.fen.FEN;
 import net.chesstango.uci.arena.gui.ControllerPoolFactory;
 import net.chesstango.uci.gui.Controller;
 import net.chesstango.uci.arena.listeners.MatchListener;

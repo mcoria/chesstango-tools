@@ -3,11 +3,10 @@ package net.chesstango.tools.perft;
 import net.chesstango.board.Game;
 import net.chesstango.board.Square;
 import net.chesstango.board.builders.GameBuilder;
-import net.chesstango.board.builders.GameBuilderDebug;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.moves.containers.MoveContainerReader;
-import net.chesstango.board.representations.fen.FEN;
-import net.chesstango.board.representations.fen.FENExporter;
+import net.chesstango.gardel.fen.FEN;
+import net.chesstango.gardel.fen.FENExporter;
 import net.chesstango.tools.perft.imp.PerftBrute;
 
 import java.util.Map;

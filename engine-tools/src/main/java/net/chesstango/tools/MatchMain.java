@@ -1,7 +1,7 @@
 package net.chesstango.tools;
 
 import net.chesstango.board.Game;
-import net.chesstango.board.representations.fen.FEN;
+import net.chesstango.gardel.fen.FEN;
 import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.board.representations.pgn.PGNStringDecoder;
 import net.chesstango.tools.search.reports.arena.SummaryReport;

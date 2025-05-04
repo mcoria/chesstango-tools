@@ -2,9 +2,9 @@ package net.chesstango.tools.perft.imp;
 
 import net.chesstango.board.Game;
 import net.chesstango.board.builders.GameBuilder;
-import net.chesstango.board.representations.fen.FEN;
-import net.chesstango.board.representations.fen.FENExporter;
-import net.chesstango.board.representations.fen.FENParser;
+import net.chesstango.gardel.fen.FEN;
+import net.chesstango.gardel.fen.FENExporter;
+import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.tools.perft.Perft;
 import net.chesstango.tools.perft.PerftResult;
 

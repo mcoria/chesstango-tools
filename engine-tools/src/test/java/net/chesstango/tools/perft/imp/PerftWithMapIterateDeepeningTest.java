@@ -2,7 +2,7 @@ package net.chesstango.tools.perft.imp;
 
 import net.chesstango.board.Game;
 import net.chesstango.board.Square;
-import net.chesstango.board.representations.fen.FENParser;
+import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.tools.perft.PerftResult;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

@@ -19,4 +19,5 @@ module net.chesstango.uci.arena {
     requires static lombok;
     requires net.chesstango.uci.proxy;
     requires net.chesstango.uci.gui;
+    requires net.chesstango.gardel;
 }

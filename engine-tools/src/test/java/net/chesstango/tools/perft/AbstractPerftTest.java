@@ -3,6 +3,7 @@ package net.chesstango.tools.perft;
 import net.chesstango.board.Game;
 import net.chesstango.board.Square;
 import net.chesstango.board.builders.GameBuilder;
+import net.chesstango.board.builders.GameBuilderDebug;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.moves.containers.MoveContainerReader;
 import net.chesstango.board.representations.fen.FEN;
@@ -22,7 +23,7 @@ public abstract class AbstractPerftTest {
 
         FENExporter exporter = new FENExporter(builder);
 
-        exporter.exportFEN(FEN.of(string));
+        exporter.export(FEN.of(string));
 
         return builder.getPositionRepresentation();
     }

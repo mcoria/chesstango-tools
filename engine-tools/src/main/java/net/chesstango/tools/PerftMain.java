@@ -2,10 +2,6 @@ package net.chesstango.tools;
 
 import lombok.Getter;
 import net.chesstango.board.Game;
-import net.chesstango.board.builders.GameBuilder;
-import net.chesstango.board.representations.fen.FEN;
-import net.chesstango.board.representations.fen.FENExporter;
-import net.chesstango.board.representations.fen.FENParser;
 import net.chesstango.tools.perft.Perft;
 import net.chesstango.tools.perft.PerftResult;
 import net.chesstango.tools.perft.imp.PerftBrute;
@@ -260,13 +256,7 @@ public class PerftMain {
     }
 
     private Game getGame() {
-        GameBuilder builder = new GameBuilder();
-
-        FENExporter exporter = new FENExporter(builder);
-
-        exporter.exportFEN(FEN.of(this.fen));
-
-        return builder.getPositionRepresentation();
+        return Game.fromFEN(this.fen);
     }
 
 

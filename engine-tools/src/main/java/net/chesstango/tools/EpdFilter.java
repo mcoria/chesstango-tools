@@ -3,7 +3,6 @@ package net.chesstango.tools;
 import lombok.Setter;
 import net.chesstango.board.representations.epd.EPD;
 import net.chesstango.board.representations.epd.EPDDecoder;
-import net.chesstango.piazzolla.polyglot.MappedPolyglotBook;
 import net.chesstango.piazzolla.polyglot.PolyglotBook;
 import net.chesstango.tools.epdfilters.BookFilter;
 import net.chesstango.tools.epdfilters.PlayerFilter;
@@ -46,9 +45,11 @@ public class EpdFilter {
     }
 
     private static PolyglotBook createBook(String bookFile) {
-        PolyglotBook polyglotBook = new MappedPolyglotBook();
-        polyglotBook.load(Path.of(bookFile));
-        return polyglotBook;
+        try {
+            return PolyglotBook.open(Path.of(bookFile));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void process(InputStream in, PrintStream out, PrintStream err) throws IOException {

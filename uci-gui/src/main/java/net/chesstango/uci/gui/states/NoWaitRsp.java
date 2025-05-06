@@ -12,6 +12,11 @@ public class NoWaitRsp implements UCIGui {
     }
 
     @Override
+    public void do_option(RspOption rspOption) {
+
+    }
+
+    @Override
     public void do_readyOk(RspReadyOk rspReadyOk) {
     }
 

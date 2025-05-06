@@ -43,6 +43,11 @@ public abstract class ControllerAbstract implements Controller {
             }
 
             @Override
+            public void do_option(RspOption rspOption) {
+                currentState.do_option(rspOption);
+            }
+
+            @Override
             public void do_readyOk(RspReadyOk rspReadyOk) {
                 currentState.do_readyOk(rspReadyOk);
             }

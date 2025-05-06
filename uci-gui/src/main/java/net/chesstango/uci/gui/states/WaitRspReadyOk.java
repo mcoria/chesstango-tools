@@ -19,6 +19,11 @@ public class WaitRspReadyOk implements UCIGui {
     }
 
     @Override
+    public void do_option(RspOption rspOption) {
+
+    }
+
+    @Override
     public void do_readyOk(RspReadyOk rspReadyOk) {
         controllerAbstract.responseReceived(rspReadyOk);
     }

@@ -1,10 +1,8 @@
-package net.chesstango.tools.perft.imp;
+package net.chesstango.tools.perft;
 
 import net.chesstango.board.Game;
 import net.chesstango.board.Square;
 import net.chesstango.gardel.fen.FENParser;
-import net.chesstango.tools.perft.PerftResult;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

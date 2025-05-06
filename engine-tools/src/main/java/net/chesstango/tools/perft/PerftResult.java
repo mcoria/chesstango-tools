@@ -1,5 +1,7 @@
 package net.chesstango.tools.perft;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.chesstango.board.Square;
 import net.chesstango.board.moves.Move;
 
@@ -13,7 +15,9 @@ import java.util.Map.Entry;
  */
 public class PerftResult {
 	
-	private long totalNodes;
+	@Setter
+    @Getter
+    private long totalNodes;
 	
 	private final Map<Move, Long> moves = new HashMap<Move, Long>();
 
@@ -21,15 +25,7 @@ public class PerftResult {
 		moves.put(move, nodeCount);
 	}
 
-	public long getTotalNodes() {
-		return totalNodes;
-	}
-
-	public void setTotalNodes(long totalNodes) {
-		this.totalNodes = totalNodes;
-	}
-
-	public long getMovesCount() {
+    public long getMovesCount() {
 		return moves.size();
 	}
 

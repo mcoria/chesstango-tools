@@ -26,6 +26,7 @@ module net.chesstango.tools {
     requires org.apache.commons.cli;
     requires net.chesstango.uci.gui;
     requires net.chesstango.gardel;
+    requires net.chesstango.piazzolla;
 
     opens net.chesstango.tools.search.reports.summary to com.fasterxml.jackson.databind;
 }

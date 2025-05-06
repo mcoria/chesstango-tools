@@ -1,11 +1,9 @@
-package net.chesstango.tools.perft.imp;
+package net.chesstango.tools.perft;
 
 import net.chesstango.board.Game;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.moves.containers.MoveContainerReader;
 import net.chesstango.gardel.fen.FEN;
-import net.chesstango.tools.perft.Perft;
-import net.chesstango.tools.perft.PerftResult;
 
 import java.util.*;
 import java.util.function.Function;

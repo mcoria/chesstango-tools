@@ -50,7 +50,8 @@
         <commons-cli.version>1.8.0</commons-cli.version>
         <uci-protocol.version>1.0.3</uci-protocol.version>
         <chesstango-engine.version>1.0.0-SNAPSHOT</chesstango-engine.version>
-        <gardel.version>1.0-SNAPSHOT</gardel.version>
+        <gardel.version>1.0.1</gardel.version>
+        <piazzolla.version>1.0.0</piazzolla.version>
     </properties>
 
     <build>

@@ -1,7 +1,7 @@
 package net.chesstango.tools.epdfilters;
 
 import net.chesstango.board.representations.epd.EPD;
-import net.chesstango.engine.polyglot.PolyglotBook;
+import net.chesstango.piazzolla.polyglot.PolyglotBook;
 
 import java.util.function.Predicate;
 

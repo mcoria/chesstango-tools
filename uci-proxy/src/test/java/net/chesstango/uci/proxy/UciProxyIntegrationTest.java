@@ -1,10 +1,10 @@
 package net.chesstango.uci.proxy;
 
 
-import net.chesstango.uci.protocol.requests.*;
-import net.chesstango.uci.protocol.requests.go.*;
-import net.chesstango.uci.protocol.stream.UCIOutputStreamToStringAdapter;
-import net.chesstango.uci.protocol.stream.strings.StringConsumer;
+import net.chesstango.goyeneche.requests.*;
+import net.chesstango.goyeneche.requests.go.*;
+import net.chesstango.goyeneche.stream.UCIOutputStreamToStringAdapter;
+import net.chesstango.goyeneche.stream.strings.StringConsumer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

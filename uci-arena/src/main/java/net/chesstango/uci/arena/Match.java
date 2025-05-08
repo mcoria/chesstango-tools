@@ -11,11 +11,12 @@ import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.board.representations.move.SimpleMoveDecoder;
 import net.chesstango.board.representations.pgn.PGN;
+import net.chesstango.goyeneche.requests.UCIRequest;
 import net.chesstango.uci.arena.listeners.MatchListener;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import net.chesstango.uci.gui.Controller;
-import net.chesstango.uci.protocol.requests.ReqPosition;
-import net.chesstango.uci.protocol.responses.RspBestMove;
+import net.chesstango.goyeneche.requests.ReqPosition;
+import net.chesstango.goyeneche.responses.RspBestMove;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -170,9 +171,9 @@ class Match {
 
     private String retrieveBestMoveFromController(Controller currentTurn, List<String> moves) {
         if (FEN.of(FENParser.INITIAL_FEN).equals(fen)) {
-            currentTurn.send_ReqPosition(new ReqPosition(moves));
+            currentTurn.send_ReqPosition(UCIRequest.position(moves));
         } else {
-            currentTurn.send_ReqPosition(new ReqPosition(fen.toString(), moves));
+            currentTurn.send_ReqPosition(UCIRequest.position(fen.toString(), moves));
         }
 
         RspBestMove bestMove = matchType.retrieveBestMoveFromController(currentTurn, currentTurn == white);

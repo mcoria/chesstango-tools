@@ -1,11 +1,11 @@
 package net.chesstango.uci.proxy;
 
-import net.chesstango.uci.protocol.UCIService;
-import net.chesstango.uci.protocol.stream.UCIActiveStreamReader;
-import net.chesstango.uci.protocol.stream.UCIInputStreamFromStringAdapter;
-import net.chesstango.uci.protocol.stream.UCIOutputStreamToStringAdapter;
-import net.chesstango.uci.protocol.stream.strings.StringConsumer;
-import net.chesstango.uci.protocol.stream.strings.StringSupplier;
+import net.chesstango.goyeneche.UCIService;
+import net.chesstango.goyeneche.stream.UCIActiveStreamReader;
+import net.chesstango.goyeneche.stream.UCIInputStreamFromStringAdapter;
+import net.chesstango.goyeneche.stream.UCIOutputStreamToStringAdapter;
+import net.chesstango.goyeneche.stream.strings.StringConsumer;
+import net.chesstango.goyeneche.stream.strings.StringSupplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

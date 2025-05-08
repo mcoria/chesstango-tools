@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>net.chesstango</groupId>
-            <artifactId>uci-protocol</artifactId>
+            <artifactId>goyeneche</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

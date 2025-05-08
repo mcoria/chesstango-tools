@@ -1,9 +1,10 @@
 package net.chesstango.uci.arena.matchtypes;
 
+import net.chesstango.goyeneche.requests.UCIRequest;
 import net.chesstango.uci.gui.Controller;
-import net.chesstango.uci.protocol.requests.ReqGo;
-import net.chesstango.uci.protocol.requests.go.ReqGoDepth;
-import net.chesstango.uci.protocol.responses.RspBestMove;
+import net.chesstango.goyeneche.requests.ReqGo;
+import net.chesstango.goyeneche.requests.ReqGoDepth;
+import net.chesstango.goyeneche.responses.RspBestMove;
 
 /**
  * @author Mauricio Coria
@@ -12,7 +13,7 @@ public class MatchByDepth implements MatchType {
     public final ReqGo ReqGo;
 
     public MatchByDepth(int depth) {
-        this.ReqGo = new ReqGoDepth().setDepth(depth);
+        this.ReqGo = UCIRequest.goDepth(depth);
     }
 
     @Override

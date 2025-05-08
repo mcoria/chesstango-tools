@@ -49,10 +49,11 @@
         <py4j.version>0.10.9.7</py4j.version>
         <commons-cli.version>1.8.0</commons-cli.version>
 
-        <uci-protocol.version>1.0.4</uci-protocol.version>
+
         <chesstango-engine.version>1.0.0-SNAPSHOT</chesstango-engine.version>
+        <goyeneche.version>1.0.5</goyeneche.version>
         <gardel.version>1.0.1</gardel.version>
-        <piazzolla.version>1.0.1-SNAPSHOT</piazzolla.version>
+        <piazzolla.version>1.0.1</piazzolla.version>
     </properties>
 
     <build>
@@ -181,8 +182,8 @@
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
-                <artifactId>uci-protocol</artifactId>
-                <version>${uci-protocol.version}</version>
+                <artifactId>goyeneche</artifactId>
+                <version>${goyeneche.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>

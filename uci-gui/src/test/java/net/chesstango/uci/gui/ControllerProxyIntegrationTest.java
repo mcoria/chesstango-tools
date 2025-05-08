@@ -1,9 +1,9 @@
 package net.chesstango.uci.gui;
 
 
-import net.chesstango.uci.protocol.requests.ReqPosition;
-import net.chesstango.uci.protocol.requests.go.ReqGoDepth;
-import net.chesstango.uci.protocol.responses.RspBestMove;
+import net.chesstango.goyeneche.requests.ReqPosition;
+import net.chesstango.goyeneche.requests.go.ReqGoDepth;
+import net.chesstango.goyeneche.responses.RspBestMove;
 import net.chesstango.uci.proxy.ProxyConfigLoader;
 import net.chesstango.uci.proxy.UciProxy;
 import org.junit.jupiter.api.Test;

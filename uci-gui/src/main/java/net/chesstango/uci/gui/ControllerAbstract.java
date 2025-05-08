@@ -2,17 +2,17 @@ package net.chesstango.uci.gui;
 
 
 import lombok.Setter;
+import net.chesstango.goyeneche.UCIGui;
+import net.chesstango.goyeneche.UCIService;
+import net.chesstango.goyeneche.requests.ReqGo;
+import net.chesstango.goyeneche.requests.ReqPosition;
+import net.chesstango.goyeneche.requests.UCIRequest;
+import net.chesstango.goyeneche.responses.*;
+import net.chesstango.goyeneche.stream.UCIOutputStreamGuiExecutor;
 import net.chesstango.uci.gui.states.NoWaitRsp;
 import net.chesstango.uci.gui.states.WaitRspBestMove;
 import net.chesstango.uci.gui.states.WaitRspReadyOk;
 import net.chesstango.uci.gui.states.WaitRspUciOk;
-import net.chesstango.uci.protocol.UCIGui;
-import net.chesstango.uci.protocol.UCIRequest;
-import net.chesstango.uci.protocol.UCIResponse;
-import net.chesstango.uci.protocol.UCIService;
-import net.chesstango.uci.protocol.requests.*;
-import net.chesstango.uci.protocol.responses.*;
-import net.chesstango.uci.protocol.stream.UCIOutputStreamGuiExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,17 +84,17 @@ public abstract class ControllerAbstract implements Controller {
 
     @Override
     public void send_ReqUci() {
-        sendRequestWaitResponse(new WaitRspUciOk(this), new ReqUci());
+        sendRequestWaitResponse(new WaitRspUciOk(this), UCIRequest.uci());
     }
 
     @Override
     public void send_ReqIsReady() {
-        sendRequestWaitResponse(new WaitRspReadyOk(this), new ReqIsReady());
+        sendRequestWaitResponse(new WaitRspReadyOk(this), UCIRequest.isready());
     }
 
     @Override
     public void send_ReqUciNewGame() {
-        sendRequestNoWaitResponse(new ReqUciNewGame());
+        sendRequestNoWaitResponse(UCIRequest.ucinewgame());
     }
 
     @Override
@@ -109,12 +109,12 @@ public abstract class ControllerAbstract implements Controller {
 
     @Override
     public void send_ReqStop() {
-        sendRequestNoWaitResponse(new ReqStop());
+        sendRequestNoWaitResponse(UCIRequest.stop());
     }
 
     @Override
     public void send_ReqQuit() {
-        sendRequestNoWaitResponse(new ReqQuit());
+        sendRequestNoWaitResponse(UCIRequest.quit());
     }
 
     @Override

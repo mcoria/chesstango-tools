@@ -1,7 +1,7 @@
 package net.chesstango.uci.arena.matchtypes;
 
 import net.chesstango.uci.gui.Controller;
-import net.chesstango.uci.protocol.responses.RspBestMove;
+import net.chesstango.goyeneche.responses.RspBestMove;
 
 /**
  * @author Mauricio Coria

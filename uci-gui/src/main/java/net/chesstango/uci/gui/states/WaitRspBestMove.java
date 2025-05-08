@@ -1,8 +1,8 @@
 package net.chesstango.uci.gui.states;
 
 import net.chesstango.uci.gui.ControllerAbstract;
-import net.chesstango.uci.protocol.UCIGui;
-import net.chesstango.uci.protocol.responses.*;
+import net.chesstango.goyeneche.UCIGui;
+import net.chesstango.goyeneche.responses.*;
 
 /**
  * @author Mauricio Coria

@@ -1,9 +1,9 @@
 package net.chesstango.uci.gui;
 
 
-import net.chesstango.uci.protocol.requests.ReqGo;
-import net.chesstango.uci.protocol.requests.ReqPosition;
-import net.chesstango.uci.protocol.responses.RspBestMove;
+import net.chesstango.goyeneche.requests.ReqGo;
+import net.chesstango.goyeneche.requests.ReqPosition;
+import net.chesstango.goyeneche.responses.RspBestMove;
 
 /**
  * @author Mauricio Coria

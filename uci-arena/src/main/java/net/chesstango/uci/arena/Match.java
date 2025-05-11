@@ -7,16 +7,15 @@ import net.chesstango.board.Game;
 import net.chesstango.board.Status;
 import net.chesstango.board.moves.Move;
 import net.chesstango.board.representations.GameDebugEncoder;
-import net.chesstango.gardel.fen.FEN;
-import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.board.representations.move.SimpleMoveDecoder;
 import net.chesstango.board.representations.pgn.PGN;
+import net.chesstango.gardel.fen.FEN;
+import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.goyeneche.requests.UCIRequest;
+import net.chesstango.goyeneche.responses.RspBestMove;
 import net.chesstango.uci.arena.listeners.MatchListener;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import net.chesstango.uci.gui.Controller;
-import net.chesstango.goyeneche.requests.ReqPosition;
-import net.chesstango.goyeneche.responses.RspBestMove;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,6 +69,8 @@ class Match {
             return matchResult;
 
         } catch (RuntimeException e) {
+            e.printStackTrace(System.err);
+
             logger.error("Error playing fen: {}", fen);
 
             logger.error("PGN: {}", createPGN());

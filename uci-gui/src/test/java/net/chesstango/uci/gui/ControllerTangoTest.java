@@ -1,11 +1,12 @@
 package net.chesstango.uci.gui;
 
 
-import net.chesstango.uci.engine.UciTango;
-import net.chesstango.goyeneche.requests.ReqPosition;
-import net.chesstango.goyeneche.requests.go.ReqGoDepth;
+import net.chesstango.goyeneche.requests.UCIRequest;
 import net.chesstango.goyeneche.responses.RspBestMove;
+import net.chesstango.uci.engine.UciTango;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,9 +33,9 @@ public class ControllerTangoTest {
 
         client.send_ReqUciNewGame();
 
-        client.send_ReqPosition(new ReqPosition());
+        client.send_ReqPosition(UCIRequest.position(Collections.emptyList()));
 
-        RspBestMove bestmove = client.send_ReqGo(new ReqGoDepth().setDepth(1));
+        RspBestMove bestmove = client.send_ReqGo(UCIRequest.goDepth(1));
 
         assertNotNull(bestmove);
 

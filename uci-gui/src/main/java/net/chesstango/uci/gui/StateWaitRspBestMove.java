@@ -1,16 +1,15 @@
-package net.chesstango.uci.gui.states;
+package net.chesstango.uci.gui;
 
-import net.chesstango.uci.gui.ControllerAbstract;
 import net.chesstango.goyeneche.UCIGui;
 import net.chesstango.goyeneche.responses.*;
 
 /**
  * @author Mauricio Coria
  */
-public class WaitRspReadyOk implements UCIGui {
+class StateWaitRspBestMove implements UCIGui {
     private final ControllerAbstract controllerAbstract;
 
-    public WaitRspReadyOk(ControllerAbstract controllerAbstract) {
+    public StateWaitRspBestMove(ControllerAbstract controllerAbstract) {
         this.controllerAbstract = controllerAbstract;
     }
 
@@ -25,16 +24,15 @@ public class WaitRspReadyOk implements UCIGui {
 
     @Override
     public void do_readyOk(RspReadyOk rspReadyOk) {
-        controllerAbstract.responseReceived(rspReadyOk);
     }
 
     @Override
     public void do_bestMove(RspBestMove rspBestMove) {
+        controllerAbstract.responseReceived(rspBestMove);
     }
 
     @Override
     public void do_info(RspInfo rspInfo) {
-
     }
 
     @Override

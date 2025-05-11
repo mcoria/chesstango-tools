@@ -1,6 +1,5 @@
 module net.chesstango.uci.gui {
     exports net.chesstango.uci.gui;
-    exports net.chesstango.uci.gui.states;
 
     requires net.chesstango.uci.engine;
     requires net.chesstango.uci.proxy;

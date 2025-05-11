@@ -9,10 +9,6 @@ import net.chesstango.goyeneche.requests.ReqPosition;
 import net.chesstango.goyeneche.requests.UCIRequest;
 import net.chesstango.goyeneche.responses.*;
 import net.chesstango.goyeneche.stream.UCIOutputStreamGuiExecutor;
-import net.chesstango.uci.gui.states.NoWaitRsp;
-import net.chesstango.uci.gui.states.WaitRspBestMove;
-import net.chesstango.uci.gui.states.WaitRspReadyOk;
-import net.chesstango.uci.gui.states.WaitRspUciOk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,12 +80,12 @@ public abstract class ControllerAbstract implements Controller {
 
     @Override
     public void send_ReqUci() {
-        sendRequestWaitResponse(new WaitRspUciOk(this), UCIRequest.uci());
+        sendRequestWaitResponse(new StateWaitRspUciOk(this), UCIRequest.uci());
     }
 
     @Override
     public void send_ReqIsReady() {
-        sendRequestWaitResponse(new WaitRspReadyOk(this), UCIRequest.isready());
+        sendRequestWaitResponse(new StateWaitRspReadyOk(this), UCIRequest.isready());
     }
 
     @Override
@@ -104,7 +100,7 @@ public abstract class ControllerAbstract implements Controller {
 
     @Override
     public RspBestMove send_ReqGo(ReqGo cmdGo) {
-        return (RspBestMove) sendRequestWaitResponse(new WaitRspBestMove(this), this.cmdGo == null ? cmdGo : this.cmdGo);
+        return (RspBestMove) sendRequestWaitResponse(new StateWaitRspBestMove(this), this.cmdGo == null ? cmdGo : this.cmdGo);
     }
 
     @Override
@@ -141,7 +137,7 @@ public abstract class ControllerAbstract implements Controller {
 
     public synchronized void sendRequestNoWaitResponse(UCIRequest request) {
         this.response = null;
-        this.currentState = new NoWaitRsp();
+        this.currentState = new StateNoWaitRsp();
         service.accept(request);
     }
 
@@ -168,7 +164,7 @@ public abstract class ControllerAbstract implements Controller {
     }
 
     public synchronized void responseReceived(UCIResponse response) {
-        this.currentState = new NoWaitRsp();
+        this.currentState = new StateNoWaitRsp();
         this.response = response;
         notifyAll();
     }

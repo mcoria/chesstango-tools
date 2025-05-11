@@ -1,4 +1,4 @@
-package net.chesstango.uci.gui.states;
+package net.chesstango.uci.gui;
 
 import net.chesstango.goyeneche.UCIGui;
 import net.chesstango.goyeneche.responses.*;
@@ -6,7 +6,7 @@ import net.chesstango.goyeneche.responses.*;
 /**
  * @author Mauricio Coria
  */
-public class NoWaitRsp implements UCIGui {
+class StateNoWaitRsp implements UCIGui {
     @Override
     public void do_uciOk(RspUciOk rspUciOk) {
     }

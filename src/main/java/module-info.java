@@ -12,21 +12,21 @@ module net.chesstango.tools {
     requires net.chesstango.board;
     requires net.chesstango.engine;
     requires net.chesstango.evaluation;
+    requires net.chesstango.gardel;
+    requires net.chesstango.piazzolla;
     requires net.chesstango.search;
     requires net.chesstango.uci.arena;
     requires net.chesstango.uci.engine;
+    requires net.chesstango.uci.gui;
 
     requires com.fasterxml.jackson.databind;
     requires org.slf4j;
     requires io.jenetics.base;
     requires org.apache.commons.pool2;
+    requires org.apache.commons.cli;
     requires py4j;
 
     requires static lombok;
-    requires org.apache.commons.cli;
-    requires net.chesstango.uci.gui;
-    requires net.chesstango.gardel;
-    requires net.chesstango.piazzolla;
 
     opens net.chesstango.tools.search.reports.summary to com.fasterxml.jackson.databind;
 }

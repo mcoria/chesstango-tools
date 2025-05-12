@@ -33,3 +33,5 @@ engine-tools/target/
 engine-tools/scripts/venv/
 uci-proxy/target/
 uci-gui/target/
+scripts/venv/
+target/

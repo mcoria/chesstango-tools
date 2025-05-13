@@ -39,7 +39,7 @@
 
         <chesstango-engine.version>1.0.0-SNAPSHOT</chesstango-engine.version>
         <uci-arena.version>1.0.0-SNAPSHOT</uci-arena.version>
-        <gardel.version>1.0.1</gardel.version>
+        <gardel.version>1.0.2</gardel.version>
     </properties>
 
     <dependencies>

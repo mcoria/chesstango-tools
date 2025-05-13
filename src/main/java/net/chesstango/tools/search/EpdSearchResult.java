@@ -3,7 +3,7 @@ package net.chesstango.tools.search;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.board.representations.epd.EPD;
+import net.chesstango.gardel.epd.EPD;
 import net.chesstango.search.SearchResult;
 
 /**

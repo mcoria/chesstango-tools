@@ -1,6 +1,6 @@
 package net.chesstango.tools.epdfilters;
 
-import net.chesstango.board.representations.epd.EPD;
+import net.chesstango.gardel.epd.EPD;
 
 import java.util.function.Predicate;
 

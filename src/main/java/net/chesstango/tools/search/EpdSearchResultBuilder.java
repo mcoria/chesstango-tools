@@ -1,6 +1,6 @@
 package net.chesstango.tools.search;
 
-import net.chesstango.board.representations.epd.EPD;
+import net.chesstango.gardel.epd.EPD;
 import net.chesstango.search.SearchResult;
 
 import java.util.function.BiFunction;

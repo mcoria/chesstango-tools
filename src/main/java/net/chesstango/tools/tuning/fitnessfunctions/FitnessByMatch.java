@@ -47,7 +47,7 @@ public class FitnessByMatch implements FitnessFunction {
         //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
         //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
 
-        this.fenList = pgnGames.map(PGN::toGame).map(Game::getCurrentFEN);
+        this.fenList = pgnGames.map(Game::from).map(Game::getCurrentFEN);
         this.opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(opponentSupplier));
     }
 

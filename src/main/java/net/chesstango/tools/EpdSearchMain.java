@@ -1,7 +1,7 @@
 package net.chesstango.tools;
 
-import net.chesstango.board.representations.epd.EPD;
-import net.chesstango.board.representations.epd.EPDDecoder;
+import net.chesstango.gardel.epd.EPD;
+import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.engine.Tango;
 import net.chesstango.evaluation.DefaultEvaluator;
 import net.chesstango.search.builders.AlphaBetaBuilder;

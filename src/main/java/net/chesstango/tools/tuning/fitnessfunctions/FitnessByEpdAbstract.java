@@ -1,8 +1,8 @@
 package net.chesstango.tools.tuning.fitnessfunctions;
 
 import lombok.Setter;
-import net.chesstango.board.representations.epd.EPD;
-import net.chesstango.board.representations.epd.EPDDecoder;
+import net.chesstango.gardel.epd.EPD;
+import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchResult;

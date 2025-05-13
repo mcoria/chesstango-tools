@@ -1,8 +1,8 @@
 package net.chesstango.tools;
 
 import net.chesstango.board.Game;
-import net.chesstango.board.representations.epd.EPD;
-import net.chesstango.board.representations.epd.EPDDecoder;
+import net.chesstango.gardel.epd.EPD;
+import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.evaluation.evaluators.EvaluatorImp04;

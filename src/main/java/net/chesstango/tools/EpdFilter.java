@@ -1,8 +1,8 @@
 package net.chesstango.tools;
 
 import lombok.Setter;
-import net.chesstango.board.representations.epd.EPD;
-import net.chesstango.board.representations.epd.EPDDecoder;
+import net.chesstango.gardel.epd.EPD;
+import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.piazzolla.polyglot.PolyglotBook;
 import net.chesstango.tools.epdfilters.BookFilter;
 import net.chesstango.tools.epdfilters.PlayerFilter;

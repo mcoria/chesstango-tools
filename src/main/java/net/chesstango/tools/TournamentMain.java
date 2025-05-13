@@ -58,7 +58,7 @@ public class TournamentMain {
         //List<String> fenList = new Transcoding().pgnFileToFenPositions(TournamentMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
         Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
         //List<String> fenList = List.of(FENDecoder.INITIAL_FEN);
-        return pgnStream.map(PGN::toGame).map(Game::getCurrentFEN);
+        return pgnStream.map(Game::from).map(Game::getCurrentFEN);
     }
 
     private final List<Supplier<Controller>> engineSupplierList;

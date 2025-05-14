@@ -85,4 +85,44 @@ public class PerftDifferentPositionsTest extends AbstractPerftTest {
         assertEquals(101884, result.getTotalNodes());
     }
 
+    @Test
+    @Disabled
+    public void test05_mirror() {
+        game = getGame("8/8/4k3/8/4K3/8/8/8 w KQkq - 0 1").mirror();
+
+        PerftResult result = perft.start(game, 6);
+        //printForUnitTest(result);
+
+        assertEquals(15566, result.getChildNode(Square.e5, Square.d5));
+        assertEquals(23876, result.getChildNode(Square.e5, Square.d6));
+        assertEquals(23000, result.getChildNode(Square.e5, Square.e6));
+        assertEquals(23876, result.getChildNode(Square.e5, Square.f6));
+        assertEquals(15566, result.getChildNode(Square.e5, Square.f5));
+        assertEquals(5, result.getMovesCount());
+        assertEquals(101884, result.getTotalNodes());
+    }
+
+    @Test
+    @Disabled
+    public void test06() {
+        game = getGame("8/6n1/4k3/8/4K3/2N5/8/8 w - - 0 1");
+
+        PerftResult result = perft.start(game, 7);
+        //printForUnitTest(result);
+
+        assertEquals(1095564, result.getChildNode(Square.c3, Square.d1));
+        assertEquals(2762987, result.getChildNode(Square.e4, Square.d3));
+        assertEquals(1031680, result.getChildNode(Square.c3, Square.a4));
+        assertEquals(1082885, result.getChildNode(Square.c3, Square.d5));
+        assertEquals(2644890, result.getChildNode(Square.e4, Square.e3));
+        assertEquals(891861, result.getChildNode(Square.c3, Square.a2));
+        assertEquals(1784650, result.getChildNode(Square.e4, Square.d4));
+        assertEquals(889490, result.getChildNode(Square.c3, Square.b1));
+        assertEquals(2805224, result.getChildNode(Square.e4, Square.f3));
+        assertEquals(1634937, result.getChildNode(Square.e4, Square.f4));
+        assertEquals(1370235, result.getChildNode(Square.c3, Square.e2));
+        assertEquals(1140470, result.getChildNode(Square.c3, Square.b5));
+        assertEquals(12, result.getMovesCount());
+        assertEquals(19134873, result.getTotalNodes());
+    }
 }

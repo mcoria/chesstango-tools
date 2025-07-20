@@ -112,7 +112,7 @@ public class PerftWithMap<T> implements Perft {
         System.out.println("Total Moves: " + result.getMovesCount());
         System.out.println("Total Nodes: " + result.getTotalNodes());
 
-        Map<Move, Long> childs = result.getChilds();
+        Map<Move, Long> childs = result.getChildren();
 
         if (childs != null) {
             List<Move> moves = new ArrayList<Move>(childs.keySet());

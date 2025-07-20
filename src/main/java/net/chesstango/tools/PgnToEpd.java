@@ -1,6 +1,7 @@
 package net.chesstango.tools;
 
-import net.chesstango.board.representations.pgn.PGNStringDecoder;
+
+import net.chesstango.gardel.pgn.PGNStringDecoder;
 import org.apache.commons.cli.*;
 
 import java.io.FileInputStream;

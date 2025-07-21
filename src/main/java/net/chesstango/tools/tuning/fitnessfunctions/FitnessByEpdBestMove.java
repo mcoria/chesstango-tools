@@ -57,7 +57,7 @@ public class FitnessByEpdBestMove extends FitnessByEpdAbstract {
      */
     @Override
     protected long getPoints(EPD epd, SearchResult searchResult) {
-        if (epd.isMoveSuccess(searchResult.getBestMove())) {
+        if (epd.isMoveSuccess(searchResult.getBestMove().coordinateEncoding())) {
             return 1;
         }
         return 0;
@@ -69,7 +69,7 @@ public class FitnessByEpdBestMove extends FitnessByEpdAbstract {
     protected static long getPointsV1(EPD epd, SearchResult searchResult) {
         Game game = Game.fromFEN(epd.getFenWithoutClocks() + " 0 1");
         int possibleMoves = game.getPossibleMoves().size();
-        if (epd.isMoveSuccess(searchResult.getBestMove())) {
+        if (epd.isMoveSuccess(searchResult.getBestMove().coordinateEncoding())) {
             return (possibleMoves - 1);
         }
         return 0;
@@ -98,7 +98,7 @@ public class FitnessByEpdBestMove extends FitnessByEpdAbstract {
         int points = 0;
         int i = 1;
         for (Move bestMove : bestMoveList) {
-            if (epd.isMoveSuccess(bestMove)) {
+            if (epd.isMoveSuccess(bestMove.coordinateEncoding())) {
                 points += i * i * (possibleMoves - 1);
             }
             i++;

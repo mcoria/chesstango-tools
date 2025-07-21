@@ -37,9 +37,9 @@
         <py4j.version>0.10.9.7</py4j.version>
         <commons-cli.version>1.8.0</commons-cli.version>
 
-        <chesstango-engine.version>1.0.0-SNAPSHOT</chesstango-engine.version>
+        <chesstango-engine.version>1.1.0-SNAPSHOT</chesstango-engine.version>
         <uci-arena.version>1.0.0-SNAPSHOT</uci-arena.version>
-        <gardel.version>1.0.2</gardel.version>
+        <gardel.version>1.0.4</gardel.version>
     </properties>
 
     <dependencies>

@@ -2,10 +2,10 @@ package net.chesstango.tools;
 
 import net.chesstango.board.Game;
 import net.chesstango.gardel.fen.FEN;
-import net.chesstango.board.representations.pgn.PGN;
-import net.chesstango.board.representations.pgn.PGNStringDecoder;
 import net.chesstango.evaluation.evaluators.EvaluatorByMaterialAndPST;
 import net.chesstango.evaluation.evaluators.EvaluatorImp02;
+import net.chesstango.gardel.pgn.PGN;
+import net.chesstango.gardel.pgn.PGNStringDecoder;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
 import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.arena.Tournament;

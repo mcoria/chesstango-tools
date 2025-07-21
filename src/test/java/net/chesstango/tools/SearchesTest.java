@@ -3,9 +3,9 @@ package net.chesstango.tools;
 import net.chesstango.board.Game;
 import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.board.representations.move.SimpleMoveEncoder;
-import net.chesstango.board.representations.pgn.PGNStringDecoder;
-import net.chesstango.board.representations.pgn.PGN;
 import net.chesstango.evaluation.DefaultEvaluator;
+import net.chesstango.gardel.pgn.PGN;
+import net.chesstango.gardel.pgn.PGNStringDecoder;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchResult;
 import net.chesstango.search.SearchParameter;
@@ -206,7 +206,7 @@ public class SearchesTest {
 
         PGN pgn = decoder.decodePGN(bufferReader);
 
-        Game game = pgn.toGame();
+        Game game = Game.from(pgn);
 
         search.setSearchParameter(SearchParameter.MAX_DEPTH, 7);
         searchResult = search.search(game);

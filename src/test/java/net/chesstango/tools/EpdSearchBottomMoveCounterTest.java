@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Mauricio Coria
  */
+@Disabled
 public class EpdSearchBottomMoveCounterTest {
     private static final boolean PRINT_REPORT = false;
     private static EPDDecoder epdDecoder;

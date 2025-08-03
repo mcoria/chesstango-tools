@@ -1,9 +1,9 @@
 package net.chesstango.tools.tuning.fitnessfunctions;
 
 import net.chesstango.board.Game;
-import net.chesstango.gardel.epd.EPD;
-import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.evaluation.Evaluator;
+import net.chesstango.gardel.epd.EPD;
+import net.chesstango.gardel.fen.FEN;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchResult;
 import net.chesstango.search.builders.BottomMoveCounterBuilder;
@@ -53,7 +53,7 @@ public class FitnessByEpdBottomMoveCounter extends FitnessByEpdAbstract {
 
     @Override
     protected long getPoints(EPD epd, SearchResult searchResult) {
-        Game game = Game.fromFEN(epd.getFenWithoutClocks() + " 0 1");
+        Game game = Game.from(FEN.of(epd.getFenWithoutClocks() + " 0 1"));
 
         int possibleMoves = game.getPossibleMoves().size();
 

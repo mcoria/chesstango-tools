@@ -2,9 +2,10 @@ package net.chesstango.tools;
 
 import lombok.Getter;
 import net.chesstango.board.Game;
+import net.chesstango.gardel.fen.FEN;
 import net.chesstango.tools.perft.Perft;
-import net.chesstango.tools.perft.PerftResult;
 import net.chesstango.tools.perft.PerftBrute;
+import net.chesstango.tools.perft.PerftResult;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -256,7 +257,7 @@ public class PerftMain {
     }
 
     private Game getGame() {
-        return Game.fromFEN(this.fen);
+        return Game.from(FEN.of(this.fen));
     }
 
 

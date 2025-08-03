@@ -1,9 +1,10 @@
 package net.chesstango.tools;
 
 import net.chesstango.board.Game;
+import net.chesstango.gardel.fen.FEN;
 import net.chesstango.tools.perft.Perft;
-import net.chesstango.tools.perft.PerftResult;
 import net.chesstango.tools.perft.PerftBrute;
+import net.chesstango.tools.perft.PerftResult;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -21,7 +22,7 @@ public class PerftMainSingle {
 
         System.out.println(String.format("FEN =  %s", fen));
 
-        Game board = Game.fromFEN(fen);
+        Game board = Game.from(FEN.of(fen));
 
         //Perft main = new PerftWithMap();
         Perft main = new PerftBrute();

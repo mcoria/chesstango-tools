@@ -1,23 +1,20 @@
 package net.chesstango.tools.tuning.fitnessfunctions;
 
 import net.chesstango.board.Game;
-import net.chesstango.gardel.fen.FEN;
-import net.chesstango.engine.Tango;
 import net.chesstango.evaluation.Evaluator;
+import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.gardel.pgn.PGNStringDecoder;
-import net.chesstango.search.DefaultSearch;
 import net.chesstango.tools.MatchMain;
-import net.chesstango.uci.arena.gui.ControllerFactory;
-import net.chesstango.uci.arena.gui.ControllerPoolFactory;
 import net.chesstango.uci.arena.MatchMultiple;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.*;
+import net.chesstango.uci.arena.gui.ControllerFactory;
+import net.chesstango.uci.arena.gui.ControllerPoolFactory;
 import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.arena.matchtypes.MatchType;
-import net.chesstango.uci.engine.UciTango;
+import net.chesstango.uci.gui.Controller;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 
@@ -57,10 +54,9 @@ public class FitnessByMatch implements FitnessFunction {
     }
 
     @Override
-    public long fitness(Supplier<Evaluator> tangoEvaluatorSupplier) {
-        Supplier<Controller> tangoEngineSupplier = () ->
-                new ControllerTango(new UciTango(new Tango(new DefaultSearch(tangoEvaluatorSupplier.get()))))
-                        .overrideEngineName(ENGINE_NAME);
+    public long fitness(Supplier<Evaluator> gameEvaluatorSupplier) {
+        Supplier<Controller> tangoEngineSupplier = () -> ControllerFactory.createTangoControllerWithEvaluator(gameEvaluatorSupplier)
+                .overrideEngineName(ENGINE_NAME);
 
         List<MatchResult> matchResult = fitnessEval(tangoEngineSupplier);
 

@@ -2,6 +2,7 @@ package net.chesstango.tools;
 
 import net.chesstango.board.Game;
 import net.chesstango.gardel.fen.FEN;
+import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.gardel.pgn.PGNStringDecoder;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
@@ -12,7 +13,6 @@ import net.chesstango.uci.arena.gui.ControllerPoolFactory;
 import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.MatchListenerToMBean;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
-import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.arena.matchtypes.MatchByTime;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import net.chesstango.uci.gui.Controller;
@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static net.chesstango.gardel.fen.FENParser.INITIAL_FEN;
-
 /**
  * @author Mauricio Coria
  */
@@ -39,8 +37,9 @@ public class MatchMain {
     private static final MatchType MATCH_TYPE = new MatchByTime(1000);
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
-    private static final boolean MATCH_DEBUG = true;
-    private static final boolean MATCH_SWITCH_CHAIRS = false;
+    private static final boolean MATCH_DEBUG = false;
+    private static final boolean MATCH_SWITCH_CHAIRS = true;
+    private static final String POLYGLOT_FILE = "C:/java/projects/chess/chess-utils/books/openings/polyglot-collection/komodo.bin";
 
     /**
      * Add the following JVM parameters:
@@ -51,29 +50,34 @@ public class MatchMain {
      * -Dcom.sun.management.jmxremote.ssl=false
      */
     public static void main(String[] args) {
-        Supplier<Controller> engine1Supplier = ControllerFactory::createTangoController;
-                        /*
-                        .createTangoControllerWithDefaultEvaluator(AlphaBetaBuilder.class,
-                        builder -> builder
-                                .withGameEvaluatorCache()o
-                                .withQuiescence()
-                                .withTranspositionTable()
-                                .withTranspositionMoveSorter()
-                                .withAspirationWindows()
-                                .withIterativeDeepening()
-                                .withStopProcessingCatch()
-                                .withStatistics()
-                        );*/
-        ;
+        //Supplier<Controller> engine1Supplier = ControllerFactory::createTangoController;
+
+        /*
+        Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithSearch(() ->
+                new AlphaBetaBuilder()
+                        .withGameEvaluatorCache()
+                        .withQuiescence()
+                        .withTranspositionTable()
+                        .withTranspositionMoveSorter()
+                        .withAspirationWindows()
+                        .withIterativeDeepening()
+                        .withStopProcessingCatch()
+                        .withStatistics()
+                        .build()
+        );
+         */
+
+        //Supplier<EngineController> engine1Supplier = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp04::new);
+
+        Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerCustomConfig(config -> {
+            config.setPolyglotFile(POLYGLOT_FILE);
+        });
 
         Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController("Spike", null);
 
 
-        //Supplier<EngineController> engine2Supplier = () -> EngineControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp04::new);
-
-
         List<MatchResult> matchResult = new MatchMain(engine1Supplier, engine2Supplier)
-                .play();
+                .play(getFEN());
 
 
         // Solo para ordenar la tabla de salida se especifican los engines en la lista
@@ -103,7 +107,7 @@ public class MatchMain {
          */
     }
 
-    private static Stream<FEN> getFenList() {
+    private static Stream<FEN> getFEN_from_PGN() {
         //List<String> fenList = List.of(FENDecoder.INITIAL_FEN);
         //List<String> fenList =  List.of("1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
         //List<String> fenList =  List.of(FENDecoder.INITIAL_FEN, "1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
@@ -113,9 +117,27 @@ public class MatchMain {
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
         //return Stream.of(FEN.of(INITIAL_FEN));
+
         return pgnStream
                 .map(Game::from)
                 .map(Game::getCurrentFEN);
+    }
+
+
+    private static Stream<FEN> getFEN() {
+        List<String> fenList = List.of(FENParser.INITIAL_FEN);
+        //List<String> fenList =  List.of("1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
+        //List<String> fenList =  List.of(FENDecoder.INITIAL_FEN, "1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
+        //return Stream.of(FEN.of(INITIAL_FEN));
+
+        return fenList
+                .stream()
+                .map(FEN::of);
     }
 
     private final Supplier<Controller> engine1Supplier;
@@ -126,8 +148,7 @@ public class MatchMain {
         this.engine2Supplier = engine2Supplier;
     }
 
-    private List<MatchResult> play() {
-
+    private List<MatchResult> play(Stream<FEN> fenStream) {
         try (ObjectPool<Controller> mainPool = new GenericObjectPool<>(new ControllerPoolFactory(engine1Supplier));
              ObjectPool<Controller> opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(engine2Supplier))) {
 
@@ -140,7 +161,7 @@ public class MatchMain {
 
             Instant start = Instant.now();
 
-            List<MatchResult> matchResult = match.play(getFenList());
+            List<MatchResult> matchResult = match.play(fenStream);
 
             logger.info("Time taken: {} ms", Duration.between(start, Instant.now()).toMillis());
 

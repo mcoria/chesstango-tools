@@ -35,7 +35,7 @@ import java.util.stream.Stream;
 public class MatchMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchMain.class);
 
-    private static final MatchType MATCH_TYPE = new MatchByDepth(7);
+    private static final MatchType MATCH_TYPE = new MatchByDepth(2);
     //private static final MatchType MATCH_TYPE = new MatchByTime(1000);
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
@@ -44,7 +44,7 @@ public class MatchMain {
     private static final String POLYGLOT_FILE = "C:/java/projects/chess/chess-utils/books/openings/polyglot-collection/komodo.bin";
 
     //private static final int parallelJobs = Runtime.getRuntime().availableProcessors();
-    private static final int parallelJobs = 1;
+    private static final int parallelJobs = 2;
 
     /**
      * Add the following JVM parameters:
@@ -55,7 +55,7 @@ public class MatchMain {
      * -Dcom.sun.management.jmxremote.ssl=false
      */
     public static void main(String[] args) {
-        Supplier<Controller> engine1Supplier = ControllerFactory::createTangoController;
+        //Supplier<Controller> engine1Supplier = ControllerFactory::createTangoController;
 
         /*
         Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithSearch(() ->
@@ -74,11 +74,9 @@ public class MatchMain {
 
         //Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp05::new);
 
-        /*
         Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerCustomConfig(config -> {
             config.setPolyglotFile(POLYGLOT_FILE);
         });
-         */
 
         Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController("Spike", null);
         //Supplier<Controller> engine2Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp06::new);

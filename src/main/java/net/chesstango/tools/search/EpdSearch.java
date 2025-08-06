@@ -99,7 +99,8 @@ public class EpdSearch {
                         Thread.sleep(500);
                         activeJobs.forEach(searchJob -> {
                             if (searchJob.elapsedMillis() >= timeOut) {
-                                searchJob.search.stopSearching();
+                                throw new RuntimeException(String.format("Cambiarme", timeOut));
+                                //searchJob.search.stopSearching();
                             }
                         });
                     }
@@ -132,7 +133,7 @@ public class EpdSearch {
 
         search.setSearchParameter(SearchParameter.EPD_PARAMS, epd);
 
-        SearchResult searchResult = search.search(game);
+        SearchResult searchResult = search.startSearch(game);
 
         searchResult.setId(epd.getId());
 

@@ -35,13 +35,16 @@ import java.util.stream.Stream;
 public class MatchMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchMain.class);
 
-    private static final MatchType MATCH_TYPE = new MatchByDepth(3);
+    private static final MatchType MATCH_TYPE = new MatchByDepth(7);
     //private static final MatchType MATCH_TYPE = new MatchByTime(1000);
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
     private static final boolean MATCH_DEBUG = false;
     private static final boolean MATCH_SWITCH_CHAIRS = true;
     private static final String POLYGLOT_FILE = "C:/java/projects/chess/chess-utils/books/openings/polyglot-collection/komodo.bin";
+
+    //private static final int parallelJobs = Runtime.getRuntime().availableProcessors();
+    private static final int parallelJobs = 1;
 
     /**
      * Add the following JVM parameters:
@@ -52,7 +55,7 @@ public class MatchMain {
      * -Dcom.sun.management.jmxremote.ssl=false
      */
     public static void main(String[] args) {
-        //Supplier<Controller> engine1Supplier = ControllerFactory::createTangoController;
+        Supplier<Controller> engine1Supplier = ControllerFactory::createTangoController;
 
         /*
         Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithSearch(() ->
@@ -69,7 +72,7 @@ public class MatchMain {
         );
          */
 
-        Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp05::new);
+        //Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp05::new);
 
         /*
         Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerCustomConfig(config -> {
@@ -77,8 +80,8 @@ public class MatchMain {
         });
          */
 
-        //Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController("Spike", null);
-        Supplier<Controller> engine2Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp06::new);
+        Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController("Spike", null);
+        //Supplier<Controller> engine2Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp06::new);
 
 
         List<MatchResult> matchResult = new MatchMain(engine1Supplier, engine2Supplier)
@@ -115,8 +118,8 @@ public class MatchMain {
     private static Stream<FEN> getFromPGN() {
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
-        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
-        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
+        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
 
         return pgnStream
@@ -147,7 +150,7 @@ public class MatchMain {
         try (ObjectPool<Controller> mainPool = new GenericObjectPool<>(new ControllerPoolFactory(engine1Supplier));
              ObjectPool<Controller> opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(engine2Supplier))) {
 
-            MatchMultiple match = new MatchMultiple(mainPool, opponentPool, MATCH_TYPE)
+            MatchMultiple match = new MatchMultiple(parallelJobs, mainPool, opponentPool, MATCH_TYPE)
                     .setDebugEnabled(MATCH_DEBUG)
                     .setSwitchChairs(MATCH_SWITCH_CHAIRS)
                     .setMatchListener(new MatchBroadcaster()

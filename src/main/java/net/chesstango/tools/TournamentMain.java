@@ -28,6 +28,8 @@ import java.util.stream.Stream;
  * @author Mauricio Coria
  */
 public class TournamentMain {
+    //private static final int parallelJobs = Runtime.getRuntime().availableProcessors();
+    private static final int parallelJobs = 2;
 
     private static final MatchByDepth matchType = new MatchByDepth(2);
 
@@ -70,7 +72,7 @@ public class TournamentMain {
     public List<MatchResult> play(Stream<FEN> fenList) {
         CaptureMatchResult captureMatchResult = new CaptureMatchResult();
 
-        Tournament tournament = new Tournament(engineSupplierList, matchType)
+        Tournament tournament = new Tournament(parallelJobs, engineSupplierList, matchType)
                 .setMatchListener(new MatchBroadcaster()
                         .addListener(new MatchListenerToMBeans())
                         .addListener(new SavePGNGame())

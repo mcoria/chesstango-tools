@@ -30,6 +30,9 @@ public class FitnessByMatch implements FitnessFunction {
 
     private static final String ENGINE_NAME = "TANGO";
 
+    //private static final int parallelJobs = Runtime.getRuntime().availableProcessors();
+    private static final int parallelJobs = 2;
+
     private ObjectPool<Controller> opponentPool;
 
     private Stream<FEN> fenList;
@@ -66,7 +69,7 @@ public class FitnessByMatch implements FitnessFunction {
 
     private List<MatchResult> fitnessEval(Supplier<Controller> tangoEngineSupplier) {
         try (ObjectPool<Controller> tangoPool = new GenericObjectPool<>(new ControllerPoolFactory(tangoEngineSupplier))) {
-            return new MatchMultiple(tangoPool, opponentPool, MATCH_TYPE)
+            return new MatchMultiple(parallelJobs, tangoPool, opponentPool, MATCH_TYPE)
                     .setSwitchChairs(true)
                     .setMatchListener(new MatchBroadcaster()
                             .addListener(new SavePGNGame()))

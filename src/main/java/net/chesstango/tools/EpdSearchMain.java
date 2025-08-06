@@ -1,9 +1,9 @@
 package net.chesstango.tools;
 
+import net.chesstango.evaluation.Evaluator;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.engine.Tango;
-import net.chesstango.evaluation.DefaultEvaluator;
 import net.chesstango.search.builders.AlphaBetaBuilder;
 import net.chesstango.tools.search.EpdSearch;
 import net.chesstango.tools.search.EpdSearchResult;
@@ -81,7 +81,7 @@ public class EpdSearchMain {
         this.epdSearch = new EpdSearch()
                 .setSearchSupplier(() -> AlphaBetaBuilder
                         // Hasta v0.0.27 se utilizó EvaluatorSEandImp02 (ahora EvaluatorImp04) como evaluador
-                        .createDefaultBuilderInstance(new DefaultEvaluator())
+                        .createDefaultBuilderInstance(Evaluator.getInstance())
                         .withStatistics()
                         .build())
                 .setDepth(depth)

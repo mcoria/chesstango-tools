@@ -1,8 +1,6 @@
 package net.chesstango.tools;
 
 import net.chesstango.board.Game;
-import net.chesstango.evaluation.evaluators.EvaluatorImp05;
-import net.chesstango.evaluation.evaluators.EvaluatorImp06;
 import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.gardel.pgn.PGN;
@@ -16,6 +14,7 @@ import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.MatchListenerToMBean;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
+import net.chesstango.uci.arena.matchtypes.MatchByTime;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import net.chesstango.uci.gui.Controller;
 import org.apache.commons.pool2.ObjectPool;
@@ -35,13 +34,15 @@ import java.util.stream.Stream;
 public class MatchMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchMain.class);
 
-    private static final MatchType MATCH_TYPE = new MatchByDepth(2);
-    //private static final MatchType MATCH_TYPE = new MatchByTime(1000);
+    private static final MatchType MATCH_TYPE = new MatchByDepth(1);
+    //private static final MatchType MATCH_TYPE = new MatchByTime(2000);
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
     private static final boolean MATCH_DEBUG = false;
     private static final boolean MATCH_SWITCH_CHAIRS = true;
+
     private static final String POLYGLOT_FILE = "C:/java/projects/chess/chess-utils/books/openings/polyglot-collection/komodo.bin";
+    private static final String SYZYGY_DIRECTORY = "C:/java/projects/chess/chess-utils/books/syzygy/3-4-5";
 
     //private static final int parallelJobs = Runtime.getRuntime().availableProcessors();
     private static final int parallelJobs = 2;
@@ -76,6 +77,7 @@ public class MatchMain {
 
         Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerCustomConfig(config -> {
             config.setPolyglotFile(POLYGLOT_FILE);
+            config.setSyzygyDirectory(SYZYGY_DIRECTORY);
         });
 
         Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController("Spike", null);
@@ -127,7 +129,8 @@ public class MatchMain {
 
 
     private static Stream<FEN> getFEN() {
-        List<String> fenList = List.of(FENParser.INITIAL_FEN);
+        //List<String> fenList = List.of(FENParser.INITIAL_FEN);
+        List<String> fenList =  List.of("K7/N7/k7/8/3p4/8/N7/8 w - - 0 1", "8/8/8/6B1/8/8/4k3/1K5N b - - 0 1");
         //List<String> fenList =  List.of("1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
         //List<String> fenList =  List.of(FENDecoder.INITIAL_FEN, "1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
 

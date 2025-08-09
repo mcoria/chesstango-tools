@@ -7,7 +7,6 @@ import net.chesstango.board.moves.Move;
 import net.chesstango.board.moves.MovePromotion;
 import net.chesstango.board.moves.containers.MoveContainerReader;
 import net.chesstango.gardel.fen.FEN;
-import net.chesstango.gardel.fen.FENExporter;
 
 import java.util.Map;
 
@@ -20,9 +19,7 @@ public abstract class AbstractPerftTest {
         //GameBuilder builder = new GameBuilderDebug();
         GameBuilder builder = new GameBuilder();
 
-        FENExporter exporter = new FENExporter(builder);
-
-        exporter.export(FEN.of(string));
+        FEN.of(string).export(builder);
 
         return builder.getPositionRepresentation();
     }

@@ -75,17 +75,22 @@ public class MatchMain {
 
         //Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp05::new);
 
+        /*
         Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerCustomConfig(config -> {
             config.setPolyglotFile(POLYGLOT_FILE);
             config.setSyzygyDirectory(SYZYGY_DIRECTORY);
         });
+         */
 
-        Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController("Spike", null);
+        Supplier<Controller> engine1Supplier = () -> ControllerFactory.createProxyController("Tango-v1.1.0");
+
+
+        Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController("Spike");
         //Supplier<Controller> engine2Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp06::new);
 
 
         List<MatchResult> matchResult = new MatchMain(engine1Supplier, engine2Supplier)
-                .play(getFromPGN());
+                .play(getFEN());
 
 
         // Solo para ordenar la tabla de salida se especifican los engines en la lista
@@ -129,8 +134,8 @@ public class MatchMain {
 
 
     private static Stream<FEN> getFEN() {
-        //List<String> fenList = List.of(FENParser.INITIAL_FEN);
-        List<String> fenList =  List.of("K7/N7/k7/8/3p4/8/N7/8 w - - 0 1", "8/8/8/6B1/8/8/4k3/1K5N b - - 0 1");
+        List<String> fenList = List.of(FENParser.INITIAL_FEN);
+        //List<String> fenList =  List.of("K7/N7/k7/8/3p4/8/N7/8 w - - 0 1", "8/8/8/6B1/8/8/4k3/1K5N b - - 0 1");
         //List<String> fenList =  List.of("1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
         //List<String> fenList =  List.of(FENDecoder.INITIAL_FEN, "1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
 

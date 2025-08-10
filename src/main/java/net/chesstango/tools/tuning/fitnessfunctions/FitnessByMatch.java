@@ -18,6 +18,7 @@ import net.chesstango.uci.gui.Controller;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -30,6 +31,8 @@ public class FitnessByMatch implements FitnessFunction {
 
     private static final String ENGINE_NAME = "TANGO";
 
+    private static final Path spike = Path.of("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog\\Spike.json");
+
     //private static final int parallelJobs = Runtime.getRuntime().availableProcessors();
     private static final int parallelJobs = 2;
 
@@ -40,7 +43,7 @@ public class FitnessByMatch implements FitnessFunction {
 
     @Override
     public void start() {
-        Supplier<Controller> opponentSupplier = () -> ControllerFactory.createProxyController("Spike", null);
+        Supplier<Controller> opponentSupplier = () -> ControllerFactory.createProxyController(spike);
 
         Stream<PGN> pgnGames = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
         //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));

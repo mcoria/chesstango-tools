@@ -17,6 +17,7 @@ import net.chesstango.uci.arena.listeners.MatchListenerToMBeans;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
@@ -28,6 +29,7 @@ import java.util.stream.Stream;
  * @author Mauricio Coria
  */
 public class TournamentMain {
+    private static final Path spike = Path.of("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog\\Spike.json");
     //private static final int parallelJobs = Runtime.getRuntime().availableProcessors();
     private static final int parallelJobs = 2;
 
@@ -43,10 +45,10 @@ public class TournamentMain {
 
         EngineControllerPoolFactory factory5 = new EngineControllerPoolFactory(() -> EngineControllerFactory.createTangoControllerWithDefaultSearch(EvaluatorSimplifiedEvaluator.class));
          */
-        Supplier<Controller> spike = () -> ControllerFactory.createProxyController("Spike", null);
+        Supplier<Controller> spikeSupplier = () -> ControllerFactory.createProxyController(spike);
 
 
-        List<Supplier<Controller>> engineSupplierList = Arrays.asList(main, evaluatorImp02, spike);
+        List<Supplier<Controller>> engineSupplierList = Arrays.asList(main, evaluatorImp02, spikeSupplier);
 
         List<MatchResult> matchResult = new TournamentMain(engineSupplierList)
                 .play(getFenList());

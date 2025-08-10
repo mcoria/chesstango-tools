@@ -22,6 +22,7 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
@@ -34,7 +35,7 @@ import java.util.stream.Stream;
 public class MatchMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchMain.class);
 
-    private static final MatchType MATCH_TYPE = new MatchByDepth(1);
+    private static final MatchType MATCH_TYPE = new MatchByDepth(4);
     //private static final MatchType MATCH_TYPE = new MatchByTime(2000);
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
@@ -44,8 +45,11 @@ public class MatchMain {
     private static final String POLYGLOT_FILE = "C:/java/projects/chess/chess-utils/books/openings/polyglot-collection/komodo.bin";
     private static final String SYZYGY_DIRECTORY = "C:/java/projects/chess/chess-utils/books/syzygy/3-4-5";
 
+    private static final Path spike = Path.of("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog\\Spike.json");
+    private static final Path tango = Path.of("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog\\Tango.json");
+
     //private static final int parallelJobs = Runtime.getRuntime().availableProcessors();
-    private static final int parallelJobs = 2;
+    private static final int parallelJobs = 4;
 
     /**
      * Add the following JVM parameters:
@@ -82,15 +86,15 @@ public class MatchMain {
         });
          */
 
-        Supplier<Controller> engine1Supplier = () -> ControllerFactory.createProxyController("Tango-v1.1.0");
+        Supplier<Controller> engine1Supplier = () -> ControllerFactory.createProxyController(tango);
 
 
-        Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController("Spike");
+        Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController(spike);
         //Supplier<Controller> engine2Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp06::new);
 
 
         List<MatchResult> matchResult = new MatchMain(engine1Supplier, engine2Supplier)
-                .play(getFEN());
+                .play(getFromPGN());
 
 
         // Solo para ordenar la tabla de salida se especifican los engines en la lista
@@ -122,9 +126,9 @@ public class MatchMain {
 
     private static Stream<FEN> getFromPGN() {
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
-        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
+        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
-        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
 
         return pgnStream

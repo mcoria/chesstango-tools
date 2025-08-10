@@ -5,11 +5,11 @@
 
     <parent>
         <groupId>net.chesstango</groupId>
-        <artifactId>engine-tools</artifactId>
+        <artifactId>engine-tools-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>legacy</artifactId>
+    <artifactId>master</artifactId>
     <packaging>jar</packaging>
 
     <properties>

@@ -4,12 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.chesstango</groupId>
-    <artifactId>engine-tools</artifactId>
+    <artifactId>engine-tools-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>legacy</module>
+        <module>tools</module>
+        <module>master</module>
     </modules>
 
     <properties>
@@ -33,7 +34,9 @@
         <slf4j.version>2.0.17</slf4j.version>
         <logback.version>1.5.18</logback.version>
         <chariot.version>0.0.86</chariot.version>
+        <junit-platform.version>1.9.2</junit-platform.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
+        <mockito-jupiter.version>5.3.1</mockito-jupiter.version>
         <jackson.version>2.17.1</jackson.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
         <jenetics.version>8.0.0</jenetics.version>
@@ -156,7 +159,7 @@
             <dependency>
                 <groupId>org.junit.platform</groupId>
                 <artifactId>junit-platform-suite</artifactId>
-                <version>1.9.2</version>
+                <version>${junit-platform.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -168,7 +171,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-junit-jupiter</artifactId>
-                <version>5.3.1</version>
+                <version>${mockito-jupiter.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

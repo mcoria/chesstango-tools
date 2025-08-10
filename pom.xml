@@ -49,8 +49,12 @@
     </properties>
 
     <dependencyManagement>
-
         <dependencies>
+            <dependency>
+                <groupId>net.chesstango</groupId>
+                <artifactId>worker</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
                 <artifactId>board</artifactId>

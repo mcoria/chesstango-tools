@@ -5,11 +5,11 @@ import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.gardel.pgn.PGNStringDecoder;
+import net.chesstango.tools.arena.ControllerPoolFactory;
+import net.chesstango.tools.arena.MatchMultiple;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
-import net.chesstango.uci.arena.MatchMultiple;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.gui.ControllerFactory;
-import net.chesstango.uci.arena.gui.ControllerPoolFactory;
+import net.chesstango.uci.arena.ControllerFactory;
 import net.chesstango.uci.arena.listeners.MatchBroadcaster;
 import net.chesstango.uci.arena.listeners.MatchListenerToMBean;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
@@ -161,7 +161,7 @@ public class MatchMain {
              ObjectPool<Controller> opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(engine2Supplier))) {
 
             MatchMultiple match = new MatchMultiple(parallelJobs, mainPool, opponentPool, MATCH_TYPE)
-                    .setDebugEnabled(MATCH_DEBUG)
+                    .setPrintPGN (MATCH_DEBUG)
                     .setSwitchChairs(MATCH_SWITCH_CHAIRS)
                     .setMatchListener(new MatchBroadcaster()
                             .addListener(new MatchListenerToMBean())

@@ -1,4 +1,4 @@
-package net.chesstango.tools.worker;
+package net.chesstango.tools.worker.match;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

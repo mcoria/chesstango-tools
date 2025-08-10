@@ -22,6 +22,10 @@
     <dependencies>
         <dependency>
             <groupId>net.chesstango</groupId>
+            <artifactId>worker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.chesstango</groupId>
             <artifactId>board</artifactId>
         </dependency>
         <dependency>

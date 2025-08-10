@@ -6,14 +6,14 @@ import net.chesstango.evaluation.evaluators.EvaluatorByMaterialAndPST;
 import net.chesstango.evaluation.evaluators.EvaluatorImp02;
 import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.gardel.pgn.PGNStringDecoder;
+import net.chesstango.tools.arena.MatchListenerToMBeans;
+import net.chesstango.tools.arena.Tournament;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
+import net.chesstango.uci.arena.ControllerFactory;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.Tournament;
 import net.chesstango.uci.gui.Controller;
-import net.chesstango.uci.arena.gui.ControllerFactory;
 import net.chesstango.uci.arena.listeners.CaptureMatchResult;
 import net.chesstango.uci.arena.listeners.MatchBroadcaster;
-import net.chesstango.uci.arena.listeners.MatchListenerToMBeans;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 

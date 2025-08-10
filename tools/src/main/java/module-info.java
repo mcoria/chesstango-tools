@@ -27,6 +27,7 @@ module net.chesstango.tools {
     requires py4j;
 
     requires static lombok;
+    requires net.chesstango.mbeans;
 
     opens net.chesstango.tools.search.reports.summary to com.fasterxml.jackson.databind;
 }

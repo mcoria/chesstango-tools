@@ -1,4 +1,4 @@
-package net.chesstango.tools.master;
+package net.chesstango.tools.master.match;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -39,5 +39,4 @@ public class MatchMasterMain {
         }
         return null;
     }
-
 }

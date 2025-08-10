@@ -35,7 +35,7 @@ import java.util.stream.Stream;
 public class MatchMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchMain.class);
 
-    private static final MatchType MATCH_TYPE = new MatchByDepth(4);
+    private static final MatchType MATCH_TYPE = new MatchByDepth(2);
     //private static final MatchType MATCH_TYPE = new MatchByTime(2000);
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
@@ -49,7 +49,7 @@ public class MatchMain {
     private static final Path tango = Path.of("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog\\Tango.json");
 
     //private static final int parallelJobs = Runtime.getRuntime().availableProcessors();
-    private static final int parallelJobs = 4;
+    private static final int parallelJobs = 3;
 
     /**
      * Add the following JVM parameters:

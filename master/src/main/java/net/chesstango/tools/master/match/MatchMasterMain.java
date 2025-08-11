@@ -3,15 +3,18 @@ package net.chesstango.tools.master.match;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import org.apache.commons.cli.*;
+import net.chesstango.gardel.fen.FENParser;
+import net.chesstango.tools.worker.match.MatchRequest;
+import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 
-import java.nio.charset.StandardCharsets;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * @author Mauricio Coria
  */
 public class MatchMasterMain {
-    private final static String QUEUE_NAME = "hello";
+    private final static String QUEUE_NAME = "matches";
 
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
@@ -19,24 +22,22 @@ public class MatchMasterMain {
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-            String message = "Hello World3!";
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes(StandardCharsets.UTF_8));
-            System.out.println(" [x] Sent '" + message + "'");
-        }
-    }
 
-    private static CommandLine parseArguments(String[] args) {
-        final Options options = new Options();
-        Option inputOpt = Option.builder("i").argName("input").hasArg().desc("input file").build();
-        options.addOption(inputOpt);
+            MatchRequest matchRequest = new MatchRequest()
+                    .setWhiteEngineName("Tango")
+                    .setBlackEngineName("Spike")
+                    .setFen(FENParser.INITIAL_FEN)
+                    .setMatchType(new MatchByDepth(2));
 
-        CommandLineParser parser = new DefaultParser();
-        try {
-            return parser.parse(options, args);
-        } catch (ParseException exp) {
-            System.err.println("Parsing failed. Reason: " + exp.getMessage());
-            System.exit(-1);
+            byte[] message = null;
+            try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                 ObjectOutputStream oos = new ObjectOutputStream(bos);) {
+                oos.writeObject(matchRequest);
+                oos.flush();
+                message = bos.toByteArray();
+            }
+
+            channel.basicPublish("", QUEUE_NAME, null, message);
         }
-        return null;
     }
 }

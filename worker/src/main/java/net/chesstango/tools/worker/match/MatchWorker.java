@@ -11,15 +11,15 @@ import net.chesstango.uci.gui.Controller;
  * @author Mauricio Coria
  */
 @Slf4j
-public class MatchWorker {
+class MatchWorker {
 
     private final ControllerProvider controllerProvider;
 
-    public MatchWorker(ControllerProvider controllerProvider) {
+    MatchWorker(ControllerProvider controllerProvider) {
         this.controllerProvider = controllerProvider;
     }
 
-    public MatchResponse run(MatchRequest request) {
+    MatchResponse run(MatchRequest request) {
         Controller whiteController = controllerProvider.getController(request.getWhiteEngineName());
 
         Controller blackController = controllerProvider.getController(request.getBlackEngineName());

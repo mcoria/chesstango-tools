@@ -41,7 +41,7 @@ class ControllerProvider implements AutoCloseable {
     }
 
     private Controller openController(String engineName) {
-        Path enginePath = catalogDirectory.resolve(engineName);
+        Path enginePath = catalogDirectory.resolve(String.format("%s.json", engineName));
         if (!enginePath.toFile().exists()) {
             throw new RuntimeException("Engine not found: " + engineName);
         }

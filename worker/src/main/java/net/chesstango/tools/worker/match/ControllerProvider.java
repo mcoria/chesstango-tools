@@ -10,21 +10,25 @@ import java.util.Map;
 /**
  * @author Mauricio Coria
  */
-public class ControllerProvider implements AutoCloseable {
+class ControllerProvider implements AutoCloseable {
 
     private final Path catalogDirectory;
 
     private final Map<String, Controller> controllers = new HashMap<>();
 
-    public static ControllerProvider create(Path catalogDirectory) {
-        return new ControllerProvider(catalogDirectory);
-    }
-
     private ControllerProvider(Path catalogDirectory) {
         this.catalogDirectory = catalogDirectory;
     }
 
-    public Controller getController(String engineName) {
+    static ControllerProvider create(String catalogDirectoryString) {
+        Path catalogDirectory = Path.of(catalogDirectoryString);
+        if (!catalogDirectory.toFile().exists()) {
+            throw new RuntimeException("Catalog directory not found: " + catalogDirectoryString);
+        }
+        return new ControllerProvider(catalogDirectory);
+    }
+
+    Controller getController(String engineName) {
         return controllers.computeIfAbsent(engineName, this::openController);
     }
 

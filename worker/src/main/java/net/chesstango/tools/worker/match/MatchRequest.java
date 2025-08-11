@@ -5,13 +5,15 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 
+import java.io.Serializable;
+
 /**
  * @author Mauricio Coria
  */
 @Setter
 @Getter
 @Accessors(chain = true)
-public class MatchRequest {
+public class MatchRequest implements Serializable {
     private String whiteEngineName;
     private String blackEngineName;
     private String fen;

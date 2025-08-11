@@ -78,20 +78,19 @@ public class MatchMultiple {
             controller1 = getControllerFromPool(thePool1);
             controller2 = getControllerFromPool(thePool2);
 
-            Match match = new Match(controller1, controller2, matchType)
+            Match match = new Match(controller1, controller2, fen, matchType)
                     .setPrintPGN(printPGN)
                     .setMatchListener(matchListener);
 
             match.setMatchListener(matchListener);
 
-            result.add(match.play(fen));
+            result.add(match.play());
 
             thePool1.returnObject(controller1);
             thePool2.returnObject(controller2);
 
         } catch (Exception e) {
             log.error("Error playing", e);
-
             invalidateObject(controller1, thePool1);
             invalidateObject(controller2, thePool2);
         }
@@ -115,4 +114,5 @@ public class MatchMultiple {
             }
         }
     }
+
 }

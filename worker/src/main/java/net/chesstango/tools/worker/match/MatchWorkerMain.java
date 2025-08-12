@@ -12,6 +12,8 @@ public class MatchWorkerMain {
     public static void main(String[] args) throws Exception {
         System.out.println("[*] Waiting for messages. To exit press CTRL+C");
 
+
+
         MatchWorker matchWorker = new MatchWorker(ControllerProvider.create("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog"));
 
         try (ExecutorService executorService = Executors.newSingleThreadExecutor();

@@ -29,15 +29,16 @@ public class MatchMasterMain {
                     .setFen(FENParser.INITIAL_FEN)
                     .setMatchType(new MatchByDepth(2));
 
-            byte[] message = null;
+
             try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
                  ObjectOutputStream oos = new ObjectOutputStream(bos);) {
                 oos.writeObject(matchRequest);
                 oos.flush();
-                message = bos.toByteArray();
+                byte[] message = bos.toByteArray();
+
+                channel.basicPublish("", QUEUE_NAME, null, message);
             }
 
-            channel.basicPublish("", QUEUE_NAME, null, message);
         }
     }
 }

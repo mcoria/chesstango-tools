@@ -1,18 +1,13 @@
 package net.chesstango.tools.worker.match;
 
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.DeliverCallback;
+import com.rabbitmq.client.*;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeoutException;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @author Mauricio Coria
@@ -20,14 +15,18 @@ import java.util.function.Consumer;
 @Slf4j
 class QueueConsumer implements AutoCloseable {
 
-    private final static String QUEUE_NAME = "matches";
+    private final static String RPC_QUEUE_NAME = "matches";
 
     private final Connection connection;
     private final Channel channel;
 
-    QueueConsumer(Connection connection, Channel channel) throws IOException {
+    QueueConsumer(Connection connection) throws IOException {
         this.connection = connection;
-        this.channel = channel;
+
+        this.channel = connection.createChannel();
+        channel.basicQos(1);
+        channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
+        //channel.queuePurge(RPC_QUEUE_NAME);
     }
 
 
@@ -38,13 +37,7 @@ class QueueConsumer implements AutoCloseable {
 
         Connection connection = factory.newConnection(executorService);
 
-        Channel channel = connection.createChannel();
-
-        channel.basicQos(1);
-
-        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-
-        return new QueueConsumer(connection, channel);
+        return new QueueConsumer(connection);
     }
 
     @Override
@@ -54,19 +47,48 @@ class QueueConsumer implements AutoCloseable {
     }
 
 
-    public void consumeMessages(Consumer<MatchRequest> matchRequestConsumer) throws IOException {
+    public void consumeMessages(Function<MatchRequest, MatchResponse> matchFn) throws IOException {
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            byte[] serializedData = delivery.getBody();
-            try (ByteArrayInputStream bis = new ByteArrayInputStream(serializedData);
-                 ObjectInputStream ois = new ObjectInputStream(bis);) {
-                MatchRequest request = (MatchRequest) ois.readObject();
-                matchRequestConsumer.accept(request);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+
+            AMQP.BasicProperties replyProps = new AMQP.BasicProperties
+                    .Builder()
+                    .correlationId(delivery.getProperties().getCorrelationId())
+                    .build();
+
+
+            MatchRequest request = decodeRequest(delivery.getBody());
+
+            MatchResponse response = matchFn.apply(request);
+
+            byte[] encodedResponse = encodeResponse(response);
+
+            channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, encodedResponse);
+
+            channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+
         };
 
-        channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
+        channel.basicConsume(RPC_QUEUE_NAME, true, deliverCallback, consumerTag -> {
         });
+    }
+
+    private byte[] encodeResponse(MatchResponse response) {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutputStream oos = new ObjectOutputStream(bos);) {
+            oos.writeObject(response);
+            oos.flush();
+            return bos.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private MatchRequest decodeRequest(byte[] request) {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(request);
+             ObjectInputStream ois = new ObjectInputStream(bis);) {
+            return (MatchRequest) ois.readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

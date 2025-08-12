@@ -1,33 +1,31 @@
 package net.chesstango.tools.worker.match;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * @author Mauricio Coria
  */
+@Slf4j
 public class MatchWorkerMain {
 
 
     public static void main(String[] args) throws Exception {
-        System.out.println("[*] Waiting for messages. To exit press CTRL+C");
-
-
-
-        MatchWorker matchWorker = new MatchWorker(ControllerProvider.create("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog"));
+        log.info("[*] Waiting for messages. To exit press CTRL+C");
 
         try (ExecutorService executorService = Executors.newSingleThreadExecutor();
-             QueueConsumer queueConsumer = QueueConsumer.open(executorService)) {
+             ControllerProvider controllerProvider = ControllerProvider.create("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog");
+             QueueConsumer queueConsumer = QueueConsumer.open(executorService);) {
 
-            queueConsumer.consumeMessages(matchRequest -> {
-                MatchResponse response = matchWorker.run(matchRequest);
+            MatchWorker matchWorker = new MatchWorker(controllerProvider);
 
-                System.out.println(response);
-            });
+            queueConsumer.consumeMessages(matchWorker);
 
             Thread.sleep(Long.MAX_VALUE);
         }
 
-        System.out.println("[x] Done");
+        log.info("[x] Done");
     }
 }

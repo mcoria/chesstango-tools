@@ -7,11 +7,13 @@ import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import net.chesstango.uci.gui.Controller;
 
+import java.util.function.Function;
+
 /**
  * @author Mauricio Coria
  */
 @Slf4j
-class MatchWorker {
+class MatchWorker implements Function<MatchRequest, MatchResponse> {
 
     private final ControllerProvider controllerProvider;
 
@@ -19,23 +21,24 @@ class MatchWorker {
         this.controllerProvider = controllerProvider;
     }
 
-    MatchResponse run(MatchRequest request) {
-        Controller whiteController = controllerProvider.getController(request.getWhiteEngineName());
+    @Override
+    public MatchResponse apply(MatchRequest matchRequest) {
+        Controller whiteController = controllerProvider.getController(matchRequest.getWhiteEngineName());
 
-        Controller blackController = controllerProvider.getController(request.getBlackEngineName());
+        Controller blackController = controllerProvider.getController(matchRequest.getBlackEngineName());
 
-        MatchType matchType = request.getMatchType();
+        MatchType matchType = matchRequest.getMatchType();
 
-        FEN fen = FEN.of(request.getFen());
+        FEN fen = FEN.of(matchRequest.getFen());
 
         Match match = new Match(whiteController, blackController, fen, matchType);
 
         MatchResult result = match.play();
 
         return new MatchResponse()
-                .setWhiteEngineName(request.getWhiteEngineName())
-                .setBlackEngineName(request.getBlackEngineName())
-                .setFen(request.getFen())
+                .setWhiteEngineName(matchRequest.getWhiteEngineName())
+                .setBlackEngineName(matchRequest.getBlackEngineName())
+                .setFen(matchRequest.getFen())
                 .setMatchResult(result);
     }
 

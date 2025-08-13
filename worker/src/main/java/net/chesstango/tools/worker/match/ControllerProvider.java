@@ -6,6 +6,7 @@ import net.chesstango.uci.gui.Controller;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * @author Mauricio Coria
@@ -40,17 +41,40 @@ class ControllerProvider implements AutoCloseable {
         });
     }
 
-    private Controller openController(String engineName) {
-        Path enginePath = catalogDirectory.resolve(String.format("%s.json", engineName));
-        if (!enginePath.toFile().exists()) {
-            throw new RuntimeException("Engine not found: " + engineName);
-        }
+    private Controller openController(String engine) {
 
-        Controller controller = ControllerFactory.createProxyController(enginePath);
+        Controller controller = null;
+
+        if (engine.startsWith("file:")) {
+            Path enginePath = catalogDirectory.resolve(String.format("%s.json", engine.substring(5)));
+            if (!enginePath.toFile().exists()) {
+                throw new RuntimeException("Engine not found: " + engine);
+            }
+            controller = ControllerFactory.createProxyController(enginePath);
+        } else if (engine.startsWith("class:")) {
+            Supplier<Controller> controllerSupplier = instantiateSupplier(engine.substring(6));
+            controller = controllerSupplier.get();
+        } else {
+            throw new RuntimeException("Invalid engine name: " + engine);
+        }
 
         controller.startEngine();
 
         return controller;
+    }
+
+    private Supplier<Controller> instantiateSupplier(String className) {
+        try {
+            Class<?> clazz = Class.forName(className);
+            if (!Supplier.class.isAssignableFrom(clazz)) {
+                throw new RuntimeException("Class must implement Supplier<Controller>: " + className);
+            }
+            @SuppressWarnings("unchecked")
+            Supplier<Controller> supplier = (Supplier<Controller>) clazz.getDeclaredConstructor().newInstance();
+            return supplier;
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException("Failed to instantiate controller supplier: " + className, e);
+        }
     }
 
 }

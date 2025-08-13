@@ -23,9 +23,9 @@ class MatchWorker implements Function<MatchRequest, MatchResponse> {
 
     @Override
     public MatchResponse apply(MatchRequest matchRequest) {
-        Controller whiteController = controllerProvider.getController(matchRequest.getWhiteEngineName());
+        Controller whiteController = controllerProvider.getController(matchRequest.getWhiteEngine());
 
-        Controller blackController = controllerProvider.getController(matchRequest.getBlackEngineName());
+        Controller blackController = controllerProvider.getController(matchRequest.getBlackEngine());
 
         MatchType matchType = matchRequest.getMatchType();
 
@@ -36,8 +36,8 @@ class MatchWorker implements Function<MatchRequest, MatchResponse> {
         MatchResult result = match.play();
 
         return new MatchResponse()
-                .setWhiteEngineName(matchRequest.getWhiteEngineName())
-                .setBlackEngineName(matchRequest.getBlackEngineName())
+                .setWhiteEngineName(result.pgn().getWhite())
+                .setBlackEngineName(result.pgn().getBlack())
                 .setFen(matchRequest.getFen())
                 .setMatchResult(result);
     }

@@ -27,8 +27,8 @@ public class MatchMasterMain {
             channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
 
             MatchRequest matchRequest = new MatchRequest()
-                    .setWhiteEngineName("Tango")
-                    .setBlackEngineName("Spike")
+                    .setWhiteEngine("class:net.chesstango.tools.worker.match.factories.DefaultTango")
+                    .setBlackEngine("file:Spike")
                     .setFen(FENParser.INITIAL_FEN)
                     .setMatchType(new MatchByDepth(2));
 

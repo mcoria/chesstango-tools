@@ -20,6 +20,7 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -83,19 +84,27 @@ public class FitnessByMatch implements FitnessFunction {
 
     protected long calculatePoints(List<MatchResult> matchResult) {
         long pointsWhiteWin = matchResult.stream()
-                .filter(result -> ENGINE_NAME.equals(result.getEngineWhite().getEngineName()) && result.getEngineWhite() == result.getWinner())
+                .map(MatchResult::getPgn)
+                .filter(pgn -> ENGINE_NAME.equals(pgn.getWhite()))
+                .filter(pgn-> Objects.equals(PGN.Result.WHITE_WINS, pgn.getResult()))
                 .count();
 
         long pointsWhiteLost = matchResult.stream()
-                .filter(result -> ENGINE_NAME.equals(result.getEngineWhite().getEngineName()) && result.getEngineBlack() == result.getWinner())
+                .map(MatchResult::getPgn)
+                .filter(pgn -> ENGINE_NAME.equals(pgn.getWhite()))
+                .filter(pgn-> Objects.equals(PGN.Result.BLACK_WINS, pgn.getResult()))
                 .count();
 
         long pointsBlackWin = matchResult.stream()
-                .filter(result -> ENGINE_NAME.equals(result.getEngineBlack().getEngineName()) && result.getEngineBlack() == result.getWinner())
+                .map(MatchResult::getPgn)
+                .filter(pgn -> ENGINE_NAME.equals(pgn.getBlack()))
+                .filter(pgn-> Objects.equals(PGN.Result.BLACK_WINS, pgn.getResult()))
                 .count();
 
         long pointsBlackLost = matchResult.stream()
-                .filter(result -> ENGINE_NAME.equals(result.getEngineBlack().getEngineName()) && result.getEngineWhite() == result.getWinner())
+                .map(MatchResult::getPgn)
+                .filter(pgn -> ENGINE_NAME.equals(pgn.getBlack()))
+                .filter(pgn-> Objects.equals(PGN.Result.WHITE_WINS, pgn.getResult()))
                 .count();
 
         return pointsWhiteWin - pointsWhiteLost + pointsBlackWin - pointsBlackLost;

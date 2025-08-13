@@ -7,6 +7,8 @@ import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.gardel.pgn.PGNStringDecoder;
 import net.chesstango.tools.arena.ControllerPoolFactory;
 import net.chesstango.tools.arena.MatchMultiple;
+import net.chesstango.tools.search.reports.arena.SearchesReport;
+import net.chesstango.tools.search.reports.arena.SessionReport;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
 import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.arena.ControllerFactory;
@@ -104,13 +106,13 @@ public class MatchMain {
                 //.withMatchResult(List.of(engineController1, engineController2), matchResult)
                 .printReport(System.out);
 
-        /*
+
         new SessionReport()
-                .withCollisionStatistics()
+                //.withCollisionStatistics()
                 //.withNodesVisitedStatistics()
                 //.withCutoffStatistics()
                 .breakByColor()
-                .withMathResults(List.of(engineController1, engineController2), matchResult)
+                .withMathResults(matchResult)
                 .printReport(System.out);
 
 
@@ -118,10 +120,10 @@ public class MatchMain {
                 //.withCutoffStatistics()
                 //.withNodesVisitedStatistics()
                 .withPrincipalVariation()
-                .withMathResults(List.of(engineController1, engineController2), matchResult)
+                .withMathResults(matchResult)
                 .printReport(System.out);
 
-         */
+
     }
 
     private static Stream<FEN> getFromPGN() {

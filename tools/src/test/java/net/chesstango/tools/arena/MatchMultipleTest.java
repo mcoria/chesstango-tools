@@ -3,6 +3,7 @@ package net.chesstango.tools.arena;
 import net.chesstango.engine.Tango;
 import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.fen.FENParser;
+import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.search.dummy.Dummy;
 import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
@@ -60,10 +61,10 @@ public class MatchMultipleTest {
 
         // Deberia ganar el engine smartEngine
         assertEquals(2, matchResult.stream()
-                .map(MatchResult::getWinner)
-                .filter(Objects::nonNull)
-                .map(Controller::getEngineName)
-                .filter("Smart"::equals)
+                .map(MatchResult::getPgn)
+                .filter(pgn -> Objects.equals("Smart", pgn.getWhite()) && PGN.Result.WHITE_WINS == pgn.getResult() ||
+                        Objects.equals("Smart", pgn.getBlack()) && PGN.Result.BLACK_WINS == pgn.getResult()
+                )
                 .count()
         );
 

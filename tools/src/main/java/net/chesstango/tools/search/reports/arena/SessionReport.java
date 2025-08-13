@@ -2,15 +2,12 @@ package net.chesstango.tools.search.reports.arena;
 
 import net.chesstango.engine.Session;
 import net.chesstango.search.SearchResult;
-import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.Controller;
 import net.chesstango.tools.search.reports.arena.sessionreport_ui.PrintCutoffStatics;
 import net.chesstango.tools.search.reports.arena.sessionreport_ui.PrintNodesVisitedStatistics;
+import net.chesstango.uci.arena.MatchResult;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * Este reporte resume las sessiones de engine Tango
@@ -31,31 +28,47 @@ public class SessionReport {
     }
 
 
-    public SessionReport withMathResults(List<Controller> enginesOrder, List<MatchResult> matchResult) {
-        enginesOrder.forEach(engineController -> {
-            List<Session> sessionsWhite = matchResult.stream().filter(result -> result.getEngineWhite() == engineController && result.getSessionWhite() != null).map(MatchResult::getSessionWhite).collect(Collectors.toList());
-            List<Session> sessionsBlack = matchResult.stream().filter(result -> result.getEngineBlack() == engineController && result.getSessionBlack() != null).map(MatchResult::getSessionBlack).collect(Collectors.toList());
+    public SessionReport withMathResults(List<MatchResult> matchResults) {
+        Set<String> engineNames = new HashSet<>();
 
-            List<SearchResult> searchesWhite = sessionsWhite.stream().map(Session::getSearches).flatMap(List::stream).collect(Collectors.toList());
-            List<SearchResult> searchesBlack = sessionsBlack.stream().map(Session::getSearches).flatMap(List::stream).collect(Collectors.toList());
+        matchResults.stream().map(MatchResult::getPgn).forEach(pgn -> {
+            engineNames.add(pgn.getWhite());
+            engineNames.add(pgn.getBlack());
+        });
+
+        engineNames.forEach(engineName -> {
+            List<Session> sessionsWhite = matchResults.stream()
+                    .filter(matchResult -> Objects.equals(matchResult.getPgn().getWhite(), engineName))
+                    .map(MatchResult::getSessionWhite)
+                    .filter(Objects::nonNull).toList();
+
+            List<Session> sessionsBlack = matchResults.stream()
+                    .filter(matchResult -> Objects.equals(matchResult.getPgn().getBlack(), engineName))
+                    .map(MatchResult::getSessionBlack)
+                    .filter(Objects::nonNull).toList();
+
+            List<SearchResult> searchesWhite = sessionsWhite.stream().map(Session::getSearches).flatMap(List::stream).toList();
+            List<SearchResult> searchesBlack = sessionsBlack.stream().map(Session::getSearches).flatMap(List::stream).toList();
+
 
             if (breakByColor) {
-                if (searchesWhite.size() > 0) {
-                    sessionReportModels.add(SessionReportModel.collectStatics(String.format("%s white", engineController.getEngineName()), searchesWhite));
+                if (!searchesWhite.isEmpty()) {
+                    sessionReportModels.add(SessionReportModel.collectStatics(String.format("%s white", engineName), searchesWhite));
                 }
-                if (searchesBlack.size() > 0) {
-                    sessionReportModels.add(SessionReportModel.collectStatics(String.format("%s black", engineController.getEngineName()), searchesBlack));
+                if (!searchesBlack.isEmpty()) {
+                    sessionReportModels.add(SessionReportModel.collectStatics(String.format("%s black", engineName), searchesBlack));
                 }
             } else {
                 List<SearchResult> searches = new ArrayList<>();
                 searches.addAll(searchesWhite);
                 searches.addAll(searchesBlack);
 
-                if (searches.size() > 0) {
-                    sessionReportModels.add(SessionReportModel.collectStatics(engineController.getEngineName(), searches));
+                if (!searches.isEmpty()) {
+                    sessionReportModels.add(SessionReportModel.collectStatics(engineName, searches));
                 }
             }
         });
+
 
         return this;
     }
@@ -74,7 +87,6 @@ public class SessionReport {
                     .printCutoffStatics();
         }
     }
-
 
 
     public SessionReport withNodesVisitedStatistics() {

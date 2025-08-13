@@ -8,7 +8,6 @@ import net.chesstango.tools.search.reports.nodes.NodesReportModel;
 import net.chesstango.tools.search.reports.pv.PrincipalVariationReport;
 import net.chesstango.tools.search.reports.pv.PrincipalVariationReportModel;
 import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.gui.Controller;
 
 import java.io.PrintStream;
 import java.util.LinkedList;
@@ -48,28 +47,26 @@ public class SearchesReport {
         return this;
     }
 
-    public SearchesReport withMathResults(List<Controller> enginesOrder, List<MatchResult> matchResult) {
-        enginesOrder.forEach(engineController -> {
-            matchResult.stream()
-                    .filter(result -> result.getEngineWhite() == engineController && result.getSessionWhite() != null)
-                    .forEach(result -> {
-                        NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineController.getEngineName(), result.getMathId()), result.getSessionWhite().getSearches());
-                        EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineController.getEngineName(), result.getMathId()), result.getSessionWhite().getSearches());
-                        PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineController.getEngineName(), result.getMathId()), result.getSessionWhite().getSearches());
-                        reportModels.add(new ReportModels(nodesReportModel, evaluationReportModel, principalVariationReportModel));
-                    });
+    public SearchesReport withMathResults(List<MatchResult> matchResult) {
+        matchResult.stream()
+                .filter(result -> result.getSessionWhite() != null)
+                .forEach(result -> {
+                    String engineName = result.getPgn().getWhite();
+                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionWhite().getSearches());
+                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionWhite().getSearches());
+                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionWhite().getSearches());
+                    reportModels.add(new ReportModels(nodesReportModel, evaluationReportModel, principalVariationReportModel));
+                });
 
-            matchResult.stream()
-                    .filter(result -> result.getEngineBlack() == engineController && result.getSessionBlack() != null)
-                    .forEach(result -> {
-                        NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineController.getEngineName(), result.getMathId()), result.getSessionBlack().getSearches());
-                        EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineController.getEngineName(), result.getMathId()), result.getSessionBlack().getSearches());
-                        PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineController.getEngineName(), result.getMathId()), result.getSessionBlack().getSearches());
-                        reportModels.add(new ReportModels(nodesReportModel, evaluationReportModel, principalVariationReportModel));
-                    });
-
-
-        });
+        matchResult.stream()
+                .filter(result -> result.getSessionBlack() != null)
+                .forEach(result -> {
+                    String engineName = result.getPgn().getBlack();
+                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionBlack().getSearches());
+                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionBlack().getSearches());
+                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionBlack().getSearches());
+                    reportModels.add(new ReportModels(nodesReportModel, evaluationReportModel, principalVariationReportModel));
+                });
         return this;
     }
 

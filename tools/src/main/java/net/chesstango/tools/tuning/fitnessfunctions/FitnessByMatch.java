@@ -84,25 +84,25 @@ public class FitnessByMatch implements FitnessFunction {
 
     protected long calculatePoints(List<MatchResult> matchResult) {
         long pointsWhiteWin = matchResult.stream()
-                .map(MatchResult::getPgn)
+                .map(MatchResult::pgn)
                 .filter(pgn -> ENGINE_NAME.equals(pgn.getWhite()))
                 .filter(pgn-> Objects.equals(PGN.Result.WHITE_WINS, pgn.getResult()))
                 .count();
 
         long pointsWhiteLost = matchResult.stream()
-                .map(MatchResult::getPgn)
+                .map(MatchResult::pgn)
                 .filter(pgn -> ENGINE_NAME.equals(pgn.getWhite()))
                 .filter(pgn-> Objects.equals(PGN.Result.BLACK_WINS, pgn.getResult()))
                 .count();
 
         long pointsBlackWin = matchResult.stream()
-                .map(MatchResult::getPgn)
+                .map(MatchResult::pgn)
                 .filter(pgn -> ENGINE_NAME.equals(pgn.getBlack()))
                 .filter(pgn-> Objects.equals(PGN.Result.BLACK_WINS, pgn.getResult()))
                 .count();
 
         long pointsBlackLost = matchResult.stream()
-                .map(MatchResult::getPgn)
+                .map(MatchResult::pgn)
                 .filter(pgn -> ENGINE_NAME.equals(pgn.getBlack()))
                 .filter(pgn-> Objects.equals(PGN.Result.WHITE_WINS, pgn.getResult()))
                 .count();

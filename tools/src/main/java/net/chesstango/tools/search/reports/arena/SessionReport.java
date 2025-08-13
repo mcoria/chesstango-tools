@@ -1,6 +1,5 @@
 package net.chesstango.tools.search.reports.arena;
 
-import net.chesstango.engine.Session;
 import net.chesstango.search.SearchResult;
 import net.chesstango.tools.search.reports.arena.sessionreport_ui.PrintCutoffStatics;
 import net.chesstango.tools.search.reports.arena.sessionreport_ui.PrintNodesVisitedStatistics;
@@ -31,24 +30,25 @@ public class SessionReport {
     public SessionReport withMathResults(List<MatchResult> matchResults) {
         Set<String> engineNames = new HashSet<>();
 
-        matchResults.stream().map(MatchResult::getPgn).forEach(pgn -> {
+        matchResults.stream().map(MatchResult::pgn).forEach(pgn -> {
             engineNames.add(pgn.getWhite());
             engineNames.add(pgn.getBlack());
         });
 
         engineNames.forEach(engineName -> {
-            List<Session> sessionsWhite = matchResults.stream()
-                    .filter(matchResult -> Objects.equals(matchResult.getPgn().getWhite(), engineName))
-                    .map(MatchResult::getSessionWhite)
-                    .filter(Objects::nonNull).toList();
+            List<SearchResult> searchesWhite = matchResults.stream()
+                    .filter(matchResult -> Objects.equals(matchResult.pgn().getWhite(), engineName))
+                    .map(MatchResult::whiteSearches)
+                    .filter(Objects::nonNull)
+                    .flatMap(List::stream)
+                    .toList();
 
-            List<Session> sessionsBlack = matchResults.stream()
-                    .filter(matchResult -> Objects.equals(matchResult.getPgn().getBlack(), engineName))
-                    .map(MatchResult::getSessionBlack)
-                    .filter(Objects::nonNull).toList();
-
-            List<SearchResult> searchesWhite = sessionsWhite.stream().map(Session::getSearches).flatMap(List::stream).toList();
-            List<SearchResult> searchesBlack = sessionsBlack.stream().map(Session::getSearches).flatMap(List::stream).toList();
+            List<SearchResult> searchesBlack = matchResults.stream()
+                    .filter(matchResult -> Objects.equals(matchResult.pgn().getBlack(), engineName))
+                    .map(MatchResult::blackSearches)
+                    .filter(Objects::nonNull)
+                    .flatMap(List::stream)
+                    .toList();
 
 
             if (breakByColor) {

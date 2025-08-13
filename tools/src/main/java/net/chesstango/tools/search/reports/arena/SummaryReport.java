@@ -29,8 +29,8 @@ public class SummaryReport {
     public SummaryReport withMatchResults(List<MatchResult> matchResults) {
         Set<String> engineNames = new HashSet<>();
 
-        matchResults.stream().map(MatchResult::getPgn).map(PGN::getWhite).forEach(engineNames::add);
-        matchResults.stream().map(MatchResult::getPgn).map(PGN::getBlack).forEach(engineNames::add);
+        matchResults.stream().map(MatchResult::pgn).map(PGN::getWhite).forEach(engineNames::add);
+        matchResults.stream().map(MatchResult::pgn).map(PGN::getBlack).forEach(engineNames::add);
 
         engineNames.stream().map(engineName -> createRowModel(engineName, matchResults)).forEach(reportRowModels::add);
 
@@ -43,18 +43,18 @@ public class SummaryReport {
 
         row.engineName = engineName;
 
-        row.wonAsWhite = matchResult.stream().map(MatchResult::getPgn).filter(pgn -> Objects.equals(pgn.getWhite(), engineName)).filter(pgn -> PGN.Result.WHITE_WINS == pgn.getResult()).count();
-        row.lostAsWhite = matchResult.stream().map(MatchResult::getPgn).filter(pgn -> Objects.equals(pgn.getWhite(), engineName)).filter(pgn -> PGN.Result.BLACK_WINS == pgn.getResult()).count();
-        row.drawsAsWhite = matchResult.stream().map(MatchResult::getPgn).filter(pgn -> Objects.equals(pgn.getWhite(), engineName)).filter(pgn -> PGN.Result.DRAW == pgn.getResult()).count();
+        row.wonAsWhite = matchResult.stream().map(MatchResult::pgn).filter(pgn -> Objects.equals(pgn.getWhite(), engineName)).filter(pgn -> PGN.Result.WHITE_WINS == pgn.getResult()).count();
+        row.lostAsWhite = matchResult.stream().map(MatchResult::pgn).filter(pgn -> Objects.equals(pgn.getWhite(), engineName)).filter(pgn -> PGN.Result.BLACK_WINS == pgn.getResult()).count();
+        row.drawsAsWhite = matchResult.stream().map(MatchResult::pgn).filter(pgn -> Objects.equals(pgn.getWhite(), engineName)).filter(pgn -> PGN.Result.DRAW == pgn.getResult()).count();
         row.puntosAsWhite = row.wonAsWhite + 0.5 * row.drawsAsWhite;
 
-        row.wonAsBlack = matchResult.stream().map(MatchResult::getPgn).filter(pgn -> Objects.equals(pgn.getBlack(), engineName)).filter(pgn -> PGN.Result.BLACK_WINS == pgn.getResult()).count();
-        row.lostAsBlack = matchResult.stream().map(MatchResult::getPgn).filter(pgn -> Objects.equals(pgn.getBlack(), engineName)).filter(pgn -> PGN.Result.WHITE_WINS == pgn.getResult()).count();
-        row.drawsAsBlack = matchResult.stream().map(MatchResult::getPgn).filter(pgn -> Objects.equals(pgn.getBlack(), engineName)).filter(pgn -> PGN.Result.DRAW == pgn.getResult()).count();
+        row.wonAsBlack = matchResult.stream().map(MatchResult::pgn).filter(pgn -> Objects.equals(pgn.getBlack(), engineName)).filter(pgn -> PGN.Result.BLACK_WINS == pgn.getResult()).count();
+        row.lostAsBlack = matchResult.stream().map(MatchResult::pgn).filter(pgn -> Objects.equals(pgn.getBlack(), engineName)).filter(pgn -> PGN.Result.WHITE_WINS == pgn.getResult()).count();
+        row.drawsAsBlack = matchResult.stream().map(MatchResult::pgn).filter(pgn -> Objects.equals(pgn.getBlack(), engineName)).filter(pgn -> PGN.Result.DRAW == pgn.getResult()).count();
         row.puntosAsBlack = row.wonAsBlack + 0.5 * row.drawsAsBlack;
 
         row.puntosTotal = row.puntosAsWhite + row.puntosAsBlack;
-        row.playedGames = matchResult.stream().map(MatchResult::getPgn).filter(pgn -> Objects.equals(pgn.getWhite(), engineName) || Objects.equals(pgn.getBlack(), engineName)).count();
+        row.playedGames = matchResult.stream().map(MatchResult::pgn).filter(pgn -> Objects.equals(pgn.getWhite(), engineName) || Objects.equals(pgn.getBlack(), engineName)).count();
 
         row.winPercentage = (row.puntosTotal / row.playedGames) * 100;
 

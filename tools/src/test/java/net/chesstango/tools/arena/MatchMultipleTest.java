@@ -61,7 +61,7 @@ public class MatchMultipleTest {
 
         // Deberia ganar el engine smartEngine
         assertEquals(2, matchResult.stream()
-                .map(MatchResult::getPgn)
+                .map(MatchResult::pgn)
                 .filter(pgn -> Objects.equals("Smart", pgn.getWhite()) && PGN.Result.WHITE_WINS == pgn.getResult() ||
                         Objects.equals("Smart", pgn.getBlack()) && PGN.Result.BLACK_WINS == pgn.getResult()
                 )

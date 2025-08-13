@@ -49,22 +49,22 @@ public class SearchesReport {
 
     public SearchesReport withMathResults(List<MatchResult> matchResult) {
         matchResult.stream()
-                .filter(result -> result.getSessionWhite() != null)
+                .filter(result -> result.whiteSearches() != null)
                 .forEach(result -> {
-                    String engineName = result.getPgn().getWhite();
-                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionWhite().getSearches());
-                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionWhite().getSearches());
-                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionWhite().getSearches());
+                    String engineName = result.pgn().getWhite();
+                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, result.mathId()), result.whiteSearches());
+                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, result.mathId()), result.whiteSearches());
+                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, result.mathId()), result.whiteSearches());
                     reportModels.add(new ReportModels(nodesReportModel, evaluationReportModel, principalVariationReportModel));
                 });
 
         matchResult.stream()
-                .filter(result -> result.getSessionBlack() != null)
+                .filter(result -> result.blackSearches() != null)
                 .forEach(result -> {
-                    String engineName = result.getPgn().getBlack();
-                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionBlack().getSearches());
-                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionBlack().getSearches());
-                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, result.getMathId()), result.getSessionBlack().getSearches());
+                    String engineName = result.pgn().getBlack();
+                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, result.mathId()), result.blackSearches());
+                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, result.mathId()), result.blackSearches());
+                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, result.mathId()), result.blackSearches());
                     reportModels.add(new ReportModels(nodesReportModel, evaluationReportModel, principalVariationReportModel));
                 });
         return this;

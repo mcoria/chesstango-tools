@@ -14,8 +14,7 @@ public class MatchWorkerMain {
 
 
     public static void main(String[] args) throws Exception {
-        log.info("[*] Waiting for messages. To exit press CTRL+C");
-
+        log.info("[*] Waiting for MatchRequest. To exit press CTRL+C");
 
         try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
 
@@ -24,11 +23,11 @@ public class MatchWorkerMain {
             factory.setSharedExecutor(executorService);
 
             try (ControllerProvider controllerProvider = ControllerProvider.create("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog");
-                 QueueConsumer queueConsumer = QueueConsumer.open(factory)) {
+                 QueueAdapter queueAdapter = QueueAdapter.open(factory)) {
 
                 MatchWorker matchWorker = new MatchWorker(controllerProvider);
 
-                queueConsumer.consumeMessages(matchWorker);
+                queueAdapter.setupQueueConsumer(matchWorker);
 
                 Thread.sleep(Long.MAX_VALUE);
             }
@@ -36,4 +35,6 @@ public class MatchWorkerMain {
 
         log.info("[x] Done");
     }
+
+
 }

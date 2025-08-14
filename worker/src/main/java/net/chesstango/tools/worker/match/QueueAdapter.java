@@ -12,18 +12,19 @@ import java.util.function.Function;
  * @author Mauricio Coria
  */
 @Slf4j
-class QueueConsumer implements AutoCloseable {
-
+class QueueAdapter implements AutoCloseable {
     private final static String RPC_QUEUE_NAME = "matches";
 
     private final Connection connection;
     private final Channel channel;
 
-    static QueueConsumer open(ConnectionFactory factory) throws IOException, TimeoutException {
-        return new QueueConsumer(factory);
+    private Function<MatchRequest, MatchResponse> matchFn;
+
+    static QueueAdapter open(ConnectionFactory factory) throws IOException, TimeoutException {
+        return new QueueAdapter(factory);
     }
 
-    QueueConsumer(ConnectionFactory factory) throws IOException, TimeoutException {
+    QueueAdapter(ConnectionFactory factory) throws IOException, TimeoutException {
         this.connection = factory.newConnection();
         this.channel = connection.createChannel();
         channel.basicQos(1);
@@ -37,29 +38,26 @@ class QueueConsumer implements AutoCloseable {
     }
 
 
-    public void consumeMessages(Function<MatchRequest, MatchResponse> matchFn) throws IOException {
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+    public void setupQueueConsumer(Function<MatchRequest, MatchResponse> matchFn) throws IOException {
+        this.matchFn = matchFn;
+        channel.basicConsume(RPC_QUEUE_NAME, false, this::handle, consumerTag -> {});
+    }
 
-            AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                    .Builder()
-                    .correlationId(delivery.getProperties().getCorrelationId())
-                    .build();
+    private void handle(String consumerTag, Delivery delivery) throws IOException{
+        AMQP.BasicProperties replyProps = new AMQP.BasicProperties
+                .Builder()
+                .correlationId(delivery.getProperties().getCorrelationId())
+                .build();
 
+        MatchRequest request = decodeRequest(delivery.getBody());
 
-            MatchRequest request = decodeRequest(delivery.getBody());
+        MatchResponse response = matchFn.apply(request);
 
-            MatchResponse response = matchFn.apply(request);
+        byte[] encodedResponse = encodeResponse(response);
 
-            byte[] encodedResponse = encodeResponse(response);
+        channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, encodedResponse);
 
-            channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, encodedResponse);
-
-            channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
-
-        };
-
-        channel.basicConsume(RPC_QUEUE_NAME, true, deliverCallback, consumerTag -> {
-        });
+        channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
     }
 
     private byte[] encodeResponse(MatchResponse response) {

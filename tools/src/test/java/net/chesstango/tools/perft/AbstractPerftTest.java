@@ -32,7 +32,7 @@ public abstract class AbstractPerftTest {
 
     protected boolean contieneMove(MoveContainerReader<? extends Move> movimientos, Square from, Square to) {
         for (Move move : movimientos) {
-            if (from.equals(move.getFrom().getSquare()) && to.equals(move.getTo().getSquare())) {
+            if (from.equals(move.getFrom().square()) && to.equals(move.getTo().square())) {
                 return true;
             }
         }
@@ -50,9 +50,9 @@ public abstract class AbstractPerftTest {
                     Move move = entry.getKey();
                     long count = entry.getValue();
                     if (move instanceof MovePromotion movePromotion) {
-                        System.out.printf("assertEquals(%d, result.getChildNode(Square.%s, Square.%s, Piece.%s));\n", count, movePromotion.getFrom().getSquare(), movePromotion.getTo().getSquare(), movePromotion.getPromotion().toString());
+                        System.out.printf("assertEquals(%d, result.getChildNode(Square.%s, Square.%s, Piece.%s));\n", count, movePromotion.getFrom().square(), movePromotion.getTo().square(), movePromotion.getPromotion().toString());
                     } else {
-                        System.out.printf("assertEquals(%d, result.getChildNode(Square.%s, Square.%s));\n", count, move.getFrom().getSquare(), move.getTo().getSquare());
+                        System.out.printf("assertEquals(%d, result.getChildNode(Square.%s, Square.%s));\n", count, move.getFrom().square(), move.getTo().square());
                     }
                 });
 

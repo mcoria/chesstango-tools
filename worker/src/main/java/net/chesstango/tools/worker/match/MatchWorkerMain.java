@@ -1,5 +1,6 @@
 package net.chesstango.tools.worker.match;
 
+import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
@@ -15,15 +16,22 @@ public class MatchWorkerMain {
     public static void main(String[] args) throws Exception {
         log.info("[*] Waiting for messages. To exit press CTRL+C");
 
-        try (ExecutorService executorService = Executors.newSingleThreadExecutor();
-             ControllerProvider controllerProvider = ControllerProvider.create("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog");
-             QueueConsumer queueConsumer = QueueConsumer.open(executorService);) {
 
-            MatchWorker matchWorker = new MatchWorker(controllerProvider);
+        try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
 
-            queueConsumer.consumeMessages(matchWorker);
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            factory.setSharedExecutor(executorService);
 
-            Thread.sleep(Long.MAX_VALUE);
+            try (ControllerProvider controllerProvider = ControllerProvider.create("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog");
+                 QueueConsumer queueConsumer = QueueConsumer.open(factory)) {
+
+                MatchWorker matchWorker = new MatchWorker(controllerProvider);
+
+                queueConsumer.consumeMessages(matchWorker);
+
+                Thread.sleep(Long.MAX_VALUE);
+            }
         }
 
         log.info("[x] Done");

@@ -5,7 +5,6 @@ import com.rabbitmq.client.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 
@@ -20,24 +19,15 @@ class QueueConsumer implements AutoCloseable {
     private final Connection connection;
     private final Channel channel;
 
-    QueueConsumer(Connection connection) throws IOException {
-        this.connection = connection;
+    static QueueConsumer open(ConnectionFactory factory) throws IOException, TimeoutException {
+        return new QueueConsumer(factory);
+    }
 
+    QueueConsumer(ConnectionFactory factory) throws IOException, TimeoutException {
+        this.connection = factory.newConnection();
         this.channel = connection.createChannel();
         channel.basicQos(1);
         channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
-        //channel.queuePurge(RPC_QUEUE_NAME);
-    }
-
-
-    static QueueConsumer open(ExecutorService executorService) throws IOException, TimeoutException {
-        ConnectionFactory factory = new ConnectionFactory();
-
-        factory.setHost("localhost");
-
-        Connection connection = factory.newConnection(executorService);
-
-        return new QueueConsumer(connection);
     }
 
     @Override

@@ -12,6 +12,8 @@ import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import java.io.*;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author Mauricio Coria
@@ -22,7 +24,8 @@ public class MatchMasterMain {
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
-        try (Connection connection = factory.newConnection();
+        try (ExecutorService executorService = Executors.newSingleThreadExecutor();
+             Connection connection = factory.newConnection(executorService);
              Channel channel = connection.createChannel()) {
             channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
 
@@ -44,10 +47,11 @@ public class MatchMasterMain {
 
             byte[] message = encodeRequest(matchRequest);
 
+            channel.queuePurge(RPC_QUEUE_NAME);
+
             channel.basicPublish("", RPC_QUEUE_NAME, props, message);
 
             final CompletableFuture<MatchResponse> responseFuture = new CompletableFuture<>();
-
 
             String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
                 if (delivery.getProperties().getCorrelationId().equals(corrId)) {

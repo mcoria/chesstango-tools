@@ -58,7 +58,7 @@ public class QueueAdapter implements AutoCloseable {
         channel.basicPublish("", RPC_QUEUE_NAME, props, message);
     }
 
-    public void waitResponse() throws IOException, ExecutionException, InterruptedException {
+    public void setupCallback() throws IOException, ExecutionException, InterruptedException {
         final CompletableFuture<MatchResponse> responseFuture = new CompletableFuture<>();
 
         String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
@@ -66,6 +66,8 @@ public class QueueAdapter implements AutoCloseable {
             if (delivery.getProperties().getCorrelationId().equals(corrId)) {
                 MatchResponse response = decodeResponse(delivery.getBody());
                 responseFuture.complete(response);
+
+
             } else {
                 System.out.println("Received message with wrong correlation id: " + delivery.getProperties().getCorrelationId());
             }

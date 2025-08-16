@@ -42,7 +42,6 @@ class ControllerProvider implements AutoCloseable {
     }
 
     private Controller openController(String engine) {
-
         Controller controller = null;
 
         if (engine.startsWith("file:")) {

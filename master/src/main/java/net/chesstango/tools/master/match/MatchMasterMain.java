@@ -21,16 +21,17 @@ public class MatchMasterMain {
             factory.setSharedExecutor(executorService);
 
             try (QueueAdapter queueAdapter = QueueAdapter.open(factory)) {
+
                 MatchRequest matchRequest = new MatchRequest()
                         .setWhiteEngine("class:net.chesstango.tools.worker.match.factories.DefaultTango")
                         .setBlackEngine("file:Spike")
                         .setFen(FENParser.INITIAL_FEN)
                         .setMatchType(new MatchByDepth(2));
 
-
                 queueAdapter.publish(matchRequest);
 
-                queueAdapter.waitResponse();
+                queueAdapter.setupCallback();
+
             }
         }
     }

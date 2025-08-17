@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   rabbitmq:
     image: rabbitmq:3-management # Uses the image with the management UI
@@ -10,6 +9,14 @@ services:
       RABBITMQ_DEFAULT_PASS: guest # Default password (change for production)
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq # Persist data to a named volume
+
+  worker:
+      image: chesstango-tools-worker:latest
+      depends_on:
+        - rabbitmq
+      environment:
+        RABBIT_HOST: worker-rabbitmq-1
+        ENGINE_CATALOG: /
 
 volumes:
   rabbitmq_data: # Define the named volume

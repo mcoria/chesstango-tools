@@ -17,6 +17,11 @@ spec:
     spec:
       containers:
         - name: chesstango-tools-worker
+          env:
+            - name: RABBIT_HOST
+              value: "localhost"
+            - name: ENGINE_CATALOG
+              value: "/engines"
           image: chesstango-tools-worker:latest
           imagePullPolicy: IfNotPresent
       restartPolicy: Always

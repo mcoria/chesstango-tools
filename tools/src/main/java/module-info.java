@@ -28,6 +28,7 @@ module net.chesstango.tools {
 
     requires static lombok;
     requires net.chesstango.mbeans;
+    requires net.chesstango.tools.worker;
 
     opens net.chesstango.tools.search.reports.summary to com.fasterxml.jackson.databind;
 }

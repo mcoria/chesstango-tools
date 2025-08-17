@@ -17,6 +17,9 @@ public class MatchWorkerMain implements Runnable {
     private final String enginesCatalog;
 
     public MatchWorkerMain(String rabbitHost, String enginesCatalog) {
+        if(rabbitHost == null || enginesCatalog == null){
+            throw new IllegalArgumentException("rabbitHost and enginesCatalog must be provided");
+        }
         this.rabbitHost = rabbitHost;
         this.enginesCatalog = enginesCatalog;
     }
@@ -35,6 +38,8 @@ public class MatchWorkerMain implements Runnable {
         try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost(rabbitHost);
+            factory.setUsername("guest");
+            factory.setPassword("guest");
             factory.setSharedExecutor(executorService);
 
             log.info("Connecting to RabbitMQ");
@@ -45,7 +50,7 @@ public class MatchWorkerMain implements Runnable {
 
                 MatchWorker matchWorker = new MatchWorker(controllerProvider);
 
-                CountDownLatch countDownLatch = new CountDownLatch(5);
+                CountDownLatch countDownLatch = new CountDownLatch(100);
 
                 matchConsumer.setupQueueConsumer(matchWorker, countDownLatch::countDown);
 

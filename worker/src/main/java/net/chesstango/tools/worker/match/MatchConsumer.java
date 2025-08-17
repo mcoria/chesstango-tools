@@ -36,22 +36,29 @@ class MatchConsumer implements AutoCloseable {
     }
 
 
-    public void setupQueueConsumer(Function<MatchRequest, MatchResponse> matchFn) throws IOException {
-        channel.basicConsume(RPC_QUEUE_NAME, false, (consumerTag, delivery) -> {
-            AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                    .Builder()
-                    .build();
+    public void setupQueueConsumer(Function<MatchRequest, MatchResponse> matchFn, Runnable onConsumed){
+        try {
+            channel.basicConsume(RPC_QUEUE_NAME, false, (consumerTag, delivery) -> {
+                MatchRequest request = decodeRequest(delivery.getBody());
 
-            MatchRequest request = decodeRequest(delivery.getBody());
+                MatchResponse response = matchFn.apply(request);
 
-            MatchResponse response = matchFn.apply(request);
+                byte[] encodedResponse = encodeResponse(response);
 
-            byte[] encodedResponse = encodeResponse(response);
+                AMQP.BasicProperties replyProps = new AMQP.BasicProperties
+                        .Builder()
+                        .build();
 
-            channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, encodedResponse);
+                channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, encodedResponse);
 
-            channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
-        }, consumerTag -> {});
+                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+
+                onConsumed.run();
+
+            }, consumerTag -> {});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

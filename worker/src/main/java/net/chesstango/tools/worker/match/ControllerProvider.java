@@ -1,5 +1,6 @@
 package net.chesstango.tools.worker.match;
 
+import lombok.extern.slf4j.Slf4j;
 import net.chesstango.uci.arena.ControllerFactory;
 import net.chesstango.uci.gui.Controller;
 
@@ -11,6 +12,7 @@ import java.util.function.Supplier;
 /**
  * @author Mauricio Coria
  */
+@Slf4j
 class ControllerProvider implements AutoCloseable {
 
     private final Path catalogDirectory;
@@ -36,14 +38,14 @@ class ControllerProvider implements AutoCloseable {
     @Override
     public void close() {
         controllers.values().forEach(controller -> {
+            log.info("Closing engine: {}", controller.getEngineName());
             controller.stopEngine();
-            controller.close();
         });
     }
 
     private Controller openController(String engine) {
         Controller controller = null;
-
+        log.info("Opening engine: {}", engine);
         if (engine.startsWith("file:")) {
             Path enginePath = catalogDirectory.resolve(String.format("%s.json", engine.substring(5)));
             if (!enginePath.toFile().exists()) {
@@ -56,9 +58,7 @@ class ControllerProvider implements AutoCloseable {
         } else {
             throw new RuntimeException("Invalid engine name: " + engine);
         }
-
         controller.startEngine();
-
         return controller;
     }
 

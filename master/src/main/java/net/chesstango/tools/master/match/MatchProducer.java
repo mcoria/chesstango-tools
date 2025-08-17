@@ -11,12 +11,13 @@ import net.chesstango.tools.worker.match.MatchResponse;
 import java.io.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 
 /**
  * @author Mauricio Coria
  */
 @Slf4j
-public class QueueAdapter implements AutoCloseable {
+public class MatchProducer implements AutoCloseable {
     private final static String RPC_QUEUE_NAME = "matches";
 
     private final Connection connection;
@@ -24,11 +25,11 @@ public class QueueAdapter implements AutoCloseable {
     private final String replyQueueName;
     private String ctag;
 
-    static QueueAdapter open(ConnectionFactory factory) throws IOException, TimeoutException {
-        return new QueueAdapter(factory);
+    static MatchProducer open(ConnectionFactory factory) throws IOException, TimeoutException {
+        return new MatchProducer(factory);
     }
 
-    QueueAdapter(ConnectionFactory factory) throws IOException, TimeoutException {
+    MatchProducer(ConnectionFactory factory) throws IOException, TimeoutException {
         this.connection = factory.newConnection();
         this.channel = connection.createChannel();
         channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
@@ -54,13 +55,12 @@ public class QueueAdapter implements AutoCloseable {
         channel.basicPublish("", RPC_QUEUE_NAME, props, message);
     }
 
-    public void setupCallback() throws IOException, ExecutionException, InterruptedException {
+    public void setupCallback(Consumer<MatchResponse> matchResponseConsumer) throws IOException, ExecutionException, InterruptedException {
         ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
-            log.info("Response received");
 
             MatchResponse response = decodeResponse(delivery.getBody());
 
-            log.info("Response: {}", response);
+            matchResponseConsumer.accept(response);
 
         }, consumerTag -> {
         });

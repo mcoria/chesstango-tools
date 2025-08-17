@@ -23,11 +23,11 @@ public class MatchWorkerMain {
             factory.setSharedExecutor(executorService);
 
             try (ControllerProvider controllerProvider = ControllerProvider.create(enginesCatalog);
-                 QueueAdapter queueAdapter = QueueAdapter.open(factory)) {
+                 MatchConsumer matchConsumer = MatchConsumer.open(factory)) {
 
                 MatchWorker matchWorker = new MatchWorker(controllerProvider);
 
-                queueAdapter.setupQueueConsumer(matchWorker);
+                matchConsumer.setupQueueConsumer(matchWorker);
 
                 Thread.sleep(Long.MAX_VALUE);
             }

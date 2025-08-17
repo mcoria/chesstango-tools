@@ -20,9 +20,9 @@ public class MatchMasterMain {
             factory.setHost("localhost");
             factory.setSharedExecutor(executorService);
 
-            try (QueueAdapter queueAdapter = QueueAdapter.open(factory)) {
+            try (MatchProducer matchProducer = MatchProducer.open(factory)) {
 
-                queueAdapter.setupCallback();
+                matchProducer.setupCallback(new MatchResponseCallback());
 
                 MatchRequest matchRequest = new MatchRequest()
                         .setWhiteEngine("class:DefaultTango")
@@ -30,11 +30,10 @@ public class MatchMasterMain {
                         .setFen(FENParser.INITIAL_FEN)
                         .setMatchType(new MatchByDepth(2));
 
-                queueAdapter.publish(matchRequest);
+                matchProducer.publish(matchRequest);
 
                 Thread.sleep(Long.MAX_VALUE);
             }
         }
     }
-
 }

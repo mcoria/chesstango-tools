@@ -12,17 +12,17 @@ import java.util.function.Function;
  * @author Mauricio Coria
  */
 @Slf4j
-class QueueAdapter implements AutoCloseable {
+class MatchConsumer implements AutoCloseable {
     private final static String RPC_QUEUE_NAME = "matches";
 
     private final Connection connection;
     private final Channel channel;
 
-    static QueueAdapter open(ConnectionFactory factory) throws IOException, TimeoutException {
-        return new QueueAdapter(factory);
+    static MatchConsumer open(ConnectionFactory factory) throws IOException, TimeoutException {
+        return new MatchConsumer(factory);
     }
 
-    QueueAdapter(ConnectionFactory factory) throws IOException, TimeoutException {
+    MatchConsumer(ConnectionFactory factory) throws IOException, TimeoutException {
         this.connection = factory.newConnection();
         this.channel = connection.createChannel();
         channel.basicQos(1);
@@ -40,7 +40,6 @@ class QueueAdapter implements AutoCloseable {
         channel.basicConsume(RPC_QUEUE_NAME, false, (consumerTag, delivery) -> {
             AMQP.BasicProperties replyProps = new AMQP.BasicProperties
                     .Builder()
-                    .correlationId(delivery.getProperties().getCorrelationId())
                     .build();
 
             MatchRequest request = decodeRequest(delivery.getBody());

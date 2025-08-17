@@ -28,8 +28,8 @@ class MatchResponseCallback implements Consumer<MatchResponse> {
         this.sessionDirectory = sessionDirectory;
     }
 
-    static MatchResponseCallback open(Path parentDirectory) {
-        Path sessionDirectory = parentDirectory.resolve(String.format("%s", SESSION_ID));
+    static MatchResponseCallback open(Path matchStore) {
+        Path sessionDirectory = matchStore.resolve(String.format("%s", SESSION_ID));
         try {
             Files.createDirectory(sessionDirectory);
             log.info("Session directory created: {}", sessionDirectory);

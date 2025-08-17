@@ -3,6 +3,7 @@ package net.chesstango.tools.worker.match;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.chesstango.gardel.fen.FEN;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 
 import java.io.Serial;
@@ -20,6 +21,6 @@ public class MatchRequest implements Serializable {
 
     private String whiteEngine;
     private String blackEngine;
-    private String fen;
+    private FEN fen;
     private MatchType matchType;
 }

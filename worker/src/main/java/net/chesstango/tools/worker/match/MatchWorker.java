@@ -29,7 +29,7 @@ class MatchWorker implements Function<MatchRequest, MatchResponse> {
 
         MatchType matchType = matchRequest.getMatchType();
 
-        FEN fen = FEN.of(matchRequest.getFen());
+        FEN fen = matchRequest.getFen();
 
         Match match = new Match(whiteController, blackController, fen, matchType);
 

@@ -9,7 +9,6 @@ import net.chesstango.tools.worker.match.MatchRequest;
 import net.chesstango.tools.worker.match.MatchResponse;
 
 import java.io.*;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
@@ -39,31 +38,41 @@ public class MatchProducer implements AutoCloseable {
 
     @Override
     public void close() throws Exception {
-        channel.basicCancel(ctag);
+        if (ctag != null) {
+            channel.basicCancel(ctag);
+        }
         channel.close();
         connection.close();
     }
 
-    public void publish(MatchRequest matchRequest) throws IOException {
-        AMQP.BasicProperties props = new AMQP.BasicProperties
-                .Builder()
-                .replyTo(replyQueueName)
-                .build();
+    public void publish(MatchRequest matchRequest) {
+        try {
+            AMQP.BasicProperties props = new AMQP.BasicProperties
+                    .Builder()
+                    .replyTo(replyQueueName)
+                    .build();
 
-        byte[] message = encodeRequest(matchRequest);
+            byte[] message = encodeRequest(matchRequest);
 
-        channel.basicPublish("", RPC_QUEUE_NAME, props, message);
+            channel.basicPublish("", RPC_QUEUE_NAME, props, message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void setupCallback(Consumer<MatchResponse> matchResponseConsumer) throws IOException, ExecutionException, InterruptedException {
-        ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
+    public void setupCallback(Consumer<MatchResponse> matchResponseConsumer) {
+        try {
+            ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
 
-            MatchResponse response = decodeResponse(delivery.getBody());
+                MatchResponse response = decodeResponse(delivery.getBody());
 
-            matchResponseConsumer.accept(response);
+                matchResponseConsumer.accept(response);
 
-        }, consumerTag -> {
-        });
+            }, consumerTag -> {
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

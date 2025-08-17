@@ -22,16 +22,17 @@ public class MatchMasterMain {
 
             try (QueueAdapter queueAdapter = QueueAdapter.open(factory)) {
 
+                queueAdapter.setupCallback();
+
                 MatchRequest matchRequest = new MatchRequest()
-                        .setWhiteEngine("class:net.chesstango.tools.worker.match.factories.DefaultTango")
+                        .setWhiteEngine("class:DefaultTango")
                         .setBlackEngine("file:Spike")
                         .setFen(FENParser.INITIAL_FEN)
                         .setMatchType(new MatchByDepth(2));
 
                 queueAdapter.publish(matchRequest);
 
-                queueAdapter.setupCallback();
-
+                Thread.sleep(Long.MAX_VALUE);
             }
         }
     }

@@ -18,8 +18,6 @@ class QueueAdapter implements AutoCloseable {
     private final Connection connection;
     private final Channel channel;
 
-    private Function<MatchRequest, MatchResponse> matchFn;
-
     static QueueAdapter open(ConnectionFactory factory) throws IOException, TimeoutException {
         return new QueueAdapter(factory);
     }
@@ -39,26 +37,24 @@ class QueueAdapter implements AutoCloseable {
 
 
     public void setupQueueConsumer(Function<MatchRequest, MatchResponse> matchFn) throws IOException {
-        this.matchFn = matchFn;
-        channel.basicConsume(RPC_QUEUE_NAME, false, this::handle, consumerTag -> {});
+        channel.basicConsume(RPC_QUEUE_NAME, false, (consumerTag, delivery) -> {
+            AMQP.BasicProperties replyProps = new AMQP.BasicProperties
+                    .Builder()
+                    .correlationId(delivery.getProperties().getCorrelationId())
+                    .build();
+
+            MatchRequest request = decodeRequest(delivery.getBody());
+
+            MatchResponse response = matchFn.apply(request);
+
+            byte[] encodedResponse = encodeResponse(response);
+
+            channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, encodedResponse);
+
+            channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+        }, consumerTag -> {});
     }
 
-    private void handle(String consumerTag, Delivery delivery) throws IOException{
-        AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                .Builder()
-                .correlationId(delivery.getProperties().getCorrelationId())
-                .build();
-
-        MatchRequest request = decodeRequest(delivery.getBody());
-
-        MatchResponse response = matchFn.apply(request);
-
-        byte[] encodedResponse = encodeResponse(response);
-
-        channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, encodedResponse);
-
-        channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
-    }
 
     private byte[] encodeResponse(MatchResponse response) {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();

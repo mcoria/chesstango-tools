@@ -64,7 +64,7 @@ class ControllerProvider implements AutoCloseable {
 
     private Supplier<Controller> instantiateSupplier(String className) {
         try {
-            Class<?> clazz = Class.forName(className);
+            Class<?> clazz = Class.forName(String.format("%s.%s", "net.chesstango.tools.worker.match.factories", className));
             if (!Supplier.class.isAssignableFrom(clazz)) {
                 throw new RuntimeException("Class must implement Supplier<Controller>: " + className);
             }

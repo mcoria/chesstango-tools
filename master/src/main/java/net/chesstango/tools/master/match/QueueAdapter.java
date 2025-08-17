@@ -9,8 +9,6 @@ import net.chesstango.tools.worker.match.MatchRequest;
 import net.chesstango.tools.worker.match.MatchResponse;
 
 import java.io.*;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -24,7 +22,7 @@ public class QueueAdapter implements AutoCloseable {
     private final Connection connection;
     private final Channel channel;
     private final String replyQueueName;
-    private String corrId;
+    private String ctag;
 
     static QueueAdapter open(ConnectionFactory factory) throws IOException, TimeoutException {
         return new QueueAdapter(factory);
@@ -40,16 +38,14 @@ public class QueueAdapter implements AutoCloseable {
 
     @Override
     public void close() throws Exception {
+        channel.basicCancel(ctag);
         channel.close();
         connection.close();
     }
 
     public void publish(MatchRequest matchRequest) throws IOException {
-        corrId = UUID.randomUUID().toString();
-
         AMQP.BasicProperties props = new AMQP.BasicProperties
                 .Builder()
-                .correlationId(corrId)
                 .replyTo(replyQueueName)
                 .build();
 
@@ -59,29 +55,15 @@ public class QueueAdapter implements AutoCloseable {
     }
 
     public void setupCallback() throws IOException, ExecutionException, InterruptedException {
-        final CompletableFuture<MatchResponse> responseFuture = new CompletableFuture<>();
-
-        String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
+        ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
             log.info("Response received");
-            if (delivery.getProperties().getCorrelationId().equals(corrId)) {
-                MatchResponse response = decodeResponse(delivery.getBody());
-                responseFuture.complete(response);
 
+            MatchResponse response = decodeResponse(delivery.getBody());
 
-            } else {
-                System.out.println("Received message with wrong correlation id: " + delivery.getProperties().getCorrelationId());
-            }
+            log.info("Response: {}", response);
+
         }, consumerTag -> {
         });
-
-
-        log.info("Waiting sesponse");
-
-        MatchResponse response = responseFuture.get();
-
-        log.info("Response: {}", response);
-
-        channel.basicCancel(ctag);
     }
 
 

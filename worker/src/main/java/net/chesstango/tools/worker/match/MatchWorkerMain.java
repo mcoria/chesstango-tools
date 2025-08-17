@@ -12,17 +12,17 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class MatchWorkerMain {
 
-
     public static void main(String[] args) throws Exception {
         log.info("[*] Waiting for MatchRequest. To exit press CTRL+C");
 
-        try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
+        String enginesCatalog = System.getenv("ENGINE_CATALOG");
 
+        try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             factory.setSharedExecutor(executorService);
 
-            try (ControllerProvider controllerProvider = ControllerProvider.create("C:\\java\\projects\\chess\\chess-utils\\engines\\catalog");
+            try (ControllerProvider controllerProvider = ControllerProvider.create(enginesCatalog);
                  QueueAdapter queueAdapter = QueueAdapter.open(factory)) {
 
                 MatchWorker matchWorker = new MatchWorker(controllerProvider);
@@ -35,6 +35,4 @@ public class MatchWorkerMain {
 
         log.info("[x] Done");
     }
-
-
 }

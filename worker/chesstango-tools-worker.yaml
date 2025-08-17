@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chesstango-tools-worker
+  labels:
+    app: chesstango-tools-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chesstango-tools-worker
+  template:
+    metadata:
+      name: chesstango-tools-worker
+      labels:
+        app: chesstango-tools-worker
+    spec:
+      containers:
+        - name: chesstango-tools-worker
+          image: chesstango-tools-worker:latest
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      

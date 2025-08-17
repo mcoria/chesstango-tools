@@ -13,16 +13,19 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class MatchWorkerMain implements Runnable {
 
+    private final String rabbitHost;
     private final String enginesCatalog;
 
-    public MatchWorkerMain(String enginesCatalog) {
+    public MatchWorkerMain(String rabbitHost, String enginesCatalog) {
+        this.rabbitHost = rabbitHost;
         this.enginesCatalog = enginesCatalog;
     }
 
     public static void main(String[] args) throws Exception {
+        String rabbitHost = System.getenv("RABBIT_HOST");
         String enginesCatalog = System.getenv("ENGINE_CATALOG");
 
-        new MatchWorkerMain(enginesCatalog).run();
+        new MatchWorkerMain(rabbitHost, enginesCatalog).run();
     }
 
     @Override
@@ -31,7 +34,7 @@ public class MatchWorkerMain implements Runnable {
 
         try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
             ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
+            factory.setHost(rabbitHost);
             factory.setSharedExecutor(executorService);
 
             log.info("Connecting to RabbitMQ");

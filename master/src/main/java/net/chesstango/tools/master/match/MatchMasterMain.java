@@ -5,6 +5,7 @@ import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.tools.worker.match.MatchRequest;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 
+import java.nio.file.Path;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,7 +23,7 @@ public class MatchMasterMain {
 
             try (MatchProducer matchProducer = MatchProducer.open(factory)) {
 
-                matchProducer.setupCallback(new MatchResponseCallback());
+                matchProducer.setupCallback(MatchResponseCallback.open (Path.of("C:\\java\\projects\\chess\\chess-utils\\testing\\matches")));
 
                 MatchRequest matchRequest = new MatchRequest()
                         .setWhiteEngine("class:DefaultTango")

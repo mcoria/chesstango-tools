@@ -1,5 +1,7 @@
 package net.chesstango.tools;
 
+import net.chesstango.tools.search.reports.arena.SearchesReport;
+import net.chesstango.tools.search.reports.arena.SessionReport;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
 import net.chesstango.tools.worker.match.MatchResponse;
 import net.chesstango.uci.arena.MatchResult;
@@ -29,6 +31,22 @@ public class MatchReaderMain {
         new SummaryReport()
                 .withMatchResults(matchResult)
                 //.withMatchResult(List.of(engineController1, engineController2), matchResult)
+                .printReport(System.out);
+
+        new SessionReport()
+                //.withCollisionStatistics()
+                //.withNodesVisitedStatistics()
+                //.withCutoffStatistics()
+                .breakByColor()
+                .withMathResults(matchResult)
+                .printReport(System.out);
+
+
+        new SearchesReport()
+                //.withCutoffStatistics()
+                //.withNodesVisitedStatistics()
+                .withPrincipalVariation()
+                .withMathResults(matchResult)
                 .printReport(System.out);
     }
 

@@ -1,12 +1,16 @@
 package net.chesstango.tools.worker.match;
 
 
-import com.rabbitmq.client.*;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author Mauricio Coria
@@ -38,9 +42,14 @@ class MatchConsumer implements AutoCloseable {
     }
 
 
-    public void setupQueueConsumer(Function<MatchRequest, MatchResponse> matchFn, Runnable onConsumed){
+    public void setupQueueConsumer(Function<MatchRequest, MatchResponse> matchFn, Supplier<Boolean> cancelQueueConsumer, Runnable onConsumed) {
         try {
             cTag = channel.basicConsume(RPC_QUEUE_NAME, false, (consumerTag, delivery) -> {
+
+                if (cancelQueueConsumer.get()) {
+                    channel.basicCancel(cTag);
+                }
+
                 MatchRequest request = decodeRequest(delivery.getBody());
 
                 MatchResponse response = matchFn.apply(request);
@@ -56,17 +65,8 @@ class MatchConsumer implements AutoCloseable {
                 channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
 
                 onConsumed.run();
-
-            }, consumerTag -> {});
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void endQueueConsumer() {
-        try {
-            log.info("End queue consumer");
-            channel.basicCancel(cTag);
+            }, consumerTag -> {
+            });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

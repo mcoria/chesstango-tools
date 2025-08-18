@@ -52,12 +52,7 @@ public class MatchWorkerMain implements Runnable {
 
                 CountDownLatch countDownLatch = new CountDownLatch(10);
 
-                matchConsumer.setupQueueConsumer(matchWorker, () -> {
-                    if (countDownLatch.getCount() == 1) {
-                        matchConsumer.endQueueConsumer();
-                    }
-                    countDownLatch.countDown();
-                });
+                matchConsumer.setupQueueConsumer(matchWorker, () -> countDownLatch.getCount() == 1, countDownLatch::countDown);
 
                 log.info("Waiting for MatchRequest");
 

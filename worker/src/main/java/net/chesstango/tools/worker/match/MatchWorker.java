@@ -33,12 +33,14 @@ class MatchWorker implements Function<MatchRequest, MatchResponse> {
 
         Match match = new Match(whiteController, blackController, fen, matchType);
 
-        MatchResult result = match.play();
+        log.info("Starting match: {}", matchRequest.getMatchId());
+
+        MatchResult result = match.play(matchRequest.getMatchId());
 
         return new MatchResponse()
                 .setWhiteEngineName(result.pgn().getWhite())
                 .setBlackEngineName(result.pgn().getBlack())
-                .setFen(matchRequest.getFen())
+                .setMatchId(matchRequest.getMatchId())
                 .setMatchResult(result);
     }
 

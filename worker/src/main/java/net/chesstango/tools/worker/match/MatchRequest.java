@@ -19,6 +19,7 @@ public class MatchRequest implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private String matchId;
     private String whiteEngine;
     private String blackEngine;
     private FEN fen;

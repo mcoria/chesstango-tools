@@ -1,6 +1,7 @@
 package net.chesstango.tools.search.reports.arena;
 
 
+import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.tools.search.reports.evaluation.EvaluationReport;
 import net.chesstango.tools.search.reports.evaluation.EvaluationReportModel;
 import net.chesstango.tools.search.reports.nodes.NodesReport;
@@ -51,20 +52,22 @@ public class SearchesReport {
         matchResult.stream()
                 .filter(result -> result.whiteSearches() != null)
                 .forEach(result -> {
-                    String engineName = result.pgn().getWhite();
-                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, result.mathId()), result.whiteSearches());
-                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, result.mathId()), result.whiteSearches());
-                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, result.mathId()), result.whiteSearches());
+                    PGN pgn = result.pgn();
+                    String engineName = pgn.getWhite();
+                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, pgn.getEvent()), result.whiteSearches());
+                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, pgn.getEvent()), result.whiteSearches());
+                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, pgn.getEvent()), result.whiteSearches());
                     reportModels.add(new ReportModels(nodesReportModel, evaluationReportModel, principalVariationReportModel));
                 });
 
         matchResult.stream()
                 .filter(result -> result.blackSearches() != null)
                 .forEach(result -> {
-                    String engineName = result.pgn().getBlack();
-                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, result.mathId()), result.blackSearches());
-                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, result.mathId()), result.blackSearches());
-                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, result.mathId()), result.blackSearches());
+                    PGN pgn = result.pgn();
+                    String engineName = pgn.getBlack();
+                    NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(String.format("%s - %s", engineName, pgn.getEvent()), result.blackSearches());
+                    EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(String.format("%s - %s", engineName, pgn.getEvent()), result.blackSearches());
+                    PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(String.format("%s - %s", engineName, pgn.getEvent()), result.blackSearches());
                     reportModels.add(new ReportModels(nodesReportModel, evaluationReportModel, principalVariationReportModel));
                 });
         return this;

@@ -13,6 +13,7 @@ import net.chesstango.uci.arena.matchtypes.MatchType;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -80,6 +81,7 @@ public class MatchMasterMain implements Runnable {
                         .setBlackEngine(player2)
                         .setFen(fen)
                         .setMatchType(match)
+                        .setMatchId(UUID.randomUUID().toString())
                 );
 
         if (switchChairs) {
@@ -89,6 +91,7 @@ public class MatchMasterMain implements Runnable {
                             .setBlackEngine(player1)
                             .setFen(fen)
                             .setMatchType(match)
+                            .setMatchId(UUID.randomUUID().toString())
                     );
 
             result = Stream.concat(result, switchStream);

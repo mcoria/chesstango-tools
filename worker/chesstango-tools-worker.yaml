@@ -19,9 +19,9 @@ spec:
         - name: chesstango-tools-worker
           env:
             - name: RABBIT_HOST
-              value: "localhost"
+              value: "chesstango-rabbit"
             - name: ENGINE_CATALOG
-              value: "/engines"
+              value: "/windows/catalog_wine"
           image: chesstango-tools-worker:latest
           imagePullPolicy: IfNotPresent
       restartPolicy: Always

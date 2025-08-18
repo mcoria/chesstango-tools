@@ -24,5 +24,12 @@ spec:
               value: "/windows/catalog_wine"
           image: chesstango-tools-worker:latest
           imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: engine-volume
+              mountPath: /windows
+      volumes:
+        - name: engine-volume
+          hostPath:
+            path: /run/desktop/mnt/host/c/java/projects/chess/chess-utils/engines
       restartPolicy: Always
       

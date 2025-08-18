@@ -1,3 +1,3 @@
-FROM amazoncorretto:21
+FROM chesstango-tools-base:latest
 COPY target/chesstango-tools-worker.jar /tmp
-ENTRYPOINT ["java","-jar","/tmp/chesstango-tools-worker.jar"]
+CMD ["java","-jar","/tmp/chesstango-tools-worker.jar"]

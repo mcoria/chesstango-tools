@@ -18,6 +18,8 @@ class MatchConsumer implements AutoCloseable {
     private final Connection connection;
     private final Channel channel;
 
+    private String cTag;
+
     static MatchConsumer open(ConnectionFactory factory) throws IOException, TimeoutException {
         return new MatchConsumer(factory);
     }
@@ -38,7 +40,7 @@ class MatchConsumer implements AutoCloseable {
 
     public void setupQueueConsumer(Function<MatchRequest, MatchResponse> matchFn, Runnable onConsumed){
         try {
-            channel.basicConsume(RPC_QUEUE_NAME, false, (consumerTag, delivery) -> {
+            cTag = channel.basicConsume(RPC_QUEUE_NAME, false, (consumerTag, delivery) -> {
                 MatchRequest request = decodeRequest(delivery.getBody());
 
                 MatchResponse response = matchFn.apply(request);
@@ -56,6 +58,15 @@ class MatchConsumer implements AutoCloseable {
                 onConsumed.run();
 
             }, consumerTag -> {});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void endQueueConsumer() {
+        try {
+            log.info("End queue consumer");
+            channel.basicCancel(cTag);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -81,4 +92,5 @@ class MatchConsumer implements AutoCloseable {
             throw new RuntimeException(e);
         }
     }
+
 }

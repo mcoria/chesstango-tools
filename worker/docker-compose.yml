@@ -16,7 +16,9 @@ services:
         - rabbitmq
       environment:
         RABBIT_HOST: worker-rabbitmq-1
-        ENGINE_CATALOG: /
+        ENGINE_CATALOG: /windows/catalog_wine
+      volumes:
+        - C:/java/projects/chess/chess-utils/engines:/windows # Persist data to a named volume
 
 volumes:
   rabbitmq_data: # Define the named volume

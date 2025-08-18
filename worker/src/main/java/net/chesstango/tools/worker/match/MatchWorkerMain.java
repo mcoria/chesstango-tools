@@ -17,7 +17,7 @@ public class MatchWorkerMain implements Runnable {
     private final String enginesCatalog;
 
     public MatchWorkerMain(String rabbitHost, String enginesCatalog) {
-        if(rabbitHost == null || enginesCatalog == null){
+        if (rabbitHost == null || enginesCatalog == null) {
             throw new IllegalArgumentException("rabbitHost and enginesCatalog must be provided");
         }
         this.rabbitHost = rabbitHost;
@@ -50,13 +50,19 @@ public class MatchWorkerMain implements Runnable {
 
                 MatchWorker matchWorker = new MatchWorker(controllerProvider);
 
-                CountDownLatch countDownLatch = new CountDownLatch(100);
+                CountDownLatch countDownLatch = new CountDownLatch(10);
 
-                matchConsumer.setupQueueConsumer(matchWorker, countDownLatch::countDown);
+                matchConsumer.setupQueueConsumer(matchWorker, () -> {
+                    if (countDownLatch.getCount() == 1) {
+                        matchConsumer.endQueueConsumer();
+                    }
+                    countDownLatch.countDown();
+                });
 
                 log.info("Waiting for MatchRequest");
 
                 countDownLatch.await();
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

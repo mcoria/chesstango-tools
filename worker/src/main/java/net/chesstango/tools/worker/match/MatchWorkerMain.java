@@ -50,7 +50,7 @@ public class MatchWorkerMain implements Runnable {
 
                 MatchWorker matchWorker = new MatchWorker(controllerProvider);
 
-                CountDownLatch countDownLatch = new CountDownLatch(10);
+                CountDownLatch countDownLatch = new CountDownLatch(100);
 
                 matchConsumer.setupQueueConsumer(matchWorker, () -> countDownLatch.getCount() == 1, countDownLatch::countDown);
 

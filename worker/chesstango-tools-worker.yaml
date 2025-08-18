@@ -5,7 +5,7 @@ metadata:
   labels:
     app: chesstango-tools-worker
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: chesstango-tools-worker
@@ -19,7 +19,7 @@ spec:
         - name: chesstango-tools-worker
           env:
             - name: RABBIT_HOST
-              value: "chesstango-rabbit"
+              value: "chesstango-rabbit-svc.default.svc.cluster.local"
             - name: ENGINE_CATALOG
               value: "/windows/catalog_wine"
           image: chesstango-tools-worker:latest

@@ -24,7 +24,7 @@ public class MatchReaderMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchReaderMain.class);
 
     public static void main(String[] args) {
-        List<MatchResponse> matchResponses = loadMatchResponses("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\2025-08-17-03-46");
+        List<MatchResponse> matchResponses = loadMatchResponses("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\2025-08-18-02-56");
 
         List<MatchResult> matchResult = matchResponses.stream().map(MatchResponse::getMatchResult).toList();
 
@@ -33,6 +33,8 @@ public class MatchReaderMain {
                 //.withMatchResult(List.of(engineController1, engineController2), matchResult)
                 .printReport(System.out);
 
+
+        /*
         new SessionReport()
                 //.withCollisionStatistics()
                 //.withNodesVisitedStatistics()
@@ -48,6 +50,7 @@ public class MatchReaderMain {
                 .withPrincipalVariation()
                 .withMathResults(matchResult)
                 .printReport(System.out);
+         */
     }
 
     public static List<MatchResponse> loadMatchResponses(String directoryStr) {

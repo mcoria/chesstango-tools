@@ -10,13 +10,11 @@ import net.chesstango.tools.arena.MatchMultiple;
 import net.chesstango.tools.search.reports.arena.SearchesReport;
 import net.chesstango.tools.search.reports.arena.SessionReport;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
-import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.arena.ControllerFactory;
+import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.arena.listeners.MatchBroadcaster;
-import net.chesstango.uci.arena.listeners.MatchListenerToMBean;
 import net.chesstango.uci.arena.listeners.SavePGNGame;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
-import net.chesstango.uci.arena.matchtypes.MatchByTime;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 import net.chesstango.uci.gui.Controller;
 import org.apache.commons.pool2.ObjectPool;
@@ -37,7 +35,7 @@ import java.util.stream.Stream;
 public class MatchMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchMain.class);
 
-    private static final MatchType MATCH_TYPE = new MatchByDepth(2);
+    private static final MatchType MATCH_TYPE = new MatchByDepth(4);
     //private static final MatchType MATCH_TYPE = new MatchByTime(2000);
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
@@ -64,31 +62,27 @@ public class MatchMain {
     public static void main(String[] args) {
         //Supplier<Controller> engine1Supplier = ControllerFactory::createTangoController;
 
+
         /*
         Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithSearch(() ->
-                new AlphaBetaBuilder()
-                        .withGameEvaluatorCache()
-                        .withQuiescence()
-                        .withTranspositionTable()
-                        .withTranspositionMoveSorter()
-                        .withAspirationWindows()
-                        .withIterativeDeepening()
-                        .withStopProcessingCatch()
+                AlphaBetaBuilder
+                        .createDefaultBuilderInstance(Evaluator.getInstance())
                         .withStatistics()
                         .build()
         );
          */
 
+
         //Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp05::new);
 
-        /*
+
         Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerCustomConfig(config -> {
             config.setPolyglotFile(POLYGLOT_FILE);
             config.setSyzygyDirectory(SYZYGY_DIRECTORY);
         });
-         */
 
-        Supplier<Controller> engine1Supplier = () -> ControllerFactory.createProxyController(tango);
+
+        //Supplier<Controller> engine1Supplier = () -> ControllerFactory.createProxyController(tango);
 
 
         Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController(spike);
@@ -107,6 +101,7 @@ public class MatchMain {
                 .printReport(System.out);
 
 
+        /*
         new SessionReport()
                 //.withCollisionStatistics()
                 //.withNodesVisitedStatistics()
@@ -122,14 +117,14 @@ public class MatchMain {
                 .withPrincipalVariation()
                 .withMathResults(matchResult)
                 .printReport(System.out);
-
+        */
 
     }
 
     private static Stream<FEN> getFromPGN() {
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
-        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
-        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
+        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
 
@@ -163,10 +158,10 @@ public class MatchMain {
              ObjectPool<Controller> opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(engine2Supplier))) {
 
             MatchMultiple match = new MatchMultiple(parallelJobs, mainPool, opponentPool, MATCH_TYPE)
-                    .setPrintPGN (MATCH_DEBUG)
+                    .setPrintPGN(MATCH_DEBUG)
                     .setSwitchChairs(MATCH_SWITCH_CHAIRS)
                     .setMatchListener(new MatchBroadcaster()
-                            .addListener(new MatchListenerToMBean())
+                            //         .addListener(new MatchListenerToMBean())
                             .addListener(new SavePGNGame()));
 
             Instant start = Instant.now();

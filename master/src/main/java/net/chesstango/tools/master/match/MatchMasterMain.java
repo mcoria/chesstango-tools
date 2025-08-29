@@ -73,7 +73,8 @@ public class MatchMasterMain implements Runnable {
 
 
     private static List<MatchRequest> createMatchRequests(MatchType match, List<FEN> fenList, boolean switchChairs) {
-        String player1 = "class:DefaultTango";
+        //String player1 = "class:DefaultTango";
+        String player1 = "file:Tango";
         String player2 = "file:Spike";
         Stream<MatchRequest> result = fenList.stream()
                 .map(fen -> new MatchRequest()

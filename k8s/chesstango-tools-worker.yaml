@@ -17,13 +17,13 @@ spec:
     spec:
       containers:
         - name: chesstango-tools-worker
+          image: chesstango-tools-worker:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: RABBIT_HOST
               value: "chesstango-rabbit-svc.default.svc.cluster.local"
             - name: ENGINE_CATALOG
               value: "/windows/catalog_wine"
-          image: chesstango-tools-worker:latest
-          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: engine-volume
               mountPath: /windows

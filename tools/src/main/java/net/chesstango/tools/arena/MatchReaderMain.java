@@ -1,6 +1,6 @@
 package net.chesstango.tools.arena;
 
-import net.chesstango.tools.search.reports.arena.SummaryReport;
+import net.chesstango.tools.reports.arena.SummaryReport;
 import net.chesstango.tools.worker.match.MatchResponse;
 import net.chesstango.uci.arena.MatchResult;
 import org.slf4j.Logger;

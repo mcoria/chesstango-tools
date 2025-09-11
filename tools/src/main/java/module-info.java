@@ -4,9 +4,9 @@ module net.chesstango.tools {
     exports net.chesstango.tools.tuning.geneticproviders;
     exports net.chesstango.tools.tuning.factories;
     exports net.chesstango.tools.tuning;
-    exports net.chesstango.tools.search.reports.pv;
-    exports net.chesstango.tools.search.reports.nodes;
-    exports net.chesstango.tools.search.reports.evaluation;
+    exports net.chesstango.tools.reports.pv;
+    exports net.chesstango.tools.reports.nodes;
+    exports net.chesstango.tools.reports.evaluation;
     exports net.chesstango.tools.epd.epdfilters;
 
     requires net.chesstango.board;
@@ -31,7 +31,7 @@ module net.chesstango.tools {
     requires net.chesstango.tools.worker;
     requires com.rabbitmq.client;
 
-    opens net.chesstango.tools.search.reports.summary to com.fasterxml.jackson.databind;
+    opens net.chesstango.tools.reports.summary to com.fasterxml.jackson.databind;
     exports net.chesstango.tools.arena;
     exports net.chesstango.tools.epd;
 }

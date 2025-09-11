@@ -19,6 +19,8 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
 
+        <docker-skip>true</docker-skip>
+
         <!-- Plugins -->
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.3.0</maven-javadoc-plugin.version>
@@ -183,6 +185,16 @@
 
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -222,8 +234,83 @@
                         <createDependencyReducedPom>false</createDependencyReducedPom>
                     </configuration>
                 </plugin>
+
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.6.0</version>
+                    <configuration>
+                        <skip>${docker-skip}</skip>
+                    </configuration>
+                    <executions>
+                        <!-- Remove existing image from local repo -->
+                        <execution>
+                            <id>docker-clean</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>docker</executable>
+                                <workingDirectory>${project.basedir}</workingDirectory>
+                                <arguments>
+                                    <argument>rmi</argument>
+                                    <argument>-f</argument>
+                                    <argument>coriamauricio/${project.artifactId}:${project.version}
+                                    </argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <!--
+                          Create new docker image using Dockerfile which must be present in current working directory.
+                          Tag the image using maven project version information.
+                        -->
+                        <execution>
+                            <id>docker-build</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>docker</executable>
+                                <workingDirectory>${project.basedir}</workingDirectory>
+                                <arguments>
+                                    <argument>build</argument>
+                                    <argument>-t</argument>
+                                    <argument>coriamauricio/${project.artifactId}:${project.version}
+                                    </argument>
+                                    <argument>.</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>docker-push</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>docker</executable>
+                                <workingDirectory>${project.basedir}</workingDirectory>
+                                <arguments>
+                                    <argument>push</argument>
+                                    <argument>coriamauricio/${project.artifactId}:${project.version}</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <docker-skip>false</docker-skip>
+            </properties>
+        </profile>
+    </profiles>
 </project>

@@ -110,7 +110,8 @@
                 <configuration>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
                     <transformers>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                             <mainClass>net.chesstango.tools.worker.match.MatchWorkerMain</mainClass>
                         </transformer>
                     </transformers>
@@ -124,6 +125,10 @@
                     </filters>
                     <finalName>chesstango-match-worker</finalName>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

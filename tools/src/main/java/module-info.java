@@ -29,6 +29,8 @@ module net.chesstango.tools {
     requires static lombok;
     requires net.chesstango.mbeans;
     requires net.chesstango.tools.worker;
+    requires com.rabbitmq.client;
 
     opens net.chesstango.tools.search.reports.summary to com.fasterxml.jackson.databind;
+    exports net.chesstango.tools.arena;
 }

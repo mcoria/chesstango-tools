@@ -5,6 +5,8 @@ import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.search.dummy.Dummy;
+import net.chesstango.tools.arena.common.ControllerPoolFactory;
+import net.chesstango.tools.arena.common.MatchMultiple;
 import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.engine.UciTango;

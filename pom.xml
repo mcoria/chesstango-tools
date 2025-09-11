@@ -10,7 +10,6 @@
 
     <modules>
         <module>tools</module>
-        <module>master</module>
         <module>match-worker</module>
     </modules>
 

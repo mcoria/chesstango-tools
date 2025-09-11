@@ -47,6 +47,10 @@
         </dependency>
 
         <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
@@ -146,7 +150,7 @@
                             </excludes>
                         </filter>
                     </filters>
-                    <finalName>chesstango-legacy</finalName>
+                    <finalName>chesstango-tools</finalName>
                 </configuration>
             </plugin>
         </plugins>

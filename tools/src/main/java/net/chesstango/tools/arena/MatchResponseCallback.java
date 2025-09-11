@@ -1,4 +1,4 @@
-package net.chesstango.tools.master.match;
+package net.chesstango.tools.arena;
 
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.tools.worker.match.MatchResponse;

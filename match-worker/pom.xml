@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>worker</artifactId>
+    <artifactId>match-worker</artifactId>
     <packaging>jar</packaging>
 
     <properties>

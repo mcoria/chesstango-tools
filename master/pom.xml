@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>net.chesstango</groupId>
-            <artifactId>worker</artifactId>
+            <artifactId>match-worker</artifactId>
         </dependency>
         <dependency>
             <groupId>net.chesstango</groupId>

@@ -122,7 +122,7 @@
                             </excludes>
                         </filter>
                     </filters>
-                    <finalName>chesstango-tools-worker</finalName>
+                    <finalName>chesstango-match-worker</finalName>
                 </configuration>
             </plugin>
         </plugins>

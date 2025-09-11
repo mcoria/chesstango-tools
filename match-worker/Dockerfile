@@ -1,3 +1,3 @@
-FROM chesstango-tools-base:latest
-COPY target/chesstango-tools-worker.jar /tmp
-CMD ["java","-jar","/tmp/chesstango-tools-worker.jar"]
+FROM ghcr.io/graalvm/graalvm-community:21
+COPY target/chesstango-match-worker.jar /tmp
+CMD ["java","-jar","/tmp/chesstango-match-worker.jar"]

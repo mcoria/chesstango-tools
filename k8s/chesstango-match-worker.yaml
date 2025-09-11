@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chesstango-tools-worker
+  name: chesstango-match-worker
   labels:
-    app: chesstango-tools-worker
+    app: chesstango-match-worker
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: chesstango-tools-worker
+      app: chesstango-match-worker
   template:
     metadata:
-      name: chesstango-tools-worker
+      name: chesstango-match-worker
       labels:
-        app: chesstango-tools-worker
+        app: chesstango-match-worker
     spec:
       containers:
-        - name: chesstango-tools-worker
-          image: chesstango-tools-worker:latest
+        - name: chesstango-match-worker
+          image: chesstango-match-worker:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: RABBIT_HOST

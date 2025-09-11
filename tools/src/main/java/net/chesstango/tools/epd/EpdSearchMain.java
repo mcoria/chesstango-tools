@@ -1,4 +1,4 @@
-package net.chesstango.tools;
+package net.chesstango.tools.epd;
 
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.gardel.epd.EPD;

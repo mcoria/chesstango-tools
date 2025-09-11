@@ -1,4 +1,4 @@
-package net.chesstango.tools.epdfilters;
+package net.chesstango.tools.epd.epdfilters;
 
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.piazzolla.polyglot.PolyglotBook;

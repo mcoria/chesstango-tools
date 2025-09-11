@@ -1,7 +1,5 @@
-package net.chesstango.tools;
+package net.chesstango.tools.arena;
 
-import net.chesstango.tools.search.reports.arena.SearchesReport;
-import net.chesstango.tools.search.reports.arena.SessionReport;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
 import net.chesstango.tools.worker.match.MatchResponse;
 import net.chesstango.uci.arena.MatchResult;

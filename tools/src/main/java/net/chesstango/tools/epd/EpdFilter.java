@@ -1,11 +1,11 @@
-package net.chesstango.tools;
+package net.chesstango.tools.epd;
 
 import lombok.Setter;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.piazzolla.polyglot.PolyglotBook;
-import net.chesstango.tools.epdfilters.BookFilter;
-import net.chesstango.tools.epdfilters.PlayerFilter;
+import net.chesstango.tools.epd.epdfilters.BookFilter;
+import net.chesstango.tools.epd.epdfilters.PlayerFilter;
 import org.apache.commons.cli.*;
 
 import java.io.FileInputStream;

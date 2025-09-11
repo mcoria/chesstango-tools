@@ -7,7 +7,7 @@ module net.chesstango.tools {
     exports net.chesstango.tools.search.reports.pv;
     exports net.chesstango.tools.search.reports.nodes;
     exports net.chesstango.tools.search.reports.evaluation;
-    exports net.chesstango.tools.epdfilters;
+    exports net.chesstango.tools.epd.epdfilters;
 
     requires net.chesstango.board;
     requires net.chesstango.engine;
@@ -33,4 +33,5 @@ module net.chesstango.tools {
 
     opens net.chesstango.tools.search.reports.summary to com.fasterxml.jackson.databind;
     exports net.chesstango.tools.arena;
+    exports net.chesstango.tools.epd;
 }

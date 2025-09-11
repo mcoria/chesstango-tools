@@ -80,8 +80,10 @@ public class EpdSearchMain {
         this.depth = depth;
         this.epdSearch = new EpdSearch()
                 .setSearchSupplier(() -> AlphaBetaBuilder
-                        // Hasta v0.0.27 se utilizó EvaluatorSEandImp02 (ahora EvaluatorImp04) como evaluador
-                        .createDefaultBuilderInstance(Evaluator.getInstance())
+                        .createDefaultBuilderInstance()
+                        // Hasta v0.0.27 se utilizó EvaluatorSEandImp02
+                        // (ahora EvaluatorImp04) como evaluador
+                        .withGameEvaluator(Evaluator.getInstance())
                         .withStatistics()
                         .build())
                 .setDepth(depth)

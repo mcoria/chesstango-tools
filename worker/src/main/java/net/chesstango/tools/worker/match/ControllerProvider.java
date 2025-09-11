@@ -1,7 +1,6 @@
 package net.chesstango.tools.worker.match;
 
 import lombok.extern.slf4j.Slf4j;
-import net.chesstango.uci.arena.ControllerFactory;
 import net.chesstango.uci.gui.Controller;
 
 import java.nio.file.Path;
@@ -17,6 +16,9 @@ class ControllerProvider implements AutoCloseable {
 
     private final Path catalogDirectory;
 
+    /**
+     * Termina actuando como un pool de controles.
+     */
     private final Map<String, Controller> controllers = new HashMap<>();
 
     private ControllerProvider(Path catalogDirectory) {
@@ -31,7 +33,7 @@ class ControllerProvider implements AutoCloseable {
         return new ControllerProvider(catalogDirectory);
     }
 
-    Controller getController(String engineName) {
+    public Controller getController(String engineName) {
         return controllers.computeIfAbsent(engineName, this::openController);
     }
 
@@ -75,5 +77,4 @@ class ControllerProvider implements AutoCloseable {
             throw new RuntimeException("Failed to instantiate controller supplier: " + className, e);
         }
     }
-
 }

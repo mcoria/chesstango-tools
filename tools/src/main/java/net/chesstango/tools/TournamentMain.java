@@ -9,7 +9,7 @@ import net.chesstango.gardel.pgn.PGNStringDecoder;
 import net.chesstango.tools.arena.MatchListenerToMBeans;
 import net.chesstango.tools.arena.Tournament;
 import net.chesstango.tools.search.reports.arena.SummaryReport;
-import net.chesstango.uci.arena.ControllerFactory;
+import net.chesstango.tools.worker.match.ControllerFactory;
 import net.chesstango.uci.arena.MatchResult;
 import net.chesstango.uci.gui.Controller;
 import net.chesstango.uci.arena.listeners.CaptureMatchResult;

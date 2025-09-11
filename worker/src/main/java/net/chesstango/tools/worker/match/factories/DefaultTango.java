@@ -1,6 +1,6 @@
 package net.chesstango.tools.worker.match.factories;
 
-import net.chesstango.uci.arena.ControllerFactory;
+import net.chesstango.tools.worker.match.ControllerFactory;
 import net.chesstango.uci.gui.Controller;
 
 import java.util.function.Supplier;

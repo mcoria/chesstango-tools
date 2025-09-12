@@ -53,7 +53,7 @@ public class MatchMasterMain implements Runnable {
 
                 MatchResponseCallback callback = MatchResponseCallback.open(Path.of(matchStore));
 
-                List<MatchRequest> matchRequests = createMatchRequests(new MatchByDepth(4), getFEN(), true);
+                List<MatchRequest> matchRequests = createMatchRequests(new MatchByDepth(4), getFEN_FromPGN(), true);
 
                 CountDownLatch countDownLatch = new CountDownLatch(matchRequests.size());
 
@@ -74,7 +74,7 @@ public class MatchMasterMain implements Runnable {
 
     private static List<MatchRequest> createMatchRequests(MatchType match, List<FEN> fenList, boolean switchChairs) {
         //String player1 = "class:DefaultTango";
-        String player1 = "file:Tango-v0.0.28";
+        String player1 = "file:Tango-v1.1.0";
         String player2 = "file:Spike";
         Stream<MatchRequest> result = fenList.stream()
                 .map(fen -> new MatchRequest()
@@ -103,10 +103,10 @@ public class MatchMasterMain implements Runnable {
 
 
     private static List<FEN> getFEN_FromPGN() {
-        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
-        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
+        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
 
         return pgnStream

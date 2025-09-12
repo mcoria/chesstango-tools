@@ -22,7 +22,7 @@ public class MatchReaderMain {
     private static final Logger logger = LoggerFactory.getLogger(MatchReaderMain.class);
 
     public static void main(String[] args) {
-        List<MatchResponse> matchResponses = loadMatchResponses("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\2025-09-10-16-59");
+        List<MatchResponse> matchResponses = loadMatchResponses("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\2025-09-11-16-58");
 
         List<MatchResult> matchResult = matchResponses.stream().map(MatchResponse::getMatchResult).toList();
 

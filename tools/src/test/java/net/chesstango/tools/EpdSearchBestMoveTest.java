@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Mauricio Coria
  */
 public class EpdSearchBestMoveTest {
-    private static final boolean PRINT_REPORT = true;
+    private static final boolean PRINT_REPORT = false;
     private static EPDDecoder epdDecoder;
     private static EpdSearch epdSearch;
     private static DebugNodeTrap debugNodeTrap;
@@ -334,7 +334,7 @@ public class EpdSearchBestMoveTest {
                 .withIterativeDeepening()
 
                 //.withStopProcessingCatch()
-                .withPrintChain()
+                //.withPrintChain()
                 //.withZobristTracker()
                 //.withTrackEvaluations() // Consume demasiada memoria
                 //.withDebugSearchTree(debugNodeTrap, false, true, true)

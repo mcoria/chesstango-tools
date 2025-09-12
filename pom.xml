@@ -5,7 +5,7 @@
 
     <groupId>net.chesstango</groupId>
     <artifactId>engine-tools-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -46,7 +46,7 @@
         <rabitmq.verison>5.26.0</rabitmq.verison>
 
         <chesstango-engine.version>1.2.0-SNAPSHOT</chesstango-engine.version>
-        <uci-arena.version>1.0.0-SNAPSHOT</uci-arena.version>
+        <uci-arena.version>1.2.0-SNAPSHOT</uci-arena.version>
     </properties>
 
     <dependencyManagement>

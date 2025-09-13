@@ -295,11 +295,18 @@ public class EpdSearchBestMoveTest {
         assertTrue(epdSearchResult.isSearchSuccess());
     }
 
-
     @Test
     public void test_sbd_058() {
         epdSearch.setDepth(5);
         EPD epd = epdDecoder.readEdpLine("r1bqk2r/2ppbppp/p1n2n2/1p2p3/4P3/1B3N2/PPPPQPPP/RNB2RK1 b kq - bm O-O; id \"sbd.058\";");
+        epdSearchResult = epdSearch.run(buildSearchMove(new EvaluatorImp04()), epd);
+        assertTrue(epdSearchResult.isSearchSuccess());
+    }
+
+    @Test
+    public void test_40H_1043() {
+        epdSearch.setDepth(5);
+        EPD epd = epdDecoder.readEdpLine("r1b1Rbkr/pp4pp/2p3n1/3p2BB/8/2N2R2/PPP2PPP/2K5 w - - bm Re8xf8+; ce +M2; pv Re8xf8+ Ng6xf8 Bh5-f7+; id \"1043\";");
         epdSearchResult = epdSearch.run(buildSearchMove(new EvaluatorImp04()), epd);
         assertTrue(epdSearchResult.isSearchSuccess());
     }

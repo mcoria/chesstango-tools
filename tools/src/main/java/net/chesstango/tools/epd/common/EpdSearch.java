@@ -2,6 +2,7 @@ package net.chesstango.tools.epd.common;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
 import net.chesstango.board.Game;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.fen.FEN;
@@ -30,9 +31,8 @@ import java.util.stream.Stream;
  */
 @Setter
 @Accessors(chain = true)
+@Slf4j
 public class EpdSearch {
-    private static final Logger logger = LoggerFactory.getLogger(EpdSearch.class);
-
     private Supplier<Search> searchSupplier;
 
     private EpdSearchResultBuilder epdSearchResultBuilder = EpdSearchResult::new;
@@ -77,10 +77,10 @@ public class EpdSearch {
 
                     } catch (RuntimeException e) {
                         e.printStackTrace(System.err);
-                        logger.error(String.format("Error processing: %s", epd.getText()));
+                        log.error("Error processing: {}", epd.getText());
                         throw e;
                     } catch (InterruptedException e) {
-                        logger.error(String.format("Thread interrupted while processing: %s", epd.getText()));
+                        log.error("Thread interrupted while processing: {}", epd.getText());
                         e.printStackTrace(System.err);
                         throw new RuntimeException(e);
                     } finally {
@@ -106,7 +106,7 @@ public class EpdSearch {
                     }
                 }
             } catch (InterruptedException e) {
-                logger.error("Stopping executorService....");
+                log.error("Stopping executorService....");
                 executorService.shutdownNow();
             }
         }

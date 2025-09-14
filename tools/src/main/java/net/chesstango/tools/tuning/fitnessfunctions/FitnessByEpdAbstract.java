@@ -6,8 +6,8 @@ import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchResult;
-import net.chesstango.tools.epd.common.EpdSearch;
-import net.chesstango.tools.epd.common.EpdSearchResult;
+import net.chesstango.tools.worker.epd.EpdSearch;
+import net.chesstango.tools.worker.epd.EpdSearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

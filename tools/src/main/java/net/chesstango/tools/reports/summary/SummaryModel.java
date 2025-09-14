@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import net.chesstango.board.representations.move.SimpleMoveEncoder;
 import net.chesstango.search.SearchResultByDepth;
 import net.chesstango.search.SearchResult;
-import net.chesstango.tools.epd.common.EpdSearchResult;
+import net.chesstango.tools.worker.epd.EpdSearchResult;
 import net.chesstango.tools.reports.epd.EpdSearchReportModel;
 import net.chesstango.tools.reports.evaluation.EvaluationReportModel;
 import net.chesstango.tools.reports.nodes.NodesReportModel;

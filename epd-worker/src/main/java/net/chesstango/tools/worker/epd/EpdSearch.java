@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd.common;
+package net.chesstango.tools.worker.epd;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -9,8 +9,6 @@ import net.chesstango.gardel.fen.FEN;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchParameter;
 import net.chesstango.search.SearchResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.time.Instant;

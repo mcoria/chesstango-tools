@@ -1,4 +1,4 @@
-module net.chesstango.tools.worker {
+module net.chesstango.tools.worker.match {
     exports net.chesstango.tools.worker.match;
 
     requires net.chesstango.uci.arena;

@@ -5,9 +5,9 @@ import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.engine.Tango;
 import net.chesstango.search.builders.AlphaBetaBuilder;
-import net.chesstango.tools.epd.common.EpdSearch;
-import net.chesstango.tools.epd.common.EpdSearchResult;
-import net.chesstango.tools.epd.common.EpdSearchResultBuildWithBestMove;
+import net.chesstango.tools.worker.epd.EpdSearch;
+import net.chesstango.tools.worker.epd.EpdSearchResult;
+import net.chesstango.tools.worker.epd.EpdSearchResultBuildWithBestMove;
 import net.chesstango.tools.reports.epd.EpdSearchReport;
 import net.chesstango.tools.reports.epd.EpdSearchReportModel;
 import net.chesstango.tools.reports.evaluation.EvaluationReport;
@@ -103,8 +103,6 @@ public class EpdSearchMain {
         List<EpdSearchResult> epdSearchResults = epdSearch.run(epdEntryStream);
 
         report(suitePath, epdSearchResults);
-
-        //System.gc();
     }
 
     private void report(Path suitePath, List<EpdSearchResult> epdSearchResults) {

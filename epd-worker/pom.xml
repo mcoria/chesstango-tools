@@ -9,7 +9,7 @@
         <version>1.2.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tools</artifactId>
+    <artifactId>epd-worker</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -22,57 +22,19 @@
     <dependencies>
         <dependency>
             <groupId>net.chesstango</groupId>
-            <artifactId>board</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.chesstango</groupId>
-            <artifactId>evaluation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.chesstango</groupId>
-            <artifactId>search</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.chesstango</groupId>
-            <artifactId>engine</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.chesstango</groupId>
             <artifactId>uci-arena</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.chesstango</groupId>
-            <artifactId>match-worker</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.chesstango</groupId>
-            <artifactId>epd-worker</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.rabbitmq</groupId>
-            <artifactId>amqp-client</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.jenetics</groupId>
-            <artifactId>jenetics</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.py4j</groupId>
-            <artifactId>py4j</artifactId>
         </dependency>
 
         <dependency>
@@ -154,6 +116,12 @@
                         <artifactId>maven-shade-plugin</artifactId>
                         <configuration>
                             <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>net.chesstango.tools.worker.match.MatchWorkerMain</mainClass>
+                                </transformer>
+                            </transformers>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -162,13 +130,26 @@
                                     </excludes>
                                 </filter>
                             </filters>
-                            <finalName>chesstango-tools</finalName>
+                            <finalName>chesstango-match-worker</finalName>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
-
 
 </project>

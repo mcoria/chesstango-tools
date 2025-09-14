@@ -8,6 +8,8 @@ module net.chesstango.tools {
     exports net.chesstango.tools.reports.nodes;
     exports net.chesstango.tools.reports.evaluation;
     exports net.chesstango.tools.epd.epdfilters;
+    exports net.chesstango.tools.arena;
+    exports net.chesstango.tools.epd;
 
     requires net.chesstango.board;
     requires net.chesstango.engine;
@@ -18,6 +20,8 @@ module net.chesstango.tools {
     requires net.chesstango.uci.arena;
     requires net.chesstango.uci.engine;
     requires net.chesstango.uci.gui;
+    requires net.chesstango.mbeans;
+    requires net.chesstango.tools.worker.match;
 
     requires com.fasterxml.jackson.databind;
     requires org.slf4j;
@@ -27,11 +31,8 @@ module net.chesstango.tools {
     requires py4j;
 
     requires static lombok;
-    requires net.chesstango.mbeans;
-    requires net.chesstango.tools.worker;
     requires com.rabbitmq.client;
+    requires net.chesstango.tools.worker.epd;
 
     opens net.chesstango.tools.reports.summary to com.fasterxml.jackson.databind;
-    exports net.chesstango.tools.arena;
-    exports net.chesstango.tools.epd;
 }

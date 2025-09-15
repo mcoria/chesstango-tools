@@ -1,4 +1,4 @@
-package net.chesstango.tools.arena;
+package net.chesstango.tools.arena.master;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -24,7 +24,7 @@ public class MatchProducer implements AutoCloseable {
     private final String replyQueueName;
     private String ctag;
 
-    static MatchProducer open(ConnectionFactory factory) throws IOException, TimeoutException {
+    public static MatchProducer open(ConnectionFactory factory) throws IOException, TimeoutException {
         return new MatchProducer(factory);
     }
 

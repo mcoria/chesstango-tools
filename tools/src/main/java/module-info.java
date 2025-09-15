@@ -35,4 +35,5 @@ module net.chesstango.tools {
     requires net.chesstango.tools.worker.epd;
 
     opens net.chesstango.tools.reports.summary to com.fasterxml.jackson.databind;
+    exports net.chesstango.tools.arena.master;
 }

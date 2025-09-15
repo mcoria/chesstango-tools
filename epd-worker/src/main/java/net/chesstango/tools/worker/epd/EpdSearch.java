@@ -9,6 +9,8 @@ import net.chesstango.gardel.fen.FEN;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchParameter;
 import net.chesstango.search.SearchResult;
+import net.chesstango.tools.worker.epd.result.EpdSearchResult;
+import net.chesstango.tools.worker.epd.result.EpdSearchResultBuilder;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -39,7 +41,7 @@ public class EpdSearch {
 
     private Integer timeOut;
 
-    public List<EpdSearchResult> run(Stream<EPD> edpEntries) {
+    public List<EpdSearchResult> run(List<EPD> edpEntries) {
         final int availableCores = Runtime.getRuntime().availableProcessors();
 
         AtomicInteger pendingJobsCounter = new AtomicInteger(0);

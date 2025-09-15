@@ -1,4 +1,4 @@
-package net.chesstango.tools.arena;
+package net.chesstango.tools.arena.master;
 
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.tools.worker.match.MatchResponse;
@@ -19,7 +19,7 @@ import java.util.function.Consumer;
  */
 
 @Slf4j
-class MatchResponseCallback implements Consumer<MatchResponse> {
+public class MatchResponseCallback implements Consumer<MatchResponse> {
     private static final String SESSION_ID = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm"));
 
     private final Path sessionDirectory;
@@ -28,7 +28,7 @@ class MatchResponseCallback implements Consumer<MatchResponse> {
         this.sessionDirectory = sessionDirectory;
     }
 
-    static MatchResponseCallback open(Path matchStore) {
+    public static MatchResponseCallback open(Path matchStore) {
         Path sessionDirectory = matchStore.resolve(String.format("%s", SESSION_ID));
         try {
             Files.createDirectory(sessionDirectory);
@@ -44,7 +44,7 @@ class MatchResponseCallback implements Consumer<MatchResponse> {
 
     @Override
     public void accept(MatchResponse matchResponse) {
-        String filename = String.format("match_%s.ser", UUID.randomUUID());
+        String filename = String.format("match_%s.ser", matchResponse.getMatchId());
         Path filePath = sessionDirectory.resolve(filename);
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath.toFile()))) {
             oos.writeObject(matchResponse);

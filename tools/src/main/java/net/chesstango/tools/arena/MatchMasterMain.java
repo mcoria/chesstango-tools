@@ -7,6 +7,8 @@ import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.gardel.pgn.PGNStringDecoder;
+import net.chesstango.tools.arena.master.MatchProducer;
+import net.chesstango.tools.arena.master.MatchResponseCallback;
 import net.chesstango.tools.worker.match.MatchRequest;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.arena.matchtypes.MatchType;

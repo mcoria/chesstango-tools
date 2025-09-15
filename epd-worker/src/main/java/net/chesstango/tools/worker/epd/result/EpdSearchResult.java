@@ -1,4 +1,4 @@
-package net.chesstango.tools.worker.epd;
+package net.chesstango.tools.worker.epd.result;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,18 +6,24 @@ import lombok.experimental.Accessors;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.search.SearchResult;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * @author Mauricio Coria
  */
 @Accessors(chain = true)
 @Getter
 @Setter
-public class EpdSearchResult {
+public class EpdSearchResult implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final EPD epd;
 
     private final SearchResult searchResult;
 
-    boolean isSearchSuccess;
+    private boolean isSearchSuccess;
 
     private String bestMoveFound;
 

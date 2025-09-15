@@ -37,6 +37,7 @@ class EpdSearchWorker implements Function<EpdSearchRequest, EpdSearchResponse> {
         List<EpdSearchResult> epdSearchResults = epdSearch.run(epdSearchRequest.getEpdList());
 
         return new EpdSearchResponse()
-                .setEpdSearchResults(epdSearchResults);
+                .setEpdSearchResults(epdSearchResults)
+                .setSearchId(epdSearchRequest.getSearchId());
     }
 }

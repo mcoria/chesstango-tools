@@ -19,9 +19,8 @@ public class EpdSearchRequest implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private String searchId;
     private List<EPD> epdList;
-
     private int depth;
-
     private int timeOut;
 }

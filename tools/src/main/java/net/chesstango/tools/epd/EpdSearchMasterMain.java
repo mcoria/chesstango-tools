@@ -114,6 +114,8 @@ public class EpdSearchMasterMain implements Runnable {
             List<EPD> edpEntries = reader.readEpdFile(epdFile);
 
             EpdSearchRequest epdSearchRequest = new EpdSearchRequest();
+
+            epdSearchRequest.setSearchId(getFileName(epdFile.getFileName().toString()));
             epdSearchRequest.setEpdList(edpEntries);
             epdSearchRequest.setDepth(depth);
             epdSearchRequest.setTimeOut(timeOut);
@@ -121,5 +123,10 @@ public class EpdSearchMasterMain implements Runnable {
             epdSearchRequests.add(epdSearchRequest);
         }
         return epdSearchRequests;
+    }
+
+    public static String getFileName(String fileName) {
+        int dotIndex = fileName.lastIndexOf('.');
+        return (dotIndex == -1) ? fileName : fileName.substring(0, dotIndex);
     }
 }

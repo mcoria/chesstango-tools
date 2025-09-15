@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
@@ -24,7 +23,7 @@ public class EpdSearchResponseCallback implements Consumer<EpdSearchResponse> {
 
     @Override
     public void accept(EpdSearchResponse epdSearchResponse) {
-        String filename = String.format("epdSearch_%s.ser", UUID.randomUUID());
+        String filename = String.format("epdSearch_%s.ser", epdSearchResponse.getSearchId());
         Path filePath = sessionDirectory.resolve(filename);
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath.toFile()))) {
             oos.writeObject(epdSearchResponse);

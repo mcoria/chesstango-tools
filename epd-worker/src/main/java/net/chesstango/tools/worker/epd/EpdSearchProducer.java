@@ -20,7 +20,6 @@ public class EpdSearchProducer {
     public EpdSearchProducer(Channel channel) throws IOException {
         this.channel = channel;
         channel.queueDeclare(EPD_RESPONSES_QUEUE_NAME, false, false, false, null);
-        channel.queuePurge(EPD_RESPONSES_QUEUE_NAME);
     }
 
     public void publish(EpdSearchResponse epdSearchResponse) {

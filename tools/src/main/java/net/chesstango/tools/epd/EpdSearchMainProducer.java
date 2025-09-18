@@ -29,7 +29,7 @@ public class EpdSearchMainProducer implements Runnable {
      * 4. Filtro de archivos
      * <p>
      * Ejemplo:
-     * 4 500 C:\java\projects\chess\chess-utils\testing\positions\database "(mate-[wb][123].epd|Bratko-Kopec.epd|wac-2018.epd|STS*.epd)"
+     * 4 500 C:\java\projects\chess\chess-utils\testing\positions\database "(mate-[wb][123].epd|Bratko-Kopec.epd|wac-2018.epd|STS*.epd|Nolot.epd|sbd.epd)"
      *
      * @param args
      */
@@ -100,6 +100,8 @@ public class EpdSearchMainProducer implements Runnable {
 
         EPDDecoder reader = new EPDDecoder();
         for (Path epdFile : epdFiles) {
+            log.info("Reading {}", epdFile.getFileName());
+
             List<EPD> edpEntries = reader.readEpdFile(epdFile);
 
             EpdSearchRequest epdSearchRequest = new EpdSearchRequest()

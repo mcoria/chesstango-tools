@@ -79,6 +79,8 @@ public class EpdSearchMainConsumer implements Runnable {
 
         EpdSearchReportSaver epdSearchReportSaver = new EpdSearchReportSaver(sessionDirectory);
 
+        log.info("Saving report for {}", epdSearchResponse.getSearchId());
+
         epdSearchReportSaver.saveReport(epdSearchResponse.getSearchId(), epdSearchResponse.getEpdSearchResults());
     }
 }

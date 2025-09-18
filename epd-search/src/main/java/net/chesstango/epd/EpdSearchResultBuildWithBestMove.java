@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd.common;
+package net.chesstango.epd;
 
 import net.chesstango.board.moves.Move;
 import net.chesstango.gardel.epd.EPD;
@@ -15,10 +15,12 @@ public class EpdSearchResultBuildWithBestMove implements EpdSearchResultBuilder 
     @Override
     public EpdSearchResult apply(EPD epd, SearchResult searchResult) {
         Move bestMove = searchResult.getBestMove();
+        String moveCoordinate = bestMove.coordinateEncoding();
+        boolean success = epd.isMoveSuccess(moveCoordinate);
 
         return new EpdSearchResult(epd, searchResult)
-                .setSearchSuccess(epd.isMoveSuccess(bestMove.coordinateEncoding()))
-                .setBestMoveFound(bestMove.coordinateEncoding())
+                .setBestMoveFound(moveCoordinate)
+                .setSearchSuccess(success)
                 .setDepthAccuracyPct(calculateAccuracy(epd, searchResult.getSearchResultByDepths()));
     }
 

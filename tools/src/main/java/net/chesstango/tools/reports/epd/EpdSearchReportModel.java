@@ -1,6 +1,6 @@
 package net.chesstango.tools.reports.epd;
 
-import net.chesstango.tools.epd.common.EpdSearchResult;
+import net.chesstango.epd.EpdSearchResult;
 import net.chesstango.search.SearchResult;
 
 import java.util.ArrayList;

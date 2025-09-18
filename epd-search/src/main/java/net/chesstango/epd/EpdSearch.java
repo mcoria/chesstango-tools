@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd.common;
+package net.chesstango.epd;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -9,8 +9,6 @@ import net.chesstango.gardel.fen.FEN;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchParameter;
 import net.chesstango.search.SearchResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -24,7 +22,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * @author Mauricio Coria
@@ -41,7 +38,7 @@ public class EpdSearch {
 
     private Integer timeOut;
 
-    public List<EpdSearchResult> run(Stream<EPD> edpEntries) {
+    public List<EpdSearchResult> run(List<EPD> edpEntries) {
         final int availableCores = Runtime.getRuntime().availableProcessors();
 
         AtomicInteger pendingJobsCounter = new AtomicInteger(0);

@@ -11,9 +11,9 @@ import net.chesstango.search.smart.features.debug.model.DebugNode;
 import net.chesstango.search.smart.features.debug.traps.ComposedTrap;
 import net.chesstango.search.smart.features.debug.traps.actions.PrintForUnitTest;
 import net.chesstango.search.smart.features.debug.traps.predicates.NodeByZobrist;
-import net.chesstango.tools.epd.common.EpdSearch;
-import net.chesstango.tools.epd.common.EpdSearchResult;
-import net.chesstango.tools.epd.common.EpdSearchResultBuildWithBestMove;
+import net.chesstango.epd.EpdSearch;
+import net.chesstango.epd.EpdSearchResult;
+import net.chesstango.epd.EpdSearchResultBuildWithBestMove;
 import net.chesstango.tools.reports.evaluation.EvaluationReport;
 import net.chesstango.tools.reports.nodes.NodesReport;
 import net.chesstango.tools.reports.pv.PrincipalVariationReport;
@@ -296,6 +296,14 @@ public class EpdSearchBestMoveTest {
     }
 
     @Test
+    public void test_40H_1043() {
+        epdSearch.setDepth(5);
+        EPD epd = epdDecoder.readEdpLine("r1b1Rbkr/pp4pp/2p3n1/3p2BB/8/2N2R2/PPP2PPP/2K5 w - - bm Re8xf8+; ce +M2; pv Re8xf8+ Ng6xf8 Bh5-f7+; id \"1043\";");
+        epdSearchResult = epdSearch.run(buildSearchMove(new EvaluatorImp04()), epd);
+        assertTrue(epdSearchResult.isSearchSuccess());
+    }
+
+    @Test
     public void test_sbd_058() {
         epdSearch.setDepth(5);
         EPD epd = epdDecoder.readEdpLine("r1bqk2r/2ppbppp/p1n2n2/1p2p3/4P3/1B3N2/PPPPQPPP/RNB2RK1 b kq - bm O-O; id \"sbd.058\";");
@@ -304,9 +312,9 @@ public class EpdSearchBestMoveTest {
     }
 
     @Test
-    public void test_40H_1043() {
+    public void test_kaufman_pos3() {
         epdSearch.setDepth(5);
-        EPD epd = epdDecoder.readEdpLine("r1b1Rbkr/pp4pp/2p3n1/3p2BB/8/2N2R2/PPP2PPP/2K5 w - - bm Re8xf8+; ce +M2; pv Re8xf8+ Ng6xf8 Bh5-f7+; id \"1043\";");
+        EPD epd = epdDecoder.readEdpLine("3r2k1/1p3ppp/2pq4/p1n5/P6P/1P6/1PB2QP1/1K2R3 w - - am Rd1; id \"position 03\";");
         epdSearchResult = epdSearch.run(buildSearchMove(new EvaluatorImp04()), epd);
         assertTrue(epdSearchResult.isSearchSuccess());
     }

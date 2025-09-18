@@ -9,7 +9,7 @@ import java.io.PrintStream;
 /**
  * @author Mauricio Coria
  */
-public class SummarySaver {
+public class SummaryPrinter {
 
     private SummaryModel reportModel;
 
@@ -24,7 +24,7 @@ public class SummarySaver {
     }
 
 
-    public SummarySaver withSearchSummaryModel(SummaryModel summaryModel) {
+    public SummaryPrinter withSearchSummaryModel(SummaryModel summaryModel) {
         this.reportModel = summaryModel;
         return this;
     }

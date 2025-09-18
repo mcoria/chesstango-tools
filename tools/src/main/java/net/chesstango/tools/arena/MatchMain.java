@@ -1,5 +1,6 @@
 package net.chesstango.tools.arena;
 
+import lombok.extern.slf4j.Slf4j;
 import net.chesstango.board.Game;
 import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.fen.FENParser;
@@ -30,8 +31,8 @@ import java.util.stream.Stream;
 /**
  * @author Mauricio Coria
  */
+@Slf4j
 public class MatchMain {
-    private static final Logger logger = LoggerFactory.getLogger(MatchMain.class);
 
     private static final MatchType MATCH_TYPE = new MatchByDepth(4);
     //private static final MatchType MATCH_TYPE = new MatchByTime(2000);
@@ -166,7 +167,7 @@ public class MatchMain {
 
             List<MatchResult> matchResult = match.play(fenStream);
 
-            logger.info("Time taken: {} ms", Duration.between(start, Instant.now()).toMillis());
+            log.info("Time taken: {} ms", Duration.between(start, Instant.now()).toMillis());
 
             return matchResult;
         }

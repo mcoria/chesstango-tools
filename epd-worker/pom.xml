@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>net.chesstango</groupId>
-            <artifactId>uci-arena</artifactId>
+            <artifactId>search</artifactId>
         </dependency>
         <dependency>
             <groupId>net.chesstango</groupId>
@@ -38,11 +38,6 @@
         </dependency>
 
         <!-- logback: Este provider es excluyente con slf4j-nop -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -97,7 +92,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>net.chesstango.tools.worker.match.MatchWorkerMain</mainClass>
+                                    <mainClass>net.chesstango.tools.worker.epd.EpdSearchWorkerMain</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>
@@ -108,7 +103,7 @@
                                     </excludes>
                                 </filter>
                             </filters>
-                            <finalName>chesstango-match-worker</finalName>
+                            <finalName>chesstango-epd-worker</finalName>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -116,9 +111,6 @@
         </profile>
         <profile>
             <id>docker</id>
-            <properties>
-                <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
-            </properties>
             <build>
                 <plugins>
                     <plugin>

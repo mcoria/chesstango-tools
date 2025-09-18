@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd.queue;
+package net.chesstango.tools.epd;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

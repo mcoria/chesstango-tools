@@ -8,11 +8,11 @@ import java.util.Objects;
 /**
  * @author Mauricio Coria
  */
-public class PrintPrincipalVariation {
+public class PrincipalVariationReportPrinter {
     private final PrintStream out;
     private final PrincipalVariationReportModel reportModel;
 
-    public PrintPrincipalVariation(PrintStream out, PrincipalVariationReportModel reportModel) {
+    public PrincipalVariationReportPrinter(PrintStream out, PrincipalVariationReportModel reportModel) {
         this.out = out;
         this.reportModel = reportModel;
     }
@@ -20,7 +20,7 @@ public class PrintPrincipalVariation {
     public void printPrincipalVariation() {
         out.printf("AccuracyAvgPercentageTotal: %d%%\n\n", reportModel.pvAccuracyAvgPercentageTotal);
 
-        out.printf("Principal Variations\n");
+        out.print("Principal Variations\n");
         // Cuerpo
         for (PrincipalVariationReportModel.PrincipalVariationReportModelDetail moveDetail : reportModel.moveDetails) {
             out.printf("%6s: %s", moveDetail.move, moveDetail.principalVariation);
@@ -36,7 +36,7 @@ public class PrintPrincipalVariation {
                 out.printf("; ID=%s", moveDetail.id);
             }
 
-            out.printf("\n");
+            out.print("\n");
         }
     }
 }

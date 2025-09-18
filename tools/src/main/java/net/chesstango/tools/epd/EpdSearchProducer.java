@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd.queue;
+package net.chesstango.tools.epd;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -6,11 +6,8 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.tools.worker.epd.EpdSearchRequest;
-import net.chesstango.tools.worker.epd.EpdSearchResponse;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.concurrent.TimeoutException;
 
 import static net.chesstango.tools.worker.epd.EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME;

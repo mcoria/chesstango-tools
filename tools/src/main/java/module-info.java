@@ -23,6 +23,8 @@ module net.chesstango.tools {
     requires net.chesstango.uci.gui;
     requires net.chesstango.mbeans;
     requires net.chesstango.tools.worker.match;
+    requires net.chesstango.tools.worker.epd;
+    requires net.chesstango.epd;
 
     requires com.fasterxml.jackson.databind;
     requires org.slf4j;
@@ -33,9 +35,6 @@ module net.chesstango.tools {
 
     requires static lombok;
     requires com.rabbitmq.client;
-    requires net.chesstango.tools.worker.epd;
-    requires net.chesstango.epd;
 
     opens net.chesstango.tools.reports.summary to com.fasterxml.jackson.databind;
-    exports net.chesstango.tools.epd.queue;
 }

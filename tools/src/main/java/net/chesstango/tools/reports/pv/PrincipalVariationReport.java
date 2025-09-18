@@ -33,7 +33,7 @@ public class PrincipalVariationReport {
         out.printf("--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         out.printf("PrincipalVariationReport: %s\n\n", reportModel.reportTitle);
 
-        new PrintPrincipalVariation(out, reportModel).printPrincipalVariation();
+        new PrincipalVariationReportPrinter(out, reportModel).printPrincipalVariation();
     }
 
 

@@ -4,7 +4,6 @@ import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.epd.EPDDecoder;
-import net.chesstango.tools.epd.queue.EpdSearchProducer;
 import net.chesstango.tools.worker.epd.EpdSearchRequest;
 
 import java.nio.file.Files;

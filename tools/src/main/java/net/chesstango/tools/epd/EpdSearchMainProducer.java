@@ -104,7 +104,7 @@ public class EpdSearchMainProducer implements Runnable {
 
             EpdSearchRequest epdSearchRequest = new EpdSearchRequest()
                     .setSessionId(sessionId)
-                    .setSearchId(getFileName(epdFile.getFileName().toString()))
+                    .setSearchId(epdFile.getFileName().toString())
                     .setEpdList(edpEntries)
                     .setDepth(depth)
                     .setTimeOut(timeOut);
@@ -114,8 +114,4 @@ public class EpdSearchMainProducer implements Runnable {
         return epdSearchRequests;
     }
 
-    public static String getFileName(String fileName) {
-        int dotIndex = fileName.lastIndexOf('.');
-        return (dotIndex == -1) ? fileName : fileName.substring(0, dotIndex);
-    }
 }

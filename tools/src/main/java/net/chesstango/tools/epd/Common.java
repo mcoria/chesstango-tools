@@ -1,9 +1,9 @@
 package net.chesstango.tools.epd;
 
+import lombok.extern.slf4j.Slf4j;
 import net.chesstango.engine.Tango;
 
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 /**
  * @author Mauricio Coria
  */
+@Slf4j
 class Common {
 
     static final String SEARCH_SESSION_DATE = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm"));
@@ -32,15 +33,18 @@ class Common {
     static Path createSessionDirectory(Path suiteDirectory, String sessionId) {
         Path sessionDirectory = suiteDirectory.resolve(sessionId);
 
+        if (Files.exists(sessionDirectory)) {
+            log.warn("Session directory already exists {}", sessionDirectory.getFileName().toString());
+            return sessionDirectory;
+        }
+
+
         try {
-            Files.createDirectory(sessionDirectory);
-        } catch (FileAlreadyExistsException e) {
-            System.err.printf("Session directory already exists %s\n", sessionDirectory.getFileName().toString());
+            log.info("Creating session directory {}", sessionDirectory.getFileName().toString());
+            return Files.createDirectory(sessionDirectory);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return sessionDirectory;
     }
 
     static List<Path> listEpdFiles(Path suiteDirectory, String filePattern) {

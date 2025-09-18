@@ -29,6 +29,7 @@ public class EpdSearchConsumer implements AutoCloseable {
     public EpdSearchConsumer(ConnectionFactory factory) throws IOException, TimeoutException {
         this.connection = factory.newConnection();
         this.channel = connection.createChannel();
+        this.channel.basicQos(1);
     }
 
     @Override

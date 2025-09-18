@@ -47,6 +47,8 @@ public class EpdSearchWorkerMain implements Runnable {
             try (Connection connection = factory.newConnection();
                  Channel channel = connection.createChannel();) {
 
+                channel.basicQos(1);
+
                 log.info("Connected to RabbitMQ");
 
                 try (EpdSearchConsumer epdSearchConsumer = new EpdSearchConsumer(channel)) {

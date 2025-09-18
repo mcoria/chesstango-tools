@@ -30,6 +30,7 @@ public class EpdSearchProducer implements AutoCloseable {
         this.channel = connection.createChannel();
         channel.queueDeclare(EPD_REQUESTS_QUEUE_NAME, false, false, false, null);
         channel.queuePurge(EPD_REQUESTS_QUEUE_NAME);
+        channel.basicQos(1);
     }
 
     @Override

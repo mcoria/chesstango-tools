@@ -15,9 +15,9 @@ import net.chesstango.tools.reports.pv.PrincipalVariationReport;
 import net.chesstango.tools.reports.pv.PrincipalVariationReportModel;
 import net.chesstango.tools.reports.summary.SummaryModel;
 import net.chesstango.tools.reports.summary.SummarySaver;
-import net.chesstango.tools.worker.epd.EpdSearch;
-import net.chesstango.tools.worker.epd.result.EpdSearchResult;
-import net.chesstango.tools.worker.epd.result.EpdSearchResultBuildWithBestMove;
+import net.chesstango.epd.EpdSearch;
+import net.chesstango.epd.EpdSearchResult;
+import net.chesstango.epd.EpdSearchResultBuildWithBestMove;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -65,7 +65,7 @@ public class EpdSearchMain implements Runnable {
             throw new RuntimeException("Directory not found: " + directory);
         }
 
-        List<Path> epdFiles = getEpdFiles(suiteDirectory, filePattern);
+        List<Path> epdFiles = listEpdFiles(suiteDirectory, filePattern);
 
         Path sessionDirectory = createSessionDirectory(suiteDirectory, depth);
 
@@ -122,7 +122,7 @@ public class EpdSearchMain implements Runnable {
         NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
         EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
         PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
-        SummaryModel summaryModel = SummaryModel.collectStatics(SEARCH_SESSION_ID, epdSearchResults, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
+        SummaryModel summaryModel = SummaryModel.collectStatics(SEARCH_SESSION_DATE, epdSearchResults, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
 
         //printReports(System.out, epdSearchReportModel, nodesReportModel, evaluationReportModel);
 

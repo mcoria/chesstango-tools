@@ -4,8 +4,8 @@ import lombok.Setter;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.piazzolla.polyglot.PolyglotBook;
-import net.chesstango.tools.epd.epdfilters.BookFilter;
-import net.chesstango.tools.epd.epdfilters.PlayerFilter;
+import net.chesstango.tools.epd.filters.BookFilter;
+import net.chesstango.tools.epd.filters.PlayerFilter;
 import org.apache.commons.cli.*;
 
 import java.io.FileInputStream;

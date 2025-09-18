@@ -1,4 +1,4 @@
-package net.chesstango.tools.arena.master;
+package net.chesstango.tools.arena.queue;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;

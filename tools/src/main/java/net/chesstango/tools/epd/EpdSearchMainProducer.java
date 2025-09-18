@@ -4,26 +4,24 @@ import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.epd.EPDDecoder;
-import net.chesstango.tools.epd.master.EpdSearchProducer;
-import net.chesstango.tools.epd.master.EpdSearchResponseCallback;
+import net.chesstango.tools.epd.queue.EpdSearchProducer;
 import net.chesstango.tools.worker.epd.EpdSearchRequest;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static net.chesstango.tools.epd.Common.createSessionDirectory;
-import static net.chesstango.tools.epd.Common.getEpdFiles;
+import static net.chesstango.tools.epd.Common.createSessionId;
+import static net.chesstango.tools.epd.Common.listEpdFiles;
 
 /**
  * @author Mauricio Coria
  */
 @Slf4j
-public class EpdSearchMasterMain implements Runnable {
+public class EpdSearchMainProducer implements Runnable {
     /**
      * Parametros
      * 1. Depth
@@ -52,26 +50,26 @@ public class EpdSearchMasterMain implements Runnable {
             throw new RuntimeException("Directory not found: " + directory);
         }
 
-        List<Path> epdFiles = getEpdFiles(suiteDirectory, filePattern);
+        String sessionId = createSessionId(depth);
 
-        Path sessionDirectory = createSessionDirectory(suiteDirectory, depth);
+        List<Path> epdFiles = listEpdFiles(suiteDirectory, filePattern);
 
-        new EpdSearchMasterMain(epdFiles, depth, timeOut, sessionDirectory).run();
+        new EpdSearchMainProducer(sessionId, epdFiles, depth, timeOut).run();
     }
 
     private final String rabbitHost;
 
+    private final String sessionId;
     private final List<Path> epdFiles;
     private final int depth;
     private final int timeOut;
-    private final Path sessionDirectory;
 
-    public EpdSearchMasterMain(List<Path> epdFiles, int depth, int timeOut, Path sessionDirectory) {
+    public EpdSearchMainProducer(String sessionId, List<Path> epdFiles, int depth, int timeOut) {
+        this.rabbitHost = "localhost";
+        this.sessionId = sessionId;
         this.epdFiles = epdFiles;
         this.depth = depth;
         this.timeOut = timeOut;
-        this.sessionDirectory = sessionDirectory;
-        this.rabbitHost = "localhost";
     }
 
     @Override
@@ -85,17 +83,9 @@ public class EpdSearchMasterMain implements Runnable {
 
             try (EpdSearchProducer epdSearchProducer = EpdSearchProducer.open(factory)) {
 
-                EpdSearchResponseCallback callback = new EpdSearchResponseCallback(sessionDirectory);
-
                 List<EpdSearchRequest> epdSearchRequests = createEpdSearchRequests();
 
-                CountDownLatch countDownLatch = new CountDownLatch(epdSearchRequests.size());
-
-                epdSearchProducer.setupCallback(callback.andThen(matchResponse -> countDownLatch.countDown()));
-
                 epdSearchRequests.forEach(epdSearchProducer::publish);
-
-                countDownLatch.await();
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -113,12 +103,12 @@ public class EpdSearchMasterMain implements Runnable {
         for (Path epdFile : epdFiles) {
             List<EPD> edpEntries = reader.readEpdFile(epdFile);
 
-            EpdSearchRequest epdSearchRequest = new EpdSearchRequest();
-
-            epdSearchRequest.setSearchId(getFileName(epdFile.getFileName().toString()));
-            epdSearchRequest.setEpdList(edpEntries);
-            epdSearchRequest.setDepth(depth);
-            epdSearchRequest.setTimeOut(timeOut);
+            EpdSearchRequest epdSearchRequest = new EpdSearchRequest()
+                    .setSessionId(sessionId)
+                    .setSearchId(getFileName(epdFile.getFileName().toString()))
+                    .setEpdList(edpEntries)
+                    .setDepth(depth)
+                    .setTimeOut(timeOut);
 
             epdSearchRequests.add(epdSearchRequest);
         }

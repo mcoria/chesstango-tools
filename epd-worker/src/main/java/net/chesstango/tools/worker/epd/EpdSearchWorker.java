@@ -1,10 +1,11 @@
 package net.chesstango.tools.worker.epd;
 
 import lombok.extern.slf4j.Slf4j;
+import net.chesstango.epd.EpdSearch;
+import net.chesstango.epd.EpdSearchResult;
+import net.chesstango.epd.EpdSearchResultBuildWithBestMove;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.search.builders.AlphaBetaBuilder;
-import net.chesstango.tools.worker.epd.result.EpdSearchResult;
-import net.chesstango.tools.worker.epd.result.EpdSearchResultBuildWithBestMove;
 
 import java.util.List;
 import java.util.function.Function;
@@ -15,10 +16,11 @@ import java.util.function.Function;
 @Slf4j
 class EpdSearchWorker implements Function<EpdSearchRequest, EpdSearchResponse> {
 
-
     @Override
     public EpdSearchResponse apply(EpdSearchRequest epdSearchRequest) {
-        log.info("Running EPD search entries={}, depth={}, timeOut={}", epdSearchRequest.getEpdList().size(), epdSearchRequest.getDepth(), epdSearchRequest.getTimeOut());
+
+
+        log.info("[{}] Running EPD search entries={}, depth={}, timeOut={}", epdSearchRequest.getSessionId(), epdSearchRequest.getEpdList().size(), epdSearchRequest.getDepth(), epdSearchRequest.getTimeOut());
         EpdSearch epdSearch = new EpdSearch()
                 .setSearchSupplier(() -> AlphaBetaBuilder
                         .createDefaultBuilderInstance()
@@ -36,8 +38,11 @@ class EpdSearchWorker implements Function<EpdSearchRequest, EpdSearchResponse> {
 
         List<EpdSearchResult> epdSearchResults = epdSearch.run(epdSearchRequest.getEpdList());
 
+        log.info("[{}] Completed EPD search entries={}, depth={}, timeOut={}", epdSearchRequest.getSessionId(), epdSearchRequest.getEpdList().size(), epdSearchRequest.getDepth(), epdSearchRequest.getTimeOut());
+
         return new EpdSearchResponse()
                 .setEpdSearchResults(epdSearchResults)
+                .setSessionId(epdSearchRequest.getSessionId())
                 .setSearchId(epdSearchRequest.getSearchId());
     }
 }

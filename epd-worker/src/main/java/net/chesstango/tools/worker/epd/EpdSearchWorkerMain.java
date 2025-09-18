@@ -1,17 +1,27 @@
 package net.chesstango.tools.worker.epd;
 
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.CountDownLatch;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author Mauricio Coria
  */
 @Slf4j
 public class EpdSearchWorkerMain implements Runnable {
+
+    public static void main(String[] args) throws Exception {
+        String rabbitHost = System.getenv("RABBIT_HOST");
+
+        new EpdSearchWorkerMain(rabbitHost).run();
+    }
+
     private final String rabbitHost;
 
     public EpdSearchWorkerMain(String rabbitHost) {
@@ -19,12 +29,6 @@ public class EpdSearchWorkerMain implements Runnable {
             throw new IllegalArgumentException("rabbitHost and enginesCatalog must be provided");
         }
         this.rabbitHost = rabbitHost;
-    }
-
-    public static void main(String[] args) throws Exception {
-        String rabbitHost = System.getenv("RABBIT_HOST");
-
-        new EpdSearchWorkerMain(rabbitHost).run();
     }
 
     @Override
@@ -39,25 +43,32 @@ public class EpdSearchWorkerMain implements Runnable {
             factory.setSharedExecutor(executorService);
 
             log.info("Connecting to RabbitMQ");
-            try (EpdSearchConsumer epdSearchConsumer = EpdSearchConsumer.open(factory)) {
+
+            try (Connection connection = factory.newConnection();
+                 Channel channel = connection.createChannel();) {
 
                 log.info("Connected to RabbitMQ");
 
-                EpdSearchWorker epdSearchWorker = new EpdSearchWorker();
+                try (EpdSearchConsumer epdSearchConsumer = new EpdSearchConsumer(channel)) {
 
-                CountDownLatch countDownLatch = new CountDownLatch(500);
+                    EpdSearchWorker epdSearchWorker = new EpdSearchWorker();
 
-                epdSearchConsumer.setupQueueConsumer(epdSearchWorker, () -> countDownLatch.getCount() == 1, countDownLatch::countDown);
+                    EpdSearchProducer epdSearchProducer = new EpdSearchProducer(channel);
 
-                log.info("Waiting for EpdSearchRequest");
+                    epdSearchConsumer.setupQueueConsumer(epdSearchWorker, epdSearchProducer::publish);
 
-                countDownLatch.await();
+                    log.info("Waiting for EpdSearchRequest");
 
-            } catch (Exception e) {
+                    Thread.sleep(Long.MAX_VALUE);
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+            } catch (IOException | TimeoutException e) {
                 throw new RuntimeException(e);
             }
         }
-
         log.info("Done");
     }
 }

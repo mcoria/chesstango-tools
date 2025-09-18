@@ -16,12 +16,21 @@ import java.util.stream.Stream;
 /**
  * @author Mauricio Coria
  */
-public class Common {
+class Common {
 
-    public static final String SEARCH_SESSION_ID = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm"));
+    static final String SEARCH_SESSION_DATE = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm"));
 
-    public static Path createSessionDirectory(Path suiteDirectory, int depth) {
-        Path sessionDirectory = suiteDirectory.resolve(String.format("depth-%d-%s-%s", depth, SEARCH_SESSION_ID, Tango.ENGINE_VERSION));
+    static String createSessionId(int depth) {
+        return String.format("depth-%d-%s-%s", depth, SEARCH_SESSION_DATE, Tango.ENGINE_VERSION);
+    }
+
+    static Path createSessionDirectory(Path suiteDirectory, int depth) {
+        String sessionId = createSessionId(depth);
+        return createSessionDirectory(suiteDirectory, sessionId);
+    }
+
+    static Path createSessionDirectory(Path suiteDirectory, String sessionId) {
+        Path sessionDirectory = suiteDirectory.resolve(sessionId);
 
         try {
             Files.createDirectory(sessionDirectory);
@@ -34,7 +43,7 @@ public class Common {
         return sessionDirectory;
     }
 
-    public static List<Path> getEpdFiles(Path suiteDirectory, String filePattern) {
+    static List<Path> listEpdFiles(Path suiteDirectory, String filePattern) {
         String finalPattern = filePattern.replace(".", "\\.").replace("*", ".*");
         Predicate<String> matchPredicate = Pattern.compile(finalPattern).asMatchPredicate();
         try (Stream<Path> stream = Files.list(suiteDirectory)) {

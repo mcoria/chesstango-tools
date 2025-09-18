@@ -1,4 +1,4 @@
-package net.chesstango.tools.worker.epd;
+package net.chesstango.epd;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -9,8 +9,6 @@ import net.chesstango.gardel.fen.FEN;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchParameter;
 import net.chesstango.search.SearchResult;
-import net.chesstango.tools.worker.epd.result.EpdSearchResult;
-import net.chesstango.tools.worker.epd.result.EpdSearchResultBuilder;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -24,7 +22,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * @author Mauricio Coria

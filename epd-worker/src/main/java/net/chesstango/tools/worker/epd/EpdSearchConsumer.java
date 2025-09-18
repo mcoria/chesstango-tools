@@ -2,94 +2,51 @@ package net.chesstango.tools.worker.epd;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.*;
-import java.util.concurrent.TimeoutException;
+import java.io.IOException;
+import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
+
+import static net.chesstango.tools.worker.epd.EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME;
+import static net.chesstango.tools.worker.epd.EpdSearchResponse.EPD_RESPONSES_QUEUE_NAME;
 
 /**
  * @author Mauricio Coria
  */
 @Slf4j
-class EpdSearchConsumer implements AutoCloseable {
-    private final static String RPC_QUEUE_NAME = "epd";
+class EpdSearchConsumer implements AutoCloseable{
 
-    private final Connection connection;
     private final Channel channel;
-
     private String cTag;
 
-    static EpdSearchConsumer open(ConnectionFactory factory) throws IOException, TimeoutException {
-        return new EpdSearchConsumer(factory);
+    public EpdSearchConsumer(Channel channel) {
+        this.channel = channel;
     }
 
-    EpdSearchConsumer(ConnectionFactory factory) throws IOException, TimeoutException {
-        this.connection = factory.newConnection();
-        this.channel = connection.createChannel();
-        channel.basicQos(1);
-        channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
-    }
 
     @Override
     public void close() throws Exception {
-        channel.close();
-        connection.close();
+        channel.basicCancel(cTag);
     }
 
 
-    public void setupQueueConsumer(Function<EpdSearchRequest, EpdSearchResponse> searchFn, Supplier<Boolean> cancelQueueConsumer, Runnable onConsumed) {
+    public void setupQueueConsumer(Function<EpdSearchRequest, EpdSearchResponse> fnSearch, Consumer<EpdSearchResponse> fnConsumerResponse) {
         try {
-            cTag = channel.basicConsume(RPC_QUEUE_NAME, false, (consumerTag, delivery) -> {
+            cTag = channel.basicConsume(EPD_REQUESTS_QUEUE_NAME, false, (consumerTag, delivery) -> {
 
-                if (cancelQueueConsumer.get()) {
-                    channel.basicCancel(cTag);
-                }
+                EpdSearchRequest request = EpdSearchRequest.decodeRequest(delivery.getBody());
 
-                EpdSearchRequest request = decodeRequest(delivery.getBody());
+                EpdSearchResponse response = fnSearch.apply(request);
 
-                EpdSearchResponse response = searchFn.apply(request);
-
-                byte[] encodedResponse = encodeResponse(response);
-
-                AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                        .Builder()
-                        .build();
-
-                channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, encodedResponse);
+                fnConsumerResponse.accept(response);
 
                 channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
-
-                onConsumed.run();
             }, consumerTag -> {
+                log.info("Queue consumer cancelled {}", cTag);
             });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-
-    private byte[] encodeResponse(EpdSearchResponse response) {
-        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-             ObjectOutputStream oos = new ObjectOutputStream(bos);) {
-            oos.writeObject(response);
-            oos.flush();
-            return bos.toByteArray();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private EpdSearchRequest decodeRequest(byte[] request) {
-        try (ByteArrayInputStream bis = new ByteArrayInputStream(request);
-             ObjectInputStream ois = new ObjectInputStream(bis);) {
-            return (EpdSearchRequest) ois.readObject();
-        } catch (ClassNotFoundException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

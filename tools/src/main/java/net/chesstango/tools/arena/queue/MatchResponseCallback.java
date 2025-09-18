@@ -1,4 +1,4 @@
-package net.chesstango.tools.arena.master;
+package net.chesstango.tools.arena.queue;
 
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.tools.worker.match.MatchResponse;
@@ -11,7 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 /**

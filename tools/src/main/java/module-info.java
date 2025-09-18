@@ -7,9 +7,10 @@ module net.chesstango.tools {
     exports net.chesstango.tools.reports.pv;
     exports net.chesstango.tools.reports.nodes;
     exports net.chesstango.tools.reports.evaluation;
-    exports net.chesstango.tools.epd.epdfilters;
+    exports net.chesstango.tools.epd.filters;
     exports net.chesstango.tools.arena;
     exports net.chesstango.tools.epd;
+    exports net.chesstango.tools.arena.queue;
 
     requires net.chesstango.board;
     requires net.chesstango.engine;
@@ -33,7 +34,8 @@ module net.chesstango.tools {
     requires static lombok;
     requires com.rabbitmq.client;
     requires net.chesstango.tools.worker.epd;
+    requires net.chesstango.epd;
 
     opens net.chesstango.tools.reports.summary to com.fasterxml.jackson.databind;
-    exports net.chesstango.tools.arena.master;
+    exports net.chesstango.tools.epd.queue;
 }

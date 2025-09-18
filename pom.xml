@@ -17,6 +17,7 @@
         <module>tools</module>
         <module>match-worker</module>
         <module>epd-worker</module>
+        <module>epd-search</module>
     </modules>
 
     <properties>
@@ -39,7 +40,17 @@
         <dependencies>
             <dependency>
                 <groupId>net.chesstango</groupId>
+                <artifactId>board</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.chesstango</groupId>
                 <artifactId>match-worker</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.chesstango</groupId>
+                <artifactId>epd-search</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -76,8 +76,8 @@ public class MatchMasterMain implements Runnable {
 
     private static List<MatchRequest> createMatchRequests(MatchType match, List<FEN> fenList, boolean switchChairs) {
         //String player1 = "class:DefaultTango";
-        String player1 = "file:Tango-v1.1.0";
-        String player2 = "file:Spike";
+        String player1 = "file:Tango-v1.2.0";
+        String player2 = "file:Rustic";
         Stream<MatchRequest> result = fenList.stream()
                 .map(fen -> new MatchRequest()
                         .setWhiteEngine(player1)
@@ -105,10 +105,10 @@ public class MatchMasterMain implements Runnable {
 
 
     private static List<FEN> getFEN_FromPGN() {
-        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
+        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
-        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
+        //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_v2724.pgn"));
 
         return pgnStream

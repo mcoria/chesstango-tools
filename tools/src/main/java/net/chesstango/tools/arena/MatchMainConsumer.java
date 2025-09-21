@@ -58,11 +58,11 @@ public class MatchMainConsumer implements Runnable {
             factory.setSharedExecutor(executorService);
 
             log.info("Connecting to RabbitMQ");
-            try (MatchResponseConsumer matchResponseConsumer = new MatchResponseConsumer(factory)) {
+            try (ResponseConsumer responseConsumer = new ResponseConsumer(factory)) {
 
                 log.info("Connected to RabbitMQ");
 
-                matchResponseConsumer.setupQueueConsumer(this::accept);
+                responseConsumer.setupQueueConsumer(this::accept);
 
                 log.info("Waiting for MatchResponse");
 

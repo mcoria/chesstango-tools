@@ -18,8 +18,8 @@ import java.util.stream.Stream;
 /**
  * @author Mauricio Coria
  */
-public class MatchReaderMain {
-    private static final Logger logger = LoggerFactory.getLogger(MatchReaderMain.class);
+public class MatchMainReader {
+    private static final Logger logger = LoggerFactory.getLogger(MatchMainReader.class);
 
     public static void main(String[] args) {
         List<MatchResponse> matchResponses = loadMatchResponses("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\2025-09-21-11-04");

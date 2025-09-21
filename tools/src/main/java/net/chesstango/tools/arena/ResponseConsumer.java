@@ -17,7 +17,7 @@ import static net.chesstango.tools.worker.match.MatchResponse.MATCH_RESPONSES_QU
  */
 
 @Slf4j
-public class MatchResponseConsumer implements AutoCloseable {
+public class ResponseConsumer implements AutoCloseable {
 
     private final Connection connection;
 
@@ -26,7 +26,7 @@ public class MatchResponseConsumer implements AutoCloseable {
     private String cTag;
 
 
-    public MatchResponseConsumer(ConnectionFactory factory) throws IOException, TimeoutException {
+    public ResponseConsumer(ConnectionFactory factory) throws IOException, TimeoutException {
         this.connection = factory.newConnection();
         this.channel = connection.createChannel();
         this.channel.basicQos(1);

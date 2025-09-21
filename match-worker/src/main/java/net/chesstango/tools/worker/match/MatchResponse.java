@@ -16,7 +16,7 @@ import java.nio.file.Path;
 @Getter
 @Accessors(chain = true)
 public class MatchResponse implements Serializable {
-    public final static String MATCH_RESPONSES_QUEUE_NAME = "matches_responses";
+    public final static String MATCH_RESPONSES_QUEUE_NAME = "match_responses";
 
     @Serial
     private static final long serialVersionUID = 1L;

@@ -16,16 +16,16 @@ import static net.chesstango.tools.worker.match.MatchRequest.MATCH_REQUESTS_QUEU
  * @author Mauricio Coria
  */
 @Slf4j
-public class MatchRequestProducer implements AutoCloseable {
+public class RequestProducer implements AutoCloseable {
 
     private final Connection connection;
     private final Channel channel;
 
-    public static MatchRequestProducer open(ConnectionFactory factory) throws IOException, TimeoutException {
-        return new MatchRequestProducer(factory);
+    public static RequestProducer open(ConnectionFactory factory) throws IOException, TimeoutException {
+        return new RequestProducer(factory);
     }
 
-    MatchRequestProducer(ConnectionFactory factory) throws IOException, TimeoutException {
+    RequestProducer(ConnectionFactory factory) throws IOException, TimeoutException {
         this.connection = factory.newConnection();
         this.channel = connection.createChannel();
         this.channel.queueDeclare(MATCH_REQUESTS_QUEUE_NAME, false, false, false, null);

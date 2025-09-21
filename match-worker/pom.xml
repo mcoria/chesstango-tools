@@ -114,7 +114,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>net.chesstango.tools.worker.match.MatchWorkerMain</mainClass>
+                                    <mainClass>net.chesstango.tools.worker.match.MatchMainWorker</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>

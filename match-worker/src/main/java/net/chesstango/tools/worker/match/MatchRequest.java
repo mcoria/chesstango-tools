@@ -15,7 +15,7 @@ import java.io.*;
 @Getter
 @Accessors(chain = true)
 public class MatchRequest implements Serializable {
-    public final static String MATCH_REQUESTS_QUEUE_NAME = "matches";
+    public final static String MATCH_REQUESTS_QUEUE_NAME = "match_requests";
 
     @Serial
     private static final long serialVersionUID = 1L;

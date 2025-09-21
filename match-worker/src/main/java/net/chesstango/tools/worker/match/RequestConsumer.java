@@ -1,17 +1,14 @@
 package net.chesstango.tools.worker.match;
 
 
-import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.GetResponse;
+import com.rabbitmq.client.ShutdownSignalException;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.*;
-import java.util.concurrent.TimeoutException;
+import java.io.IOException;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static net.chesstango.tools.worker.match.MatchRequest.MATCH_REQUESTS_QUEUE_NAME;
 
@@ -19,37 +16,31 @@ import static net.chesstango.tools.worker.match.MatchRequest.MATCH_REQUESTS_QUEU
  * @author Mauricio Coria
  */
 @Slf4j
-class RequestConsumer implements AutoCloseable {
+class RequestConsumer {
 
     private final Channel channel;
-    private String cTag;
 
     public RequestConsumer(Channel channel) {
         this.channel = channel;
     }
 
 
-    @Override
-    public void close() throws Exception {
-        channel.basicCancel(cTag);
+    public MatchRequest readMessage() throws IOException {
+        do {
+            GetResponse response = channel.basicGet(MATCH_REQUESTS_QUEUE_NAME, true);
+            if (response != null) {
+                return MatchRequest.decodeRequest(response.getBody());
+            } else {
+                try {
+                    log.info("Waiting for MatchRequest");
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    log.error("Interrupted while waiting for message", e);
+                    throw new RuntimeException(e);
+                }
+            }
+        } while (true);
     }
 
-
-    public void setupQueueConsumer(Function<MatchRequest, MatchResponse> matchFn, Consumer<MatchResponse> fnConsumerResponse) {
-        try {
-            cTag = channel.basicConsume(MATCH_REQUESTS_QUEUE_NAME, true, (consumerTag, delivery) -> {
-
-                MatchRequest request = MatchRequest.decodeRequest(delivery.getBody());
-
-                MatchResponse response = matchFn.apply(request);
-
-                fnConsumerResponse.accept(response);
-
-            }, consumerTag -> {
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
 

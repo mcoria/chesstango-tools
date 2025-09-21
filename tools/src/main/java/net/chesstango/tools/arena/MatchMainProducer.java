@@ -48,9 +48,9 @@ public class MatchMainProducer implements Runnable {
             factory.setHost(rabbitHost);
             factory.setSharedExecutor(executorService);
 
-            try (MatchRequestProducer matchRequestProducer = MatchRequestProducer.open(factory)) {
+            try (RequestProducer requestProducer = RequestProducer.open(factory)) {
 
-                matchRequests.forEach(matchRequestProducer::publish);
+                matchRequests.forEach(requestProducer::publish);
 
             } catch (Exception e) {
                 throw new RuntimeException(e);

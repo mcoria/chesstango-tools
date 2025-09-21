@@ -38,8 +38,9 @@ class MatchWorker implements Function<MatchRequest, MatchResponse> {
         return new MatchResponse()
                 .setWhiteEngineName(result.pgn().getWhite())
                 .setBlackEngineName(result.pgn().getBlack())
+                .setMatchResult(result)
                 .setMatchId(matchRequest.getMatchId())
-                .setMatchResult(result);
+                .setSessionId(matchRequest.getSessionId());
     }
 
 }

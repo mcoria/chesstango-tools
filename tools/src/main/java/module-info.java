@@ -10,7 +10,6 @@ module net.chesstango.tools {
     exports net.chesstango.tools.epd.filters;
     exports net.chesstango.tools.arena;
     exports net.chesstango.tools.epd;
-    exports net.chesstango.tools.arena.queue;
 
     requires net.chesstango.board;
     requires net.chesstango.engine;

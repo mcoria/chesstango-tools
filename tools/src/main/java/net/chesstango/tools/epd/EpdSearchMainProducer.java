@@ -75,14 +75,14 @@ public class EpdSearchMainProducer implements Runnable {
     public void run() {
         log.info("Starting");
 
+        List<EpdSearchRequest> epdSearchRequests = createEpdSearchRequests();
+
         try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost(rabbitHost);
             factory.setSharedExecutor(executorService);
 
-            try (EpdSearchProducer epdSearchProducer = EpdSearchProducer.open(factory)) {
-
-                List<EpdSearchRequest> epdSearchRequests = createEpdSearchRequests();
+            try (EpdSearchProducer epdSearchProducer = new EpdSearchProducer(factory)) {
 
                 epdSearchRequests.forEach(epdSearchProducer::publish);
 

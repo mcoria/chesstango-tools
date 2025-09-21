@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-import static net.chesstango.tools.worker.epd.EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME;
 import static net.chesstango.tools.worker.epd.EpdSearchResponse.EPD_RESPONSES_QUEUE_NAME;
 
 
@@ -14,10 +13,10 @@ import static net.chesstango.tools.worker.epd.EpdSearchResponse.EPD_RESPONSES_QU
  * @author Mauricio Coria
  */
 @Slf4j
-public class EpdSearchProducer {
+public class ResponseProducer {
     private final Channel channel;
 
-    public EpdSearchProducer(Channel channel) throws IOException {
+    public ResponseProducer(Channel channel) throws IOException {
         this.channel = channel;
         channel.queueDeclare(EPD_RESPONSES_QUEUE_NAME, false, false, false, null);
     }

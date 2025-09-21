@@ -15,7 +15,6 @@ import java.util.concurrent.TimeoutException;
  */
 @Slf4j
 public class EpdSearchWorkerMain implements Runnable {
-
     public static void main(String[] args) throws Exception {
         String rabbitHost = System.getenv("RABBIT_HOST");
 
@@ -51,13 +50,12 @@ public class EpdSearchWorkerMain implements Runnable {
 
                 log.info("Connected to RabbitMQ");
 
-                try (EpdSearchConsumer epdSearchConsumer = new EpdSearchConsumer(channel)) {
+                try (RequestConsumer requestConsumer = new RequestConsumer(channel)) {
+                    ResponseProducer responseProducer = new ResponseProducer(channel);
 
                     EpdSearchWorker epdSearchWorker = new EpdSearchWorker();
 
-                    EpdSearchProducer epdSearchProducer = new EpdSearchProducer(channel);
-
-                    epdSearchConsumer.setupQueueConsumer(epdSearchWorker, epdSearchProducer::publish);
+                    requestConsumer.setupQueueConsumer(epdSearchWorker, responseProducer::publish);
 
                     log.info("Waiting for EpdSearchRequest");
 

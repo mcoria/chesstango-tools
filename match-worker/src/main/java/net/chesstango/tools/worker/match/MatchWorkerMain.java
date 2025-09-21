@@ -1,17 +1,27 @@
 package net.chesstango.tools.worker.match;
 
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.CountDownLatch;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author Mauricio Coria
  */
 @Slf4j
 public class MatchWorkerMain implements Runnable {
+
+    public static void main(String[] args) {
+        String rabbitHost = System.getenv("RABBIT_HOST");
+        String enginesCatalog = System.getenv("ENGINE_CATALOG");
+
+        new MatchWorkerMain(rabbitHost, enginesCatalog).run();
+    }
 
     private final String rabbitHost;
     private final String enginesCatalog;
@@ -22,13 +32,6 @@ public class MatchWorkerMain implements Runnable {
         }
         this.rabbitHost = rabbitHost;
         this.enginesCatalog = enginesCatalog;
-    }
-
-    public static void main(String[] args) throws Exception {
-        String rabbitHost = System.getenv("RABBIT_HOST");
-        String enginesCatalog = System.getenv("ENGINE_CATALOG");
-
-        new MatchWorkerMain(rabbitHost, enginesCatalog).run();
     }
 
     @Override
@@ -43,22 +46,32 @@ public class MatchWorkerMain implements Runnable {
             factory.setSharedExecutor(executorService);
 
             log.info("Connecting to RabbitMQ");
-            try (ControllerProvider controllerProvider = ControllerProvider.create(enginesCatalog);
-                 MatchConsumer matchConsumer = MatchConsumer.open(factory)) {
+
+            try (Connection connection = factory.newConnection();
+                 Channel channel = connection.createChannel();) {
+
+                channel.basicQos(1);
 
                 log.info("Connected to RabbitMQ");
 
-                MatchWorker matchWorker = new MatchWorker(controllerProvider);
+                try (ControllerProvider controllerProvider = ControllerProvider.create(enginesCatalog);
+                     RequestConsumer requestConsumer = new RequestConsumer(channel)) {
+                    ResponseProducer responseProducer = new ResponseProducer(channel);
 
-                CountDownLatch countDownLatch = new CountDownLatch(500);
+                    log.info("Connected to RabbitMQ");
 
-                matchConsumer.setupQueueConsumer(matchWorker, () -> countDownLatch.getCount() == 1, countDownLatch::countDown);
+                    MatchWorker matchWorker = new MatchWorker(controllerProvider);
 
-                log.info("Waiting for MatchRequest");
+                    requestConsumer.setupQueueConsumer(matchWorker, responseProducer::publish);
 
-                countDownLatch.await();
+                    log.info("Waiting for MatchRequest");
 
-            } catch (Exception e) {
+                    Thread.sleep(Long.MAX_VALUE);
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } catch (IOException | TimeoutException e) {
                 throw new RuntimeException(e);
             }
         }

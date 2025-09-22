@@ -3,7 +3,8 @@
 		<appender-ref ref="STDOUT" />
 	</root>
 
-    <logger name="net.chesstango.uci.proxy" level="TRACE"/>
+    <logger level="INFO" name="net.chesstango.uci.proxy.UciProxy"/>
+    <logger level="TRACE" name="net.chesstango.uci.engine.UciTango"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>

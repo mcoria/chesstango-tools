@@ -62,8 +62,8 @@ public class MatchMainProducer implements Runnable {
 
 
     private static List<MatchRequest> createMatchRequests(MatchType match, List<FEN> fenList, boolean switchChairs) {
-        //String player1 = "class:DefaultTango";
-        String player1 = "file:Tango-v1.2.0";
+        String player1 = "class:WithTables";
+        //String player1 = "file:Tango-v1.2.0";
         String player2 = "file:Spike";
         String matchId = UUID.randomUUID().toString();
 

@@ -41,7 +41,7 @@ public class MatchMainProducer implements Runnable {
     public void run() {
         log.info("Starting");
 
-        List<MatchRequest> matchRequests = createMatchRequests(new MatchByDepth(4), getFEN_FromPGN(), true);
+        List<MatchRequest> matchRequests = createMatchRequests(new MatchByDepth(4), getFEN(), true);
 
         try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
             ConnectionFactory factory = new ConnectionFactory();
@@ -65,13 +65,18 @@ public class MatchMainProducer implements Runnable {
         //String player1 = "class:DefaultTango";
         String player1 = "file:Tango-v1.2.0";
         String player2 = "file:Spike";
+        String matchId = UUID.randomUUID().toString();
+
+        String player1Name = player1.replace("file:", "").replace("class:", "");
+        String player2Name = player2.replace("file:", "").replace("class:", "");
+
         Stream<MatchRequest> result = fenList.stream()
                 .map(fen -> new MatchRequest()
                         .setWhiteEngine(player1)
                         .setBlackEngine(player2)
                         .setFen(fen)
                         .setMatchType(match)
-                        .setMatchId(UUID.randomUUID().toString())
+                        .setMatchId(String.format("%s-%s-vs-%s", matchId, player1Name, player2Name))
                         .setSessionId(SESSION_DATE)
                 );
 
@@ -82,7 +87,7 @@ public class MatchMainProducer implements Runnable {
                             .setBlackEngine(player1)
                             .setFen(fen)
                             .setMatchType(match)
-                            .setMatchId(UUID.randomUUID().toString())
+                            .setMatchId(String.format("%s-%s-vs-%s", matchId, player2Name, player1Name))
                             .setSessionId(SESSION_DATE)
                     );
 

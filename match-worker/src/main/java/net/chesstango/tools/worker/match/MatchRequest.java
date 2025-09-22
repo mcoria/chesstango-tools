@@ -47,4 +47,9 @@ public class MatchRequest implements Serializable {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "MatchRequest{" + "sessionId=" + sessionId + ", matchId=" + matchId + ", whiteEngine=" + whiteEngine + ", blackEngine=" + blackEngine + ", fen=" + fen + ", matchType=" + matchType + '}';
+    }
 }

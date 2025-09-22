@@ -61,6 +61,7 @@ public class MatchMainWorker implements Runnable {
 
                 do {
                     MatchRequest request = requestConsumer.readMessage();
+                    log.info("[{}] Received MatchRequest: {}", request.getMatchId(), request);
                     MatchResponse response = matchWorker.apply(request);
                     responseProducer.publish(response);
                 } while (true);

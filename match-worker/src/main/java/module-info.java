@@ -15,6 +15,4 @@ module net.chesstango.tools.worker.match {
 
     requires org.slf4j;
     requires static lombok;
-
-
 }

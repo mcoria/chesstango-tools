@@ -20,7 +20,7 @@ import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.List;
 
-import static net.chesstango.tools.epd.Common.SEARCH_SESSION_DATE;
+import static net.chesstango.tools.epd.Common.SESSION_DATE;
 
 /**
  * @author Mauricio Coria
@@ -38,7 +38,7 @@ public class EpdSearchReportSaver {
         NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
         EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
         PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
-        SummaryModel summaryModel = SummaryModel.collectStatics(SEARCH_SESSION_DATE, epdSearchResults, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
+        SummaryModel summaryModel = SummaryModel.collectStatics(SESSION_DATE, epdSearchResults, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
 
         saveReports(suiteName, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
 

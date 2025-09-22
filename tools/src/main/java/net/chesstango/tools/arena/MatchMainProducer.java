@@ -7,63 +7,50 @@ import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.gardel.pgn.PGNStringDecoder;
-import net.chesstango.tools.arena.queue.MatchProducer;
-import net.chesstango.tools.arena.queue.MatchResponseCallback;
 import net.chesstango.tools.worker.match.MatchRequest;
 import net.chesstango.uci.arena.matchtypes.MatchByDepth;
 import net.chesstango.uci.arena.matchtypes.MatchType;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Stream;
+
+import static net.chesstango.tools.epd.Common.SESSION_DATE;
 
 /**
  * @author Mauricio Coria
  */
 @Slf4j
-public class MatchMasterMain implements Runnable {
-
-    private final String rabbitHost;
-    private final String matchStore;
-
-    public MatchMasterMain(String rabbitHost, String matchStore) {
-        this.rabbitHost = rabbitHost;
-        this.matchStore = matchStore;
-    }
+public class MatchMainProducer implements Runnable {
 
     public static void main(String[] args) {
         String rabbitHost = "localhost";
-        String matchStore = "C:\\java\\projects\\chess\\chess-utils\\testing\\matches";
 
-        new MatchMasterMain(rabbitHost, matchStore).run();
+        new MatchMainProducer(rabbitHost).run();
+    }
+
+    private final String rabbitHost;
+
+    public MatchMainProducer(String rabbitHost) {
+        this.rabbitHost = rabbitHost;
     }
 
     @Override
     public void run() {
         log.info("Starting");
 
+        List<MatchRequest> matchRequests = createMatchRequests(new MatchByDepth(4), getFEN(), true);
+
         try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost(rabbitHost);
             factory.setSharedExecutor(executorService);
 
-            try (MatchProducer matchProducer = MatchProducer.open(factory)) {
+            try (RequestProducer requestProducer = RequestProducer.open(factory)) {
 
-                MatchResponseCallback callback = MatchResponseCallback.open(Path.of(matchStore));
-
-                List<MatchRequest> matchRequests = createMatchRequests(new MatchByDepth(4), getFEN_FromPGN(), true);
-
-                CountDownLatch countDownLatch = new CountDownLatch(matchRequests.size());
-
-                matchProducer.setupCallback(callback.andThen(matchResponse -> countDownLatch.countDown()));
-
-                matchRequests.forEach(matchProducer::publish);
-
-                countDownLatch.await();
+                matchRequests.forEach(requestProducer::publish);
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -75,16 +62,22 @@ public class MatchMasterMain implements Runnable {
 
 
     private static List<MatchRequest> createMatchRequests(MatchType match, List<FEN> fenList, boolean switchChairs) {
-        //String player1 = "class:DefaultTango";
-        String player1 = "file:Tango-v1.2.0";
-        String player2 = "file:Rustic";
+        String player1 = "class:WithTables";
+        //String player1 = "file:Tango-v1.2.0";
+        String player2 = "file:Spike";
+        String matchId = UUID.randomUUID().toString();
+
+        String player1Name = player1.replace("file:", "").replace("class:", "");
+        String player2Name = player2.replace("file:", "").replace("class:", "");
+
         Stream<MatchRequest> result = fenList.stream()
                 .map(fen -> new MatchRequest()
                         .setWhiteEngine(player1)
                         .setBlackEngine(player2)
                         .setFen(fen)
                         .setMatchType(match)
-                        .setMatchId(UUID.randomUUID().toString())
+                        .setMatchId(String.format("%s-%s-vs-%s", matchId, player1Name, player2Name))
+                        .setSessionId(SESSION_DATE)
                 );
 
         if (switchChairs) {
@@ -94,7 +87,8 @@ public class MatchMasterMain implements Runnable {
                             .setBlackEngine(player1)
                             .setFen(fen)
                             .setMatchType(match)
-                            .setMatchId(UUID.randomUUID().toString())
+                            .setMatchId(String.format("%s-%s-vs-%s", matchId, player2Name, player1Name))
+                            .setSessionId(SESSION_DATE)
                     );
 
             result = Stream.concat(result, switchStream);
@@ -105,7 +99,7 @@ public class MatchMasterMain implements Runnable {
 
 
     private static List<FEN> getFEN_FromPGN() {
-        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
+        Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMainProducer.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
         //Stream<PGN> pgnStream = new PGNStringDecoder().decodePGNs(MatchMasterMain.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));

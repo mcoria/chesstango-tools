@@ -1,7 +1,6 @@
 package net.chesstango.tools.worker.match;
 
 import net.chesstango.engine.Config;
-import net.chesstango.engine.Tango;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.search.Search;
 import net.chesstango.uci.engine.UciTango;
@@ -15,7 +14,6 @@ import net.chesstango.uci.proxy.UciProxy;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -34,35 +32,29 @@ public class ControllerFactory {
     }
 
     public static Controller createTangoController() {
-        Function<Config, Tango> tangoFactory = config -> {
-            config.setSyncSearch(true);
-            return Tango.open(config);
-        };
+        Config config = new Config();
+        config.setSyncSearch(true);
 
-        return new ControllerTango(new UciTango(tangoFactory));
+        return new ControllerTango(new UciTango(config));
     }
 
     public static Controller createTangoControllerCustomConfig(Consumer<Config> configConsumer) {
-        Function<Config, Tango> tangoFactory = config -> {
-            config.setSyncSearch(true);
-            configConsumer.accept(config);
-            return Tango.open(config);
-        };
+        Config config = new Config();
+        config.setSyncSearch(true);
+        configConsumer.accept(config);
 
-        return new ControllerTango(new UciTango(tangoFactory));
+        return new ControllerTango(new UciTango(config));
     }
 
 
     public static Controller createTangoControllerWithSearch(Supplier<Search> searchMoveSupplier) {
         Search search = searchMoveSupplier.get();
 
-        Function<Config, Tango> tangoFactory = config -> {
-            config.setSyncSearch(true);
-            config.setSearch(search);
-            return Tango.open(config);
-        };
+        Config config = new Config();
+        config.setSyncSearch(true);
+        config.setSearch(search);
 
-        return new ControllerTango(new UciTango(tangoFactory))
+        return new ControllerTango(new UciTango(config))
                 .overrideEngineName(search.getClass().getSimpleName());
     }
 
@@ -70,13 +62,11 @@ public class ControllerFactory {
     public static Controller createTangoControllerWithEvaluator(Supplier<Evaluator> evaluatorSupplier) {
         Evaluator evaluator = evaluatorSupplier.get();
 
-        Function<Config, Tango> tangoFactory = config -> {
-            config.setSyncSearch(true);
-            config.setEvaluator(evaluator);
-            return Tango.open(config);
-        };
+        Config config = new Config();
+        config.setSyncSearch(true);
+        config.setEvaluator(evaluator);
 
-        return new ControllerTango(new UciTango(tangoFactory))
+        return new ControllerTango(new UciTango(config))
                 .overrideEngineName(evaluator.getClass().getSimpleName());
     }
 

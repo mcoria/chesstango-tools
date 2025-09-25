@@ -36,14 +36,17 @@
             <groupId>net.chesstango</groupId>
             <artifactId>engine</artifactId>
         </dependency>
-
         <dependency>
             <groupId>net.chesstango</groupId>
-            <artifactId>uci-arena</artifactId>
+            <artifactId>uci-arena-core</artifactId>
         </dependency>
         <dependency>
             <groupId>net.chesstango</groupId>
-            <artifactId>match-worker</artifactId>
+            <artifactId>uci-arena-worker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.chesstango</groupId>
+            <artifactId>uci-arena-master</artifactId>
         </dependency>
         <dependency>
             <groupId>net.chesstango</groupId>
@@ -74,31 +77,9 @@
             <groupId>net.sf.py4j</groupId>
             <artifactId>py4j</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-jdk14 -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -115,6 +96,17 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

@@ -1,19 +1,19 @@
 package net.chesstango.tools.tuning.fitnessfunctions;
 
+import net.chesstango.arena.core.MatchResult;
+import net.chesstango.arena.core.listeners.MatchBroadcaster;
+import net.chesstango.arena.core.listeners.SavePGNGame;
+import net.chesstango.arena.core.matchtypes.MatchByDepth;
+import net.chesstango.arena.core.matchtypes.MatchType;
+import net.chesstango.arena.master.MatchMain;
+import net.chesstango.arena.master.common.ControllerPoolFactory;
+import net.chesstango.arena.master.common.MatchMultiple;
+import net.chesstango.arena.worker.ControllerFactory;
 import net.chesstango.board.Game;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.gardel.pgn.PGNStringDecoder;
-import net.chesstango.tools.arena.MatchMain;
-import net.chesstango.tools.arena.common.ControllerPoolFactory;
-import net.chesstango.tools.arena.common.MatchMultiple;
-import net.chesstango.tools.worker.match.ControllerFactory;
-import net.chesstango.uci.arena.MatchResult;
-import net.chesstango.uci.arena.listeners.MatchBroadcaster;
-import net.chesstango.uci.arena.listeners.SavePGNGame;
-import net.chesstango.uci.arena.matchtypes.MatchByDepth;
-import net.chesstango.uci.arena.matchtypes.MatchType;
 import net.chesstango.uci.gui.Controller;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
@@ -86,25 +86,25 @@ public class FitnessByMatch implements FitnessFunction {
         long pointsWhiteWin = matchResult.stream()
                 .map(MatchResult::pgn)
                 .filter(pgn -> ENGINE_NAME.equals(pgn.getWhite()))
-                .filter(pgn-> Objects.equals(PGN.Result.WHITE_WINS, pgn.getResult()))
+                .filter(pgn -> Objects.equals(PGN.Result.WHITE_WINS, pgn.getResult()))
                 .count();
 
         long pointsWhiteLost = matchResult.stream()
                 .map(MatchResult::pgn)
                 .filter(pgn -> ENGINE_NAME.equals(pgn.getWhite()))
-                .filter(pgn-> Objects.equals(PGN.Result.BLACK_WINS, pgn.getResult()))
+                .filter(pgn -> Objects.equals(PGN.Result.BLACK_WINS, pgn.getResult()))
                 .count();
 
         long pointsBlackWin = matchResult.stream()
                 .map(MatchResult::pgn)
                 .filter(pgn -> ENGINE_NAME.equals(pgn.getBlack()))
-                .filter(pgn-> Objects.equals(PGN.Result.BLACK_WINS, pgn.getResult()))
+                .filter(pgn -> Objects.equals(PGN.Result.BLACK_WINS, pgn.getResult()))
                 .count();
 
         long pointsBlackLost = matchResult.stream()
                 .map(MatchResult::pgn)
                 .filter(pgn -> ENGINE_NAME.equals(pgn.getBlack()))
-                .filter(pgn-> Objects.equals(PGN.Result.WHITE_WINS, pgn.getResult()))
+                .filter(pgn -> Objects.equals(PGN.Result.WHITE_WINS, pgn.getResult()))
                 .count();
 
         return pointsWhiteWin - pointsWhiteLost + pointsBlackWin - pointsBlackLost;

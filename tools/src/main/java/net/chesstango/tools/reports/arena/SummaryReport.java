@@ -1,7 +1,7 @@
 package net.chesstango.tools.reports.arena;
 
 import net.chesstango.gardel.pgn.PGN;
-import net.chesstango.uci.arena.MatchResult;
+import net.chesstango.arena.core.MatchResult;
 
 import java.io.PrintStream;
 import java.util.*;

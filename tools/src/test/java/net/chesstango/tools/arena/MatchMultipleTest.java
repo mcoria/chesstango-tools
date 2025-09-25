@@ -1,6 +1,6 @@
 package net.chesstango.tools.arena;
 
-import net.chesstango.engine.Tango;
+import net.chesstango.engine.Config;
 import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.gardel.pgn.PGN;
@@ -37,18 +37,22 @@ public class MatchMultipleTest {
     @BeforeEach
     public void setup() {
         smartEnginePool = new GenericObjectPool<>(new ControllerPoolFactory(() ->
-                new ControllerTango(new UciTango())
-                        .overrideEngineName("Smart")
+                new ControllerTango(
+                        new UciTango(new Config()
+                                .setSyncSearch(true)
+                        )
+                ).overrideEngineName("Smart")
         ));
 
         //new Tango(new Dummy())
 
         dummyEnginePool = new GenericObjectPool<>(new ControllerPoolFactory(() ->
-                new ControllerTango(new UciTango(config -> {
-                    config.setSearch(new Dummy());
-                    return Tango.open(config);
-                }))
-                        .overrideEngineName("Dummy")
+                new ControllerTango(
+                        new UciTango(new Config()
+                                .setSyncSearch(true)
+                                .setSearch(new Dummy())
+                        )
+                ).overrideEngineName("Dummy")
         ));
     }
 

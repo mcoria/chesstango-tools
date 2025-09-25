@@ -39,7 +39,7 @@ public class MatchMain {
     //private static final MatchType MATCH_TYPE = new MatchByClock(1000 * 60 * 3, 1000);
 
     private static final boolean MATCH_DEBUG = false;
-    private static final boolean MATCH_SWITCH_CHAIRS = false;
+    private static final boolean MATCH_SWITCH_CHAIRS = true;
 
     private static final String POLYGLOT_FILE = "C:/java/projects/chess/chess-utils/books/openings/polyglot-collection/komodo.bin";
     private static final String SYZYGY_DIRECTORY = "C:/java/projects/chess/chess-utils/books/syzygy/3-4-5";
@@ -71,14 +71,14 @@ public class MatchMain {
          */
         //Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerWithEvaluator(EvaluatorImp05::new);
 
-        /*
+
         Supplier<Controller> engine1Supplier = () -> ControllerFactory.createTangoControllerCustomConfig(config -> {
             config.setPolyglotFile(POLYGLOT_FILE);
             config.setSyzygyDirectory(SYZYGY_DIRECTORY);
         });
-         */
 
-        Supplier<Controller> engine1Supplier = () -> ControllerFactory.createProxyController(tango);
+
+        //Supplier<Controller> engine1Supplier = () -> ControllerFactory.createProxyController(tango);
 
 
         Supplier<Controller> engine2Supplier = () -> ControllerFactory.createProxyController(spike);
@@ -131,8 +131,8 @@ public class MatchMain {
 
 
     private static Stream<FEN> getFEN() {
-        List<String> fenList = List.of(FENParser.INITIAL_FEN);
-        //List<String> fenList =  List.of("K7/N7/k7/8/3p4/8/N7/8 w - - 0 1", "8/8/8/6B1/8/8/4k3/1K5N b - - 0 1");
+        //List<String> fenList = List.of(FENParser.INITIAL_FEN);
+        List<String> fenList =  List.of("QN4n1/6r1/3k4/8/b2K4/8/8/8 b - - 0 1");
         //List<String> fenList =  List.of("1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
         //List<String> fenList =  List.of(FENDecoder.INITIAL_FEN, "1k1r3r/pp6/2P1bp2/2R1p3/Q3Pnp1/P2q4/1BR3B1/6K1 b - - 0 1");
 

@@ -8,7 +8,7 @@ import net.chesstango.tools.reports.nodes.NodesReport;
 import net.chesstango.tools.reports.nodes.NodesReportModel;
 import net.chesstango.tools.reports.pv.PrincipalVariationReport;
 import net.chesstango.tools.reports.pv.PrincipalVariationReportModel;
-import net.chesstango.uci.arena.MatchResult;
+import net.chesstango.arena.core.MatchResult;
 
 import java.io.PrintStream;
 import java.util.LinkedList;

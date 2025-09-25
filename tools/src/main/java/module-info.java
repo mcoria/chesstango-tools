@@ -8,7 +8,6 @@ module net.chesstango.tools {
     exports net.chesstango.tools.reports.nodes;
     exports net.chesstango.tools.reports.evaluation;
     exports net.chesstango.tools.epd.filters;
-    exports net.chesstango.tools.arena;
     exports net.chesstango.tools.epd;
 
     requires net.chesstango.board;
@@ -17,11 +16,12 @@ module net.chesstango.tools {
     requires net.chesstango.gardel;
     requires net.chesstango.piazzolla;
     requires net.chesstango.search;
-    requires net.chesstango.uci.arena;
+    requires net.chesstango.arena.core;
+    requires net.chesstango.arena.worker;
+    requires net.chesstango.arena.master;
     requires net.chesstango.uci.engine;
     requires net.chesstango.uci.gui;
     requires net.chesstango.mbeans;
-    requires net.chesstango.tools.worker.match;
     requires net.chesstango.tools.worker.epd;
     requires net.chesstango.epd;
 

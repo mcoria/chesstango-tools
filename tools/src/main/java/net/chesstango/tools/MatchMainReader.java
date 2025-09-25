@@ -1,10 +1,11 @@
-package net.chesstango.tools.arena;
+package net.chesstango.tools;
 
+import net.chesstango.arena.core.MatchResult;
 import net.chesstango.tools.reports.arena.SummaryReport;
-import net.chesstango.tools.worker.match.MatchResponse;
-import net.chesstango.uci.arena.MatchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.chesstango.arena.worker.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class MatchMainReader {
     private static final Logger logger = LoggerFactory.getLogger(MatchMainReader.class);
 
     public static void main(String[] args) {
-        List<MatchResponse> matchResponses = loadMatchResponses("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\2025-09-21-16-23");
+        List<MatchResponse> matchResponses = loadMatchResponses("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\2025-09-25-09-13");
 
         List<MatchResult> matchResult = matchResponses.stream().map(MatchResponse::getMatchResult).toList();
 

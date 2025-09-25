@@ -15,7 +15,6 @@
 
     <modules>
         <module>tools</module>
-        <module>match-worker</module>
         <module>epd-worker</module>
         <module>epd-search</module>
     </modules>
@@ -45,11 +44,6 @@
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
-                <artifactId>match-worker</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.chesstango</groupId>
                 <artifactId>epd-search</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -60,7 +54,17 @@
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
-                <artifactId>uci-arena</artifactId>
+                <artifactId>uci-arena-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.chesstango</groupId>
+                <artifactId>uci-arena-worker</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.chesstango</groupId>
+                <artifactId>uci-arena-master</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

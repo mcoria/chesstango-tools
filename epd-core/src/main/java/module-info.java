@@ -1,5 +1,5 @@
-module net.chesstango.epd {
-    exports net.chesstango.epd;
+module net.chesstango.epd.core {
+    exports net.chesstango.core;
 
     requires net.chesstango.gardel;
     requires net.chesstango.search;

@@ -1,4 +1,4 @@
-package net.chesstango.epd;
+package net.chesstango.core;
 
 import lombok.Getter;
 import lombok.Setter;

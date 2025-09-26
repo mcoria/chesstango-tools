@@ -1,4 +1,4 @@
-package net.chesstango.epd;
+package net.chesstango.core;
 
 import net.chesstango.board.moves.Move;
 import net.chesstango.gardel.epd.EPD;

@@ -3,7 +3,7 @@ package net.chesstango.tools.reports.summary;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.chesstango.board.representations.move.SimpleMoveEncoder;
-import net.chesstango.epd.EpdSearchResult;
+import net.chesstango.epd.core.EpdSearchResult;
 import net.chesstango.search.SearchResultByDepth;
 import net.chesstango.search.SearchResult;
 

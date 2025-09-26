@@ -2,7 +2,7 @@ package net.chesstango.tools.epd;
 
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
-import net.chesstango.tools.worker.epd.EpdSearchResponse;
+import net.chesstango.epd.worker.EpdSearchResponse;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -4,13 +4,13 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
-import net.chesstango.tools.worker.epd.EpdSearchResponse;
+import net.chesstango.epd.worker.EpdSearchResponse;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-import static net.chesstango.tools.worker.epd.EpdSearchResponse.EPD_RESPONSES_QUEUE_NAME;
+import static net.chesstango.epd.worker.EpdSearchResponse.EPD_RESPONSES_QUEUE_NAME;
 
 /**
  * @author Mauricio Coria

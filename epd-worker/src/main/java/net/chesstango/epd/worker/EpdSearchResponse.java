@@ -1,9 +1,9 @@
-package net.chesstango.tools.worker.epd;
+package net.chesstango.epd.worker;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.gardel.epd.EPD;
+import net.chesstango.epd.core.EpdSearchResult;
 
 import java.io.*;
 import java.util.List;
@@ -14,29 +14,27 @@ import java.util.List;
 @Accessors(chain = true)
 @Getter
 @Setter
-public class EpdSearchRequest implements Serializable {
-    public final static String EPD_REQUESTS_QUEUE_NAME = "epd_requests";
+public class EpdSearchResponse implements Serializable {
+    public final static String EPD_RESPONSES_QUEUE_NAME = "epd_responses";
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     private String sessionId;
     private String searchId;
-    private int depth;
-    private int timeOut;
 
-    private List<EPD> epdList;
+    private List<EpdSearchResult> epdSearchResults;
 
-    public static EpdSearchRequest decodeRequest(byte[] request) {
+    public static EpdSearchResponse decodeResponse(byte[] request) {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(request);
              ObjectInputStream ois = new ObjectInputStream(bis);) {
-            return (EpdSearchRequest) ois.readObject();
+            return (EpdSearchResponse) ois.readObject();
         } catch (ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public byte[] encodeRequest() {
+    public byte[] encodeResponse() {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
              ObjectOutputStream oos = new ObjectOutputStream(bos);) {
             oos.writeObject(this);

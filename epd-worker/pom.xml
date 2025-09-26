@@ -22,11 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>net.chesstango</groupId>
-            <artifactId>search</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.chesstango</groupId>
-            <artifactId>epd-search</artifactId>
+            <artifactId>epd-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.rabbitmq</groupId>
@@ -92,7 +88,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>net.chesstango.tools.worker.epd.EpdSearchWorkerMain</mainClass>
+                                    <mainClass>net.chesstango.epd.worker.EpdSearchWorkerMain</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>

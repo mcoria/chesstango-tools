@@ -1,4 +1,4 @@
-package net.chesstango.tools.worker.epd;
+package net.chesstango.epd.worker;
 
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static net.chesstango.tools.worker.epd.EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME;
+import static net.chesstango.epd.worker.EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME;
 
 /**
  * @author Mauricio Coria

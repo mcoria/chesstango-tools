@@ -2,7 +2,7 @@ package net.chesstango.tools.reports.epd;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.epd.EpdSearchResult;
+import net.chesstango.epd.core.EpdSearchResult;
 
 import java.io.PrintStream;
 import java.util.List;

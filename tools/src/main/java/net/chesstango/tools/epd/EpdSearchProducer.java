@@ -5,12 +5,12 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
-import net.chesstango.tools.worker.epd.EpdSearchRequest;
+import net.chesstango.epd.worker.EpdSearchRequest;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-import static net.chesstango.tools.worker.epd.EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME;
+import static net.chesstango.epd.worker.EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME;
 
 
 /**

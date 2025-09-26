@@ -44,7 +44,7 @@
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
-                <artifactId>epd-search</artifactId>
+                <artifactId>epd-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

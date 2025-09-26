@@ -1,4 +1,4 @@
-package net.chesstango.core;
+package net.chesstango.epd.core;
 
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.search.SearchResult;

@@ -22,8 +22,8 @@ module net.chesstango.tools {
     requires net.chesstango.uci.engine;
     requires net.chesstango.uci.gui;
     requires net.chesstango.mbeans;
-    requires net.chesstango.tools.worker.epd;
-    requires net.chesstango.epd;
+    requires net.chesstango.epd.core;
+    requires net.chesstango.epd.worker;
 
     requires com.fasterxml.jackson.databind;
     requires org.slf4j;

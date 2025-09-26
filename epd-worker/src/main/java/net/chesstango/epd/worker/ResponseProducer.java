@@ -1,4 +1,4 @@
-package net.chesstango.tools.worker.epd;
+package net.chesstango.epd.worker;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-import static net.chesstango.tools.worker.epd.EpdSearchResponse.EPD_RESPONSES_QUEUE_NAME;
+import static net.chesstango.epd.worker.EpdSearchResponse.EPD_RESPONSES_QUEUE_NAME;
 
 
 /**

@@ -2,9 +2,7 @@ package net.chesstango.tools;
 
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.arena.core.MatchResult;
-import net.chesstango.tools.reports.arena.SummaryReport;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.chesstango.tools.reports.arena.MatchesReport;
 
 import net.chesstango.arena.worker.*;
 
@@ -28,7 +26,7 @@ public class MatchMainReader {
 
         List<MatchResult> matchResult = matchResponses.stream().map(MatchResponse::getMatchResult).toList();
 
-        new SummaryReport()
+        new MatchesReport()
                 .withMatchResults(matchResult)
                 //.withMatchResult(List.of(engineController1, engineController2), matchResult)
                 .printReport(System.out);
@@ -84,5 +82,5 @@ public class MatchMainReader {
             throw new IOException("Error deserializing object", e);
         }
     }
-    
+
 }

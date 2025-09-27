@@ -11,13 +11,13 @@ import java.util.*;
  *
  * @author Mauricio Coria
  */
-public class SummaryReport {
+public class MatchesReport {
 
     private final List<ReportRowModel> reportRowModels = new ArrayList<>();
 
     private PrintStream out;
 
-    public SummaryReport printReport(PrintStream output) {
+    public MatchesReport printReport(PrintStream output) {
         out = output;
         print();
         return this;
@@ -26,7 +26,7 @@ public class SummaryReport {
     /**
      * @param matchResults
      */
-    public SummaryReport withMatchResults(List<MatchResult> matchResults) {
+    public MatchesReport withMatchResults(List<MatchResult> matchResults) {
         Set<String> engineNames = new HashSet<>();
 
         matchResults.stream().map(MatchResult::pgn).map(PGN::getWhite).forEach(engineNames::add);

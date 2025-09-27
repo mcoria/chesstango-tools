@@ -15,8 +15,9 @@
 
     <modules>
         <module>tools</module>
+        <module>epd-core</module>
         <module>epd-worker</module>
-        <module>epd-search</module>
+        <module>epd-master</module>
     </modules>
 
     <properties>
@@ -44,7 +45,7 @@
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
-                <artifactId>epd-search</artifactId>
+                <artifactId>epd-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

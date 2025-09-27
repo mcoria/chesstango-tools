@@ -1,8 +1,8 @@
 package net.chesstango.tools.epd;
 
-import net.chesstango.epd.EpdSearch;
-import net.chesstango.epd.EpdSearchResult;
-import net.chesstango.epd.EpdSearchResultBuildWithBestMove;
+import net.chesstango.epd.core.EpdSearch;
+import net.chesstango.epd.core.EpdSearchResult;
+import net.chesstango.epd.core.EpdSearchResultBuildWithBestMove;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.epd.EPDDecoder;
@@ -90,17 +90,14 @@ public class EpdSearchMain implements Runnable {
         }
 
         for (Path epdFile : epdFiles) {
-            List<EpdSearchResult> edpEntries = execute(epdSearch, epdFile);
-            epdSearchReportSaver.saveReport(epdFile.getFileName().toString(), edpEntries);
+            EPDDecoder reader = new EPDDecoder();
+
+            List<EPD> edpEntries = reader.readEpdFile(epdFile);
+
+            List<EpdSearchResult> epdSearchResults = epdSearch.run(edpEntries);
+
+            epdSearchReportSaver.saveReport(epdFile.getFileName().toString(), epdSearchResults);
         }
 
-    }
-
-    private List<EpdSearchResult> execute(EpdSearch epdSearch, Path suitePath) {
-        EPDDecoder reader = new EPDDecoder();
-
-        List<EPD> edpEntries = reader.readEpdFile(suitePath);
-
-        return epdSearch.run(edpEntries);
     }
 }

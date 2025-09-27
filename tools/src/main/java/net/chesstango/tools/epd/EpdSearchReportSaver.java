@@ -2,7 +2,7 @@ package net.chesstango.tools.epd;
 
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.engine.Tango;
-import net.chesstango.epd.EpdSearchResult;
+import net.chesstango.epd.core.EpdSearchResult;
 import net.chesstango.tools.reports.epd.EpdSearchReport;
 import net.chesstango.tools.reports.epd.EpdSearchReportModel;
 import net.chesstango.tools.reports.evaluation.EvaluationReport;
@@ -20,8 +20,6 @@ import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.List;
 
-import static net.chesstango.tools.epd.Common.SESSION_DATE;
-
 /**
  * @author Mauricio Coria
  */
@@ -38,7 +36,7 @@ public class EpdSearchReportSaver {
         NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
         EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
         PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
-        SummaryModel summaryModel = SummaryModel.collectStatics(SESSION_DATE, epdSearchResults, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
+        SummaryModel summaryModel = SummaryModel.collectStatics(Common.SESSION_DATE, epdSearchResults, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
 
         saveReports(suiteName, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
 

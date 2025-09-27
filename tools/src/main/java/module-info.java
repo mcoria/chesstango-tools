@@ -4,7 +4,6 @@ module net.chesstango.tools {
     exports net.chesstango.tools.tuning.geneticproviders;
     exports net.chesstango.tools.tuning.factories;
     exports net.chesstango.tools.tuning;
-    exports net.chesstango.tools.reports.pv;
 
     requires net.chesstango.reports;
     requires net.chesstango.board;

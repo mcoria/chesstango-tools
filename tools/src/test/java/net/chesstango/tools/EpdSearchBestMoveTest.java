@@ -16,7 +16,7 @@ import net.chesstango.epd.core.EpdSearch;
 import net.chesstango.epd.core.EpdSearchResult;
 import net.chesstango.epd.core.EpdSearchResultBuildWithBestMove;
 import net.chesstango.reports.nodes.NodesReport;
-import net.chesstango.tools.reports.pv.PrincipalVariationReport;
+import net.chesstango.reports.pv.PrincipalVariationReport;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;

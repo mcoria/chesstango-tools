@@ -10,7 +10,7 @@ import net.chesstango.search.SearchResult;
 import net.chesstango.tools.reports.epd.EpdSearchReportModel;
 import net.chesstango.reports.evaluation.EvaluationReportModel;
 import net.chesstango.reports.nodes.NodesReportModel;
-import net.chesstango.tools.reports.pv.PrincipalVariationReportModel;
+import net.chesstango.reports.pv.PrincipalVariationReportModel;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -46,6 +46,10 @@
         </dependency>
         <dependency>
             <groupId>net.chesstango</groupId>
+            <artifactId>reports</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.chesstango</groupId>
             <artifactId>uci-arena-master</artifactId>
         </dependency>
         <dependency>

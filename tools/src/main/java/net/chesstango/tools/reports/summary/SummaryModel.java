@@ -8,8 +8,8 @@ import net.chesstango.search.SearchResultByDepth;
 import net.chesstango.search.SearchResult;
 
 import net.chesstango.tools.reports.epd.EpdSearchReportModel;
-import net.chesstango.tools.reports.evaluation.EvaluationReportModel;
-import net.chesstango.tools.reports.nodes.NodesReportModel;
+import net.chesstango.reports.evaluation.EvaluationReportModel;
+import net.chesstango.reports.nodes.NodesReportModel;
 import net.chesstango.tools.reports.pv.PrincipalVariationReportModel;
 
 import java.util.HashMap;

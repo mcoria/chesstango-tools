@@ -1,4 +1,4 @@
-package net.chesstango.tools.reports.evaluation;
+package net.chesstango.reports.evaluation;
 
 import java.io.PrintStream;
 import java.util.Objects;

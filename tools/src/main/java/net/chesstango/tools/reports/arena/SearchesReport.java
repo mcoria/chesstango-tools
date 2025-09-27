@@ -2,10 +2,10 @@ package net.chesstango.tools.reports.arena;
 
 
 import net.chesstango.gardel.pgn.PGN;
-import net.chesstango.tools.reports.evaluation.EvaluationReport;
-import net.chesstango.tools.reports.evaluation.EvaluationReportModel;
-import net.chesstango.tools.reports.nodes.NodesReport;
-import net.chesstango.tools.reports.nodes.NodesReportModel;
+import net.chesstango.reports.evaluation.EvaluationReport;
+import net.chesstango.reports.evaluation.EvaluationReportModel;
+import net.chesstango.reports.nodes.NodesReport;
+import net.chesstango.reports.nodes.NodesReportModel;
 import net.chesstango.tools.reports.pv.PrincipalVariationReport;
 import net.chesstango.tools.reports.pv.PrincipalVariationReportModel;
 import net.chesstango.arena.core.MatchResult;

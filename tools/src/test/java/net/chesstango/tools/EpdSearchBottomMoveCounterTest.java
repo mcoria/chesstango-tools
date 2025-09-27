@@ -14,8 +14,8 @@ import net.chesstango.search.smart.features.debug.traps.actions.PrintForUnitTest
 import net.chesstango.search.smart.features.debug.traps.predicates.NodeByZobrist;
 import net.chesstango.epd.core.EpdSearch;
 import net.chesstango.epd.core.EpdSearchResult;
-import net.chesstango.tools.reports.evaluation.EvaluationReport;
-import net.chesstango.tools.reports.nodes.NodesReport;
+import net.chesstango.reports.evaluation.EvaluationReport;
+import net.chesstango.reports.nodes.NodesReport;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;

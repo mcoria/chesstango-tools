@@ -5,9 +5,8 @@ module net.chesstango.tools {
     exports net.chesstango.tools.tuning.factories;
     exports net.chesstango.tools.tuning;
     exports net.chesstango.tools.reports.pv;
-    exports net.chesstango.tools.reports.nodes;
-    exports net.chesstango.tools.reports.evaluation;
 
+    requires net.chesstango.reports;
     requires net.chesstango.board;
     requires net.chesstango.engine;
     requires net.chesstango.evaluation;

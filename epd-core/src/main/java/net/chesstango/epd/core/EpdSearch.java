@@ -96,7 +96,7 @@ public class EpdSearch {
                         Thread.sleep(500);
                         activeJobs.forEach(searchJob -> {
                             if (searchJob.elapsedMillis() >= timeOut) {
-                                throw new RuntimeException(String.format("Cambiarme", timeOut));
+                                throw new RuntimeException(String.format("Cambiarme %s", timeOut));
                                 //searchJob.search.stopSearching();
                             }
                         });

@@ -12,8 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static net.chesstango.tools.epd.Common.createSessionDirectory;
-import static net.chesstango.tools.epd.Common.listEpdFiles;
+import static net.chesstango.epd.master.Common.createSessionDirectory;
+import static net.chesstango.epd.master.Common.listEpdFiles;
 
 /**
  * Esta clase esta destinada a resolver test-positions
@@ -90,17 +90,14 @@ public class EpdSearchMain implements Runnable {
         }
 
         for (Path epdFile : epdFiles) {
-            List<EpdSearchResult> edpEntries = execute(epdSearch, epdFile);
-            epdSearchReportSaver.saveReport(epdFile.getFileName().toString(), edpEntries);
+            EPDDecoder reader = new EPDDecoder();
+
+            List<EPD> edpEntries = reader.readEpdFile(epdFile);
+
+            List<EpdSearchResult> epdSearchResults = epdSearch.run(edpEntries);
+
+            epdSearchReportSaver.saveReport(epdFile.getFileName().toString(), epdSearchResults);
         }
 
-    }
-
-    private List<EpdSearchResult> execute(EpdSearch epdSearch, Path suitePath) {
-        EPDDecoder reader = new EPDDecoder();
-
-        List<EPD> edpEntries = reader.readEpdFile(suitePath);
-
-        return epdSearch.run(edpEntries);
     }
 }

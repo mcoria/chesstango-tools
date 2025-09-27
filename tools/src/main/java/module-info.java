@@ -7,8 +7,6 @@ module net.chesstango.tools {
     exports net.chesstango.tools.reports.pv;
     exports net.chesstango.tools.reports.nodes;
     exports net.chesstango.tools.reports.evaluation;
-    exports net.chesstango.tools.epd.filters;
-    exports net.chesstango.tools.epd;
 
     requires net.chesstango.board;
     requires net.chesstango.engine;
@@ -24,7 +22,9 @@ module net.chesstango.tools {
     requires net.chesstango.mbeans;
     requires net.chesstango.epd.core;
     requires net.chesstango.epd.worker;
+    requires net.chesstango.epd.master;
 
+    requires com.rabbitmq.client;
     requires com.fasterxml.jackson.databind;
     requires org.slf4j;
     requires io.jenetics.base;
@@ -33,7 +33,6 @@ module net.chesstango.tools {
     requires py4j;
 
     requires static lombok;
-    requires com.rabbitmq.client;
 
     opens net.chesstango.tools.reports.summary to com.fasterxml.jackson.databind;
 }

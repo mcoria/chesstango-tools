@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd.filters;
+package net.chesstango.epd.master.filters;
 
 import net.chesstango.gardel.epd.EPD;
 

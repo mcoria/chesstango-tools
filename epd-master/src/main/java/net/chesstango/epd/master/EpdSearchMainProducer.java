@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd;
+package net.chesstango.epd.master;
 
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static net.chesstango.tools.epd.Common.createSessionId;
-import static net.chesstango.tools.epd.Common.listEpdFiles;
+import static net.chesstango.epd.master.Common.createSessionId;
+import static net.chesstango.epd.master.Common.listEpdFiles;
 
 /**
  * @author Mauricio Coria
@@ -83,9 +83,7 @@ public class EpdSearchMainProducer implements Runnable {
             factory.setSharedExecutor(executorService);
 
             try (EpdSearchProducer epdSearchProducer = new EpdSearchProducer(factory)) {
-
                 epdSearchRequests.forEach(epdSearchProducer::publish);
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

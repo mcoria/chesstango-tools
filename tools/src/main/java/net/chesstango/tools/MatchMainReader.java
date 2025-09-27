@@ -1,5 +1,6 @@
 package net.chesstango.tools;
 
+import lombok.extern.slf4j.Slf4j;
 import net.chesstango.arena.core.MatchResult;
 import net.chesstango.tools.reports.arena.SummaryReport;
 import org.slf4j.Logger;
@@ -19,8 +20,8 @@ import java.util.stream.Stream;
 /**
  * @author Mauricio Coria
  */
+@Slf4j
 public class MatchMainReader {
-    private static final Logger logger = LoggerFactory.getLogger(MatchMainReader.class);
 
     public static void main(String[] args) {
         List<MatchResponse> matchResponses = loadMatchResponses("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\2025-09-25-09-13");
@@ -60,16 +61,16 @@ public class MatchMainReader {
         try (Stream<Path> files = Files.list(directory)) {
             files.forEach(file -> {
                 try {
-                    logger.info("File: {}", file.getFileName());
+                    log.info("File: {}", file.getFileName());
                     MatchResponse matchResponse = deserializeFromFile(file);
 
                     matchResponses.add(matchResponse);
                 } catch (IOException e) {
-                    logger.error("Error reading file: " + file.getFileName(), e);
+                    log.error("Error reading file: " + file.getFileName(), e);
                 }
             });
         } catch (IOException e) {
-            logger.error("Error listing directory: " + directory, e);
+            log.error("Error listing directory: " + directory, e);
         }
 
         return matchResponses;

@@ -22,7 +22,5 @@ spec:
           env:
             - name: RABBIT_HOST
               value: "chesstango-rabbit-svc.default.svc.cluster.local"
-            - name: ENGINE_CATALOG
-              value: "/windows/catalog_wine"
       restartPolicy: Always
       

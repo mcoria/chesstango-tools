@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd;
+package net.chesstango.epd.master;
 
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.engine.Tango;

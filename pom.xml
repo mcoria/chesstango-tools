@@ -17,6 +17,7 @@
         <module>tools</module>
         <module>epd-core</module>
         <module>epd-worker</module>
+        <module>epd-master</module>
     </modules>
 
     <properties>

@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd;
+package net.chesstango.epd.master;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -24,7 +24,7 @@ public class EpdSearchProducer implements AutoCloseable {
     public EpdSearchProducer(ConnectionFactory factory) throws IOException, TimeoutException {
         this.connection = factory.newConnection();
         this.channel = connection.createChannel();
-        channel.queueDeclare(EPD_REQUESTS_QUEUE_NAME, false, false, false, null);
+        channel.queueDeclare(EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME, false, false, false, null);
         channel.basicQos(1);
     }
 
@@ -40,7 +40,7 @@ public class EpdSearchProducer implements AutoCloseable {
                     .Builder()
                     .build();
             byte[] message = epdSearchRequest.encodeRequest();
-            channel.basicPublish("", EPD_REQUESTS_QUEUE_NAME, props, message);
+            channel.basicPublish("", EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME, props, message);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

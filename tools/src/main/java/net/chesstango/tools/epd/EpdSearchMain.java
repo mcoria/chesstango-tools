@@ -12,8 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static net.chesstango.epd.master.Common.createSessionDirectory;
-import static net.chesstango.epd.master.Common.listEpdFiles;
+import static net.chesstango.tools.epd.Common.createSessionDirectory;
+import static net.chesstango.tools.epd.Common.listEpdFiles;
 
 /**
  * Esta clase esta destinada a resolver test-positions

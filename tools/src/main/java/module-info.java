@@ -22,7 +22,6 @@ module net.chesstango.tools {
     requires net.chesstango.mbeans;
     requires net.chesstango.epd.core;
     requires net.chesstango.epd.worker;
-    requires net.chesstango.epd.master;
 
     requires com.rabbitmq.client;
     requires com.fasterxml.jackson.databind;

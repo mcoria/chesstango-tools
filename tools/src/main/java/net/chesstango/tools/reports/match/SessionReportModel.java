@@ -1,4 +1,4 @@
-package net.chesstango.tools.reports.arena;
+package net.chesstango.tools.reports.match;
 
 import net.chesstango.search.SearchResult;
 import net.chesstango.search.smart.features.statistics.node.NodeStatistics;

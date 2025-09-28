@@ -31,5 +31,5 @@ module net.chesstango.tools {
 
     requires static lombok;
 
-    opens net.chesstango.tools.reports.summary to com.fasterxml.jackson.databind;
+    opens net.chesstango.tools.epd.report to com.fasterxml.jackson.databind;
 }

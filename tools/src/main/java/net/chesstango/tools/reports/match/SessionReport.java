@@ -1,8 +1,8 @@
-package net.chesstango.tools.reports.arena;
+package net.chesstango.tools.reports.match;
 
 import net.chesstango.search.SearchResult;
-import net.chesstango.tools.reports.arena.sessionreport_ui.PrintCutoffStatics;
-import net.chesstango.tools.reports.arena.sessionreport_ui.PrintNodesVisitedStatistics;
+import net.chesstango.tools.reports.match.sessionreport_ui.PrintCutoffStatics;
+import net.chesstango.tools.reports.match.sessionreport_ui.PrintNodesVisitedStatistics;
 import net.chesstango.arena.core.MatchResult;
 
 import java.io.PrintStream;
@@ -68,7 +68,6 @@ public class SessionReport {
                 }
             }
         });
-
 
         return this;
     }

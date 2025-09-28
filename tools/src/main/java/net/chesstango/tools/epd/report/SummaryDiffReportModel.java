@@ -1,4 +1,4 @@
-package net.chesstango.tools.reports.summary;
+package net.chesstango.tools.epd.report;
 
 import java.util.List;
 

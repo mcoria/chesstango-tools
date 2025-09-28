@@ -1,4 +1,4 @@
-package net.chesstango.tools.reports.epd;
+package net.chesstango.tools.epd.report;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;

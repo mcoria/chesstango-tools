@@ -2,9 +2,11 @@ package net.chesstango.tools;
 
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.arena.core.MatchResult;
-import net.chesstango.tools.reports.arena.MatchesReport;
+import net.chesstango.tools.reports.match.MatchesReport;
 
 import net.chesstango.arena.worker.*;
+import net.chesstango.tools.reports.match.SearchesReport;
+import net.chesstango.tools.reports.match.SessionReport;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -32,7 +34,7 @@ public class MatchMainReader {
                 .printReport(System.out);
 
 
-        /*
+
         new SessionReport()
                 //.withCollisionStatistics()
                 //.withNodesVisitedStatistics()
@@ -48,7 +50,6 @@ public class MatchMainReader {
                 .withPrincipalVariation()
                 .withMathResults(matchResult)
                 .printReport(System.out);
-         */
     }
 
     public static List<MatchResponse> loadMatchResponses(String directoryStr) {

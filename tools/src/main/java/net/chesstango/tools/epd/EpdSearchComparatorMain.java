@@ -1,9 +1,9 @@
 package net.chesstango.tools.epd;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.chesstango.tools.reports.summary.SummaryDiffReport;
-import net.chesstango.tools.reports.summary.SummaryDiffReportModel;
-import net.chesstango.tools.reports.summary.SummaryModel;
+import net.chesstango.tools.epd.report.SummaryDiffReport;
+import net.chesstango.tools.epd.report.SummaryDiffReportModel;
+import net.chesstango.tools.epd.report.SummaryModel;
 
 import java.io.IOException;
 import java.io.PrintStream;

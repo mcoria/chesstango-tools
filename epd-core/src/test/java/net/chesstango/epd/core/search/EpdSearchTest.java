@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Mauricio Coria
  */
-public class EpdSearchBestMoveTest {
+public class EpdSearchTest {
     private static final boolean PRINT_REPORT = false;
     private static EPDDecoder epdDecoder;
     private static EpdSearch epdSearch;

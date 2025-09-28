@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd.report;
+package net.chesstango.epd.core.report;
 
 import net.chesstango.epd.core.EpdSearchResult;
 import net.chesstango.search.SearchResult;

@@ -30,6 +30,4 @@ module net.chesstango.tools {
     requires py4j;
 
     requires static lombok;
-
-    opens net.chesstango.tools.epd.report to com.fasterxml.jackson.databind;
 }

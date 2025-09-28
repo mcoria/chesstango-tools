@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd.report;
+package net.chesstango.epd.core.report;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;

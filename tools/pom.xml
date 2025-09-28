@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>net.chesstango</groupId>
-            <artifactId>reports</artifactId>
+            <artifactId>engine-reports</artifactId>
         </dependency>
         <dependency>
             <groupId>net.chesstango</groupId>

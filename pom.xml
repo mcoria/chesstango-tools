@@ -18,7 +18,6 @@
         <module>epd-core</module>
         <module>epd-worker</module>
         <module>epd-master</module>
-        <module>reports</module>
     </modules>
 
     <properties>
@@ -46,7 +45,7 @@
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
-                <artifactId>reports</artifactId>
+                <artifactId>engine-reports</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

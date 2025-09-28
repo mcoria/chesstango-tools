@@ -3,7 +3,7 @@ package net.chesstango.epd.worker;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.epd.core.EpdSearchResult;
+import net.chesstango.epd.core.search.EpdSearchResult;
 
 import java.io.*;
 import java.util.List;

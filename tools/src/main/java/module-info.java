@@ -4,10 +4,8 @@ module net.chesstango.tools {
     exports net.chesstango.tools.tuning.geneticproviders;
     exports net.chesstango.tools.tuning.factories;
     exports net.chesstango.tools.tuning;
-    exports net.chesstango.tools.reports.pv;
-    exports net.chesstango.tools.reports.nodes;
-    exports net.chesstango.tools.reports.evaluation;
 
+    requires net.chesstango.reports;
     requires net.chesstango.board;
     requires net.chesstango.engine;
     requires net.chesstango.evaluation;
@@ -32,6 +30,4 @@ module net.chesstango.tools {
     requires py4j;
 
     requires static lombok;
-
-    opens net.chesstango.tools.reports.summary to com.fasterxml.jackson.databind;
 }

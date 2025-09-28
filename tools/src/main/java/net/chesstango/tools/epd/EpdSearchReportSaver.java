@@ -2,7 +2,7 @@ package net.chesstango.tools.epd;
 
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.engine.Tango;
-import net.chesstango.epd.core.EpdSearchResult;
+import net.chesstango.epd.core.search.EpdSearchResult;
 import net.chesstango.epd.core.report.EpdSearchReport;
 import net.chesstango.epd.core.report.EpdSearchReportModel;
 import net.chesstango.reports.evaluation.EvaluationReport;

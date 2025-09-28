@@ -1,9 +1,9 @@
 package net.chesstango.epd.worker;
 
 import lombok.extern.slf4j.Slf4j;
-import net.chesstango.epd.core.EpdSearch;
-import net.chesstango.epd.core.EpdSearchResult;
-import net.chesstango.epd.core.EpdSearchResultBuildWithBestMove;
+import net.chesstango.epd.core.search.EpdSearch;
+import net.chesstango.epd.core.search.EpdSearchResult;
+import net.chesstango.epd.core.search.EpdSearchResultBuildWithBestMove;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.search.builders.AlphaBetaBuilder;
 

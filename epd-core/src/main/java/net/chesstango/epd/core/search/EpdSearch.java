@@ -1,4 +1,4 @@
-package net.chesstango.epd.core;
+package net.chesstango.epd.core.search;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;

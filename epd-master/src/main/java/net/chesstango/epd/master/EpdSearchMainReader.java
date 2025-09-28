@@ -1,6 +1,7 @@
-package net.chesstango.tools.epd;
+package net.chesstango.epd.master;
 
 import lombok.extern.slf4j.Slf4j;
+import net.chesstango.epd.core.main.EpdSearchReportSaver;
 import net.chesstango.epd.worker.EpdSearchResponse;
 
 import java.io.File;

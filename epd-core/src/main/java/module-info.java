@@ -12,6 +12,9 @@ module net.chesstango.epd.core {
     requires com.fasterxml.jackson.databind;
 
     requires static lombok;
+    requires net.chesstango.evaluation;
+    requires net.chesstango.engine;
 
     opens net.chesstango.epd.core.report to com.fasterxml.jackson.databind;
+    exports net.chesstango.epd.core.main;
 }

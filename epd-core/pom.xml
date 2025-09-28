@@ -28,6 +28,10 @@
         </dependency>
         <dependency>
             <groupId>net.chesstango</groupId>
+            <artifactId>engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.chesstango</groupId>
             <artifactId>reports</artifactId>
         </dependency>
         <dependency>

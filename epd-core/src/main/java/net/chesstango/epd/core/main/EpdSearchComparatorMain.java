@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd;
+package net.chesstango.epd.core.main;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.chesstango.epd.core.report.SummaryDiffReport;

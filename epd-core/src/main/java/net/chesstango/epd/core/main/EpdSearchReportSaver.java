@@ -1,18 +1,18 @@
-package net.chesstango.tools.epd;
+package net.chesstango.epd.core.main;
 
 import lombok.extern.slf4j.Slf4j;
 import net.chesstango.engine.Tango;
-import net.chesstango.epd.core.search.EpdSearchResult;
 import net.chesstango.epd.core.report.EpdSearchReport;
 import net.chesstango.epd.core.report.EpdSearchReportModel;
+import net.chesstango.epd.core.report.SummaryModel;
+import net.chesstango.epd.core.report.SummaryPrinter;
+import net.chesstango.epd.core.search.EpdSearchResult;
 import net.chesstango.reports.evaluation.EvaluationReport;
 import net.chesstango.reports.evaluation.EvaluationReportModel;
 import net.chesstango.reports.nodes.NodesReport;
 import net.chesstango.reports.nodes.NodesReportModel;
 import net.chesstango.reports.pv.PrincipalVariationReport;
 import net.chesstango.reports.pv.PrincipalVariationReportModel;
-import net.chesstango.epd.core.report.SummaryModel;
-import net.chesstango.epd.core.report.SummaryPrinter;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,11 +20,14 @@ import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.List;
 
+import static net.chesstango.epd.core.main.Common.SESSION_DATE;
+
 /**
  * @author Mauricio Coria
  */
 @Slf4j
 public class EpdSearchReportSaver {
+
     private final Path sessionDirectory;
 
     public EpdSearchReportSaver(Path sessionDirectory) {
@@ -36,7 +39,7 @@ public class EpdSearchReportSaver {
         NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
         EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
         PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
-        SummaryModel summaryModel = SummaryModel.collectStatics(Common.SESSION_DATE, epdSearchResults, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
+        SummaryModel summaryModel = SummaryModel.collectStatics(SESSION_DATE, epdSearchResults, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
 
         saveReports(suiteName, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
 

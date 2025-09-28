@@ -1,4 +1,4 @@
-package net.chesstango.tools.epd;
+package net.chesstango.epd.core.main;
 
 import net.chesstango.epd.core.search.EpdSearch;
 import net.chesstango.epd.core.search.EpdSearchResult;
@@ -12,8 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static net.chesstango.tools.epd.Common.createSessionDirectory;
-import static net.chesstango.tools.epd.Common.listEpdFiles;
+
 
 /**
  * Esta clase esta destinada a resolver test-positions
@@ -52,9 +51,9 @@ public class EpdSearchMain implements Runnable {
             throw new RuntimeException("Directory not found: " + directory);
         }
 
-        List<Path> epdFiles = listEpdFiles(suiteDirectory, filePattern);
+        List<Path> epdFiles = Common.listEpdFiles(suiteDirectory, filePattern);
 
-        Path sessionDirectory = createSessionDirectory(suiteDirectory, depth);
+        Path sessionDirectory = Common.createSessionDirectory(suiteDirectory, depth);
 
         new EpdSearchMain(epdFiles, depth, timeOut, sessionDirectory).run();
     }

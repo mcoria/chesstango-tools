@@ -44,15 +44,19 @@ public class FitnessByMatch implements FitnessFunction {
 
     @Override
     public void start() {
-        Supplier<Controller> opponentSupplier = () -> ControllerFactory.createProxyController(spike);
+        try {
+            Supplier<Controller> opponentSupplier = () -> ControllerFactory.createProxyController(spike);
 
-        Stream<PGN> pgnGames = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
-        //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
-        //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
-        //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
+            Stream<PGN> pgnGames = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
+            //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
+            //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
+            //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
 
-        this.fenList = pgnGames.map(Game::from).map(Game::getCurrentFEN);
-        this.opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(opponentSupplier));
+            this.fenList = pgnGames.map(Game::from).map(Game::getCurrentFEN);
+            this.opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(opponentSupplier));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

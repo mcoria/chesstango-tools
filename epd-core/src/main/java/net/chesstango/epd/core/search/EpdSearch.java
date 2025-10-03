@@ -7,8 +7,8 @@ import net.chesstango.board.Game;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.fen.FEN;
 import net.chesstango.search.Search;
-import net.chesstango.search.SearchParameter;
 import net.chesstango.search.SearchResult;
+import net.chesstango.search.visitors.SetMaxDepthVisitor;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -126,10 +126,7 @@ public class EpdSearch {
     public EpdSearchResult run(Search search, EPD epd) {
         Game game = Game.from(FEN.of(epd.getFenWithoutClocks() + " 0 1"));
 
-        search.setSearchParameter(SearchParameter.MAX_DEPTH, depth);
-
-        search.setSearchParameter(SearchParameter.EPD_PARAMS, epd);
-
+        search.accept(new SetMaxDepthVisitor(depth));
         SearchResult searchResult = search.startSearch(game);
 
         searchResult.setId(epd.getId());

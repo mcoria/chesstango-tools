@@ -35,7 +35,7 @@ public class PgnToEpd {
         }
     }
 
-    private void process(InputStream inputStream, PrintStream out, PrintStream err) {
+    private void process(InputStream inputStream, PrintStream out, PrintStream err) throws IOException {
         PGNStringDecoder pgnStringDecoder = new PGNStringDecoder();
         pgnStringDecoder.decodePGNs(inputStream)
                 .forEach(pgn -> pgn.toEPD()

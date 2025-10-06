@@ -79,6 +79,11 @@
         <profile>
             <id>shade</id>
             <build>
+                <resources>
+                    <resource>
+                        <directory>src/shade</directory>
+                    </resource>
+                </resources>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>

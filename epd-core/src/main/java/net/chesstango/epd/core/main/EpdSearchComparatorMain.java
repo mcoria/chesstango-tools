@@ -20,10 +20,10 @@ import java.util.Objects;
 public class EpdSearchComparatorMain {
 
     public static void main(String[] args) {
-        EpdSearchComparatorMain epdSearchComparatorMain = new EpdSearchComparatorMain("depth-5-2024-04-10-23-20-v0.0.27");
+        EpdSearchComparatorMain epdSearchComparatorMain = new EpdSearchComparatorMain("depth-6-2025-09-18-08-51-v1.2.0-SNAPSHOT");
         //epsSearchComparatorMain.addSession("depth-5-2024-05-12-07-17-v0.0.28-SNAPSHOT");
-        epdSearchComparatorMain.addSession("depth-5-2024-09-15-06-06-v0.0.28-SNAPSHOT"); // Con EvaluatorImp04
-        epdSearchComparatorMain.addSession("depth-5-2024-09-15-07-14-v0.0.28-SNAPSHOT");
+        epdSearchComparatorMain.addSession("depth-6-2025-10-07-09-27-v1.2.0-SNAPSHOT"); // Con EvaluatorImp04
+        //epdSearchComparatorMain.addSession("depth-5-2024-09-15-07-14-v0.0.28-SNAPSHOT");
         //
         //
 
@@ -37,12 +37,12 @@ public class EpdSearchComparatorMain {
         epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\mate-b3.epd");
 
         epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\Bratko-Kopec.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\Kaufman.epd");
+        //epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\Kaufman.epd");
 
 
         epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\wac-2018.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\sbd.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\Nolot.epd");
+        //epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\sbd.epd");
+        //epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\Nolot.epd");
 
         epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS1.epd");
         epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS2.epd");

@@ -6,8 +6,6 @@ import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -15,6 +13,7 @@ import java.util.concurrent.TimeoutException;
  */
 @Slf4j
 public class EpdSearchWorkerMain implements Runnable {
+
     public static void main(String[] args) throws Exception {
         String rabbitHost = System.getenv("RABBIT_HOST");
 
@@ -34,41 +33,39 @@ public class EpdSearchWorkerMain implements Runnable {
     public void run() {
         log.info("To exit press CTRL+C");
 
-        try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost(rabbitHost);
-            factory.setUsername("guest");
-            factory.setPassword("guest");
-            factory.setSharedExecutor(executorService);
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost(rabbitHost);
+        factory.setUsername("guest");
+        factory.setPassword("guest");
 
-            log.info("Connecting to RabbitMQ");
+        log.info("Connecting to RabbitMQ");
 
-            try (Connection connection = factory.newConnection();
-                 Channel channel = connection.createChannel();) {
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel();) {
 
-                channel.basicQos(1);
+            channel.basicQos(1);
 
-                log.info("Connected to RabbitMQ");
+            log.info("Connected to RabbitMQ");
 
-                try (RequestConsumer requestConsumer = new RequestConsumer(channel)) {
-                    ResponseProducer responseProducer = new ResponseProducer(channel);
+            RequestConsumer requestConsumer = new RequestConsumer(channel);
 
-                    EpdSearchWorker epdSearchWorker = new EpdSearchWorker();
+            ResponseProducer responseProducer = new ResponseProducer(channel);
 
-                    requestConsumer.setupQueueConsumer(epdSearchWorker, responseProducer::publish);
+            EpdSearchWorker epdSearchWorker = new EpdSearchWorker();
 
-                    log.info("Waiting for EpdSearchRequest");
+            log.info("Waiting for MatchRequest");
 
-                    Thread.sleep(Long.MAX_VALUE);
+            do {
+                EpdSearchRequest request = requestConsumer.readMessage();
+                log.info("[{}] Received EpdSearchRequest: {}", request.getSessionId(), request.getSearchId());
+                EpdSearchResponse response = epdSearchWorker.apply(request);
+                responseProducer.publish(response);
+            } while (true);
 
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
-            } catch (IOException | TimeoutException e) {
-                throw new RuntimeException(e);
-            }
+        } catch (IOException | TimeoutException e) {
+            log.error("Error", e);
         }
+
         log.info("Done");
     }
 }

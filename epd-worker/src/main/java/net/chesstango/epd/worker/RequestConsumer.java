@@ -1,6 +1,7 @@
 package net.chesstango.epd.worker;
 
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.GetResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -13,36 +14,29 @@ import static net.chesstango.epd.worker.EpdSearchRequest.EPD_REQUESTS_QUEUE_NAME
  * @author Mauricio Coria
  */
 @Slf4j
-class RequestConsumer implements AutoCloseable{
+class RequestConsumer {
 
     private final Channel channel;
-    private String cTag;
 
     public RequestConsumer(Channel channel) {
         this.channel = channel;
     }
 
 
-    @Override
-    public void close() throws Exception {
-        channel.basicCancel(cTag);
-    }
-
-
-    public void setupQueueConsumer(Function<EpdSearchRequest, EpdSearchResponse> fnSearch, Consumer<EpdSearchResponse> fnConsumerResponse) {
-        try {
-            cTag = channel.basicConsume(EPD_REQUESTS_QUEUE_NAME, true, (consumerTag, delivery) -> {
-
-                EpdSearchRequest request = EpdSearchRequest.decodeRequest(delivery.getBody());
-
-                EpdSearchResponse response = fnSearch.apply(request);
-
-                fnConsumerResponse.accept(response);
-            }, consumerTag -> {
-                log.info("Queue consumer cancelled {}", cTag);
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public EpdSearchRequest readMessage() throws IOException {
+        do {
+            GetResponse response = channel.basicGet(EPD_REQUESTS_QUEUE_NAME, true);
+            if (response != null) {
+                return EpdSearchRequest.decodeRequest(response.getBody());
+            } else {
+                try {
+                    log.info("Waiting for EpdSearchRequest");
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    log.error("Interrupted while waiting for message", e);
+                    throw new RuntimeException(e);
+                }
+            }
+        } while (true);
     }
 }

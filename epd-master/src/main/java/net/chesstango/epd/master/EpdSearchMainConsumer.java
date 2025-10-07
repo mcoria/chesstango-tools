@@ -77,7 +77,7 @@ public class EpdSearchMainConsumer implements Runnable {
     }
 
 
-    public void accept(EpdSearchResponse epdSearchResponse) {
+    public synchronized void accept(EpdSearchResponse epdSearchResponse) {
         Path sessionDirectory = Common.createSessionDirectory(suiteDirectory, epdSearchResponse.getSessionId());
 
         log.info("Saving EpdSearchResponse for {}", epdSearchResponse.getSessionId());

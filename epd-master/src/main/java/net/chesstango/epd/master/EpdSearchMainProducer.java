@@ -31,6 +31,10 @@ public class EpdSearchMainProducer implements Runnable {
      * Ejemplo:
      * 4 500 C:\java\projects\chess\chess-utils\testing\positions\database "(mate-[wb][123].epd|Bratko-Kopec.epd|wac-2018.epd|STS*.epd|Nolot.epd|sbd.epd)"
      *
+     * <p>
+     *     Ejecutar VM con
+     *     -Dlogback.configurationFile=./src/shade/logback.xml
+     * </p>
      * @param args
      */
     public static void main(String[] args) {

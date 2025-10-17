@@ -17,7 +17,6 @@ module net.chesstango.tools {
     requires net.chesstango.arena.master;
     requires net.chesstango.uci.engine;
     requires net.chesstango.uci.gui;
-    requires net.chesstango.mbeans;
     requires net.chesstango.epd.core;
     requires net.chesstango.epd.worker;
 

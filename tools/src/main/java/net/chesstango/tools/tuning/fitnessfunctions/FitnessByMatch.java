@@ -78,7 +78,7 @@ public class FitnessByMatch implements FitnessFunction {
     private List<MatchResult> fitnessEval(Supplier<Controller> tangoEngineSupplier) {
         try (ObjectPool<Controller> tangoPool = new GenericObjectPool<>(new ControllerPoolFactory(tangoEngineSupplier))) {
             return new MatchMultiple(parallelJobs, tangoPool, opponentPool, MATCH_TYPE)
-                    .setSwitchChairs(true)
+                    .setType(MatchMultiple.Type.BOTH_SIDES)
                     .setMatchListener(new MatchBroadcaster()
                             .addListener(new SavePGNGame()))
                     .play(fenList);

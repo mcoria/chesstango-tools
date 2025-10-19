@@ -4,12 +4,12 @@ package net.chesstango.epd.core.report;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.chesstango.board.representations.move.SimpleMoveEncoder;
 import net.chesstango.epd.core.search.EpdSearchResult;
+import net.chesstango.reports.detail.evaluation.EvaluationModel;
+import net.chesstango.reports.detail.nodes.NodesModel;
+import net.chesstango.reports.detail.pv.PrincipalVariationModel;
 import net.chesstango.search.SearchResultByDepth;
 import net.chesstango.search.SearchResult;
 
-import net.chesstango.reports.evaluation.EvaluationReportModel;
-import net.chesstango.reports.nodes.NodesReportModel;
-import net.chesstango.reports.pv.PrincipalVariationReportModel;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -102,9 +102,9 @@ public class SummaryModel {
     public static SummaryModel collectStatics(String sessionId,
                                               List<EpdSearchResult> epdSearchResults,
                                               EpdSearchReportModel epdSearchReportModel,
-                                              NodesReportModel nodesReportModel,
-                                              EvaluationReportModel evaluationReportModel,
-                                              PrincipalVariationReportModel principalVariationReportModel) {
+                                              NodesModel nodesReportModel,
+                                              EvaluationModel evaluationReportModel,
+                                              PrincipalVariationModel principalVariationReportModel) {
 
         SummaryModel model = new SummaryModel();
 
@@ -128,7 +128,7 @@ public class SummaryModel {
         model.evaluationCollisionPercentageTotal = evaluationReportModel.evaluationCollisionPercentageTotal;
         model.pvAccuracyAvgPercentageTotal = principalVariationReportModel.pvAccuracyAvgPercentageTotal;
 
-        Map<String, PrincipalVariationReportModel.PrincipalVariationReportModelDetail> pvMap = new HashMap<>();
+        Map<String, PrincipalVariationModel.PrincipalVariationReportModelDetail> pvMap = new HashMap<>();
         principalVariationReportModel.moveDetails.forEach(pvMoveDetail -> pvMap.put(pvMoveDetail.id, pvMoveDetail));
 
         SimpleMoveEncoder simpleMoveEncoder = new SimpleMoveEncoder();
@@ -136,7 +136,7 @@ public class SummaryModel {
         epdSearchResults.stream().map(epdSearchResult -> {
             SearchSummaryModeDetail searchSummaryModeDetail = new SearchSummaryModeDetail();
             SearchResult searchResult = epdSearchResult.getSearchResult();
-            PrincipalVariationReportModel.PrincipalVariationReportModelDetail pvDetail = pvMap.get(epdSearchResult.getEpd().getId());
+            PrincipalVariationModel.PrincipalVariationReportModelDetail pvDetail = pvMap.get(epdSearchResult.getEpd().getId());
 
             searchSummaryModeDetail.id = epdSearchResult.getEpd().getId();
             searchSummaryModeDetail.move = epdSearchResult.getBestMoveFound();

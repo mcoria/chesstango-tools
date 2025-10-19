@@ -7,12 +7,12 @@ import net.chesstango.epd.core.report.EpdSearchReportModel;
 import net.chesstango.epd.core.report.SummaryModel;
 import net.chesstango.epd.core.report.SummaryPrinter;
 import net.chesstango.epd.core.search.EpdSearchResult;
-import net.chesstango.reports.evaluation.EvaluationReport;
-import net.chesstango.reports.evaluation.EvaluationReportModel;
-import net.chesstango.reports.nodes.NodesReport;
-import net.chesstango.reports.nodes.NodesReportModel;
-import net.chesstango.reports.pv.PrincipalVariationReport;
-import net.chesstango.reports.pv.PrincipalVariationReportModel;
+import net.chesstango.reports.detail.evaluation.EvaluationModel;
+import net.chesstango.reports.detail.evaluation.EvaluationReport;
+import net.chesstango.reports.detail.nodes.NodesModel;
+import net.chesstango.reports.detail.nodes.NodesReport;
+import net.chesstango.reports.detail.pv.PrincipalVariationModel;
+import net.chesstango.reports.detail.pv.PrincipalVariationReport;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,9 +36,9 @@ public class EpdSearchReportSaver {
 
     public void saveReport(String suiteName, List<EpdSearchResult> epdSearchResults) {
         EpdSearchReportModel epdSearchReportModel = EpdSearchReportModel.collectStatistics(suiteName, epdSearchResults);
-        NodesReportModel nodesReportModel = NodesReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
-        EvaluationReportModel evaluationReportModel = EvaluationReportModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
-        PrincipalVariationReportModel principalVariationReportModel = PrincipalVariationReportModel.collectStatics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
+        NodesModel nodesReportModel = NodesModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
+        EvaluationModel evaluationReportModel = EvaluationModel.collectStatistics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
+        PrincipalVariationModel principalVariationReportModel = PrincipalVariationModel.collectStatics(suiteName, epdSearchResults.stream().map(EpdSearchResult::getSearchResult).toList());
         SummaryModel summaryModel = SummaryModel.collectStatics(SESSION_DATE, epdSearchResults, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
 
         saveReports(suiteName, epdSearchReportModel, nodesReportModel, evaluationReportModel, principalVariationReportModel);
@@ -60,7 +60,7 @@ public class EpdSearchReportSaver {
         }
     }
 
-    private void saveReports(String suiteName, EpdSearchReportModel epdSearchReportModel, NodesReportModel nodesReportModel, EvaluationReportModel evaluationReportModel, PrincipalVariationReportModel principalVariationReportModel) {
+    private void saveReports(String suiteName, EpdSearchReportModel epdSearchReportModel, NodesModel nodesReportModel, EvaluationModel evaluationReportModel, PrincipalVariationModel principalVariationReportModel) {
         Path suitePathReport = sessionDirectory.resolve(String.format("%s-report.txt", suiteName));
 
         try (PrintStream out = new PrintStream(new FileOutputStream(suitePathReport.toFile()), true)) {
@@ -73,7 +73,7 @@ public class EpdSearchReportSaver {
         }
     }
 
-    private void printReports(PrintStream output, EpdSearchReportModel epdSearchReportModel, NodesReportModel nodesReportModel, EvaluationReportModel evaluationReportModel, PrincipalVariationReportModel principalVariationReportModel) {
+    private void printReports(PrintStream output, EpdSearchReportModel epdSearchReportModel, NodesModel nodesReportModel, EvaluationModel evaluationReportModel, PrincipalVariationModel principalVariationReportModel) {
         output.printf("Version: %s\n", Tango.ENGINE_VERSION);
 
         new EpdSearchReport()

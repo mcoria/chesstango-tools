@@ -7,12 +7,13 @@ import net.chesstango.epd.core.report.EpdSearchReportModel;
 import net.chesstango.epd.core.report.SummaryModel;
 import net.chesstango.epd.core.report.SummaryPrinter;
 import net.chesstango.epd.core.search.EpdSearchResult;
-import net.chesstango.reports.detail.evaluation.EvaluationModel;
-import net.chesstango.reports.detail.evaluation.EvaluationReport;
-import net.chesstango.reports.detail.nodes.NodesModel;
-import net.chesstango.reports.detail.nodes.NodesReport;
-import net.chesstango.reports.detail.pv.PrincipalVariationModel;
-import net.chesstango.reports.detail.pv.PrincipalVariationReport;
+import net.chesstango.reports.tree.evaluation.EvaluationModel;
+import net.chesstango.reports.tree.evaluation.EvaluationReport;
+import net.chesstango.reports.tree.nodes.NodesModel;
+import net.chesstango.reports.tree.nodes.NodesReport;
+import net.chesstango.reports.tree.pv.PrincipalVariationModel;
+import net.chesstango.reports.tree.pv.PrincipalVariationReport;
+
 
 import java.io.FileOutputStream;
 import java.io.IOException;

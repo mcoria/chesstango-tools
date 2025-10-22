@@ -4,9 +4,10 @@ package net.chesstango.epd.core.report;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.chesstango.board.representations.move.SimpleMoveEncoder;
 import net.chesstango.epd.core.search.EpdSearchResult;
-import net.chesstango.reports.detail.evaluation.EvaluationModel;
-import net.chesstango.reports.detail.nodes.NodesModel;
-import net.chesstango.reports.detail.pv.PrincipalVariationModel;
+
+import net.chesstango.reports.tree.evaluation.EvaluationModel;
+import net.chesstango.reports.tree.nodes.NodesModel;
+import net.chesstango.reports.tree.pv.PrincipalVariationModel;
 import net.chesstango.search.SearchResultByDepth;
 import net.chesstango.search.SearchResult;
 

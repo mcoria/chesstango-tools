@@ -35,3 +35,4 @@ uci-proxy/target/
 uci-gui/target/
 target/
 scripts/my_env/
+/scripts/.vscode/launch.json

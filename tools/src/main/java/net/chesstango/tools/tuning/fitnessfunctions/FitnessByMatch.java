@@ -8,6 +8,7 @@ import net.chesstango.arena.core.matchtypes.MatchType;
 import net.chesstango.arena.master.MatchMain;
 import net.chesstango.arena.master.common.ControllerPoolFactory;
 import net.chesstango.arena.master.common.MatchMultiple;
+import net.chesstango.arena.master.common.MatchSide;
 import net.chesstango.arena.worker.ControllerFactory;
 import net.chesstango.board.Game;
 import net.chesstango.evaluation.Evaluator;
@@ -78,7 +79,7 @@ public class FitnessByMatch implements FitnessFunction {
     private List<MatchResult> fitnessEval(Supplier<Controller> tangoEngineSupplier) {
         try (ObjectPool<Controller> tangoPool = new GenericObjectPool<>(new ControllerPoolFactory(tangoEngineSupplier))) {
             return new MatchMultiple(parallelJobs, tangoPool, opponentPool, MATCH_TYPE)
-                    .setType(MatchMultiple.Type.BOTH_SIDES)
+                    .setSide(MatchSide.BOTH)
                     .setMatchListener(new MatchBroadcaster()
                             .addListener(new SavePGNGame()))
                     .play(fenList);

@@ -20,45 +20,45 @@ import java.util.Objects;
 public class EpdSearchComparatorMain {
 
     public static void main(String[] args) {
-        EpdSearchComparatorMain epdSearchComparatorMain = new EpdSearchComparatorMain("depth-4-2024-09-15-08-18-v0.0.28");
+        EpdSearchComparatorMain epdSearchComparatorMain = new EpdSearchComparatorMain("depth-3-2025-10-10-09-25-v1.2.0-SNAPSHOT");
         //epdSearchComparatorMain.addSession("depth-7-2025-10-07-09-43-v1.2.0-SNAPSHOT");
-        epdSearchComparatorMain.addSession("depth-4-2025-10-10-09-25-v1.2.0-SNAPSHOT"); // Con EvaluatorImp04
+        epdSearchComparatorMain.addSession("depth-3-2025-12-29-17-26-v1.2.0-SNAPSHOT"); // Con EvaluatorImp04
         //epdSearchComparatorMain.addSession("depth-5-2024-09-15-07-14-v0.0.28-SNAPSHOT");
         //
         //
 
-        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\positions\\database\\mate-w1.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\mate-b1.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\mate-w1.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\mate-b1.epd");
 
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\mate-w2.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\mate-b2.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\mate-w2.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\mate-b2.epd");
 
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\mate-w3.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\mate-b3.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\mate-w3.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\mate-b3.epd");
 
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\Bratko-Kopec.epd");
-        //epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\Kaufman.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\Bratko-Kopec.epd");
+        //epdSearchComparatorMain.execute("C:\java\projects\chess\chess-utils\testing\EPD\database\\Kaufman.epd");
 
 
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\wac-2018.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\sbd.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\Nolot.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\wac-2018.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\sbd.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\Nolot.epd");
 
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS1.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS2.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS3.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS4.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS5.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS6.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS7.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS8.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS9.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS10.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS11.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS12.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS13.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS14.epd");
-        epdSearchComparatorMain.execute("C:\\Java\\projects\\chess\\chess-utils\\testing\\positions\\database\\STS15.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS1.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS2.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS3.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS4.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS5.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS6.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS7.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS8.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS9.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS10.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS11.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS12.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS13.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS14.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\STS15.epd");
     }
 
     private final String baseLineSessionID;

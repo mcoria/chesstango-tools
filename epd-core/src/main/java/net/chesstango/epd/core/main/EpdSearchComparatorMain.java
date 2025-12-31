@@ -20,9 +20,9 @@ import java.util.Objects;
 public class EpdSearchComparatorMain {
 
     public static void main(String[] args) {
-        EpdSearchComparatorMain epdSearchComparatorMain = new EpdSearchComparatorMain("depth-3-2025-10-10-09-25-v1.2.0-SNAPSHOT");
+        EpdSearchComparatorMain epdSearchComparatorMain = new EpdSearchComparatorMain("depth-6-2025-10-10-09-26-v1.2.0-SNAPSHOT");
         //epdSearchComparatorMain.addSession("depth-7-2025-10-07-09-43-v1.2.0-SNAPSHOT");
-        epdSearchComparatorMain.addSession("depth-3-2025-12-29-17-26-v1.2.0-SNAPSHOT"); // Con EvaluatorImp04
+        epdSearchComparatorMain.addSession("depth-6-2025-12-29-18-44-v1.2.0-SNAPSHOT"); // Con EvaluatorImp04
         //epdSearchComparatorMain.addSession("depth-5-2024-09-15-07-14-v0.0.28-SNAPSHOT");
         //
         //
@@ -37,7 +37,7 @@ public class EpdSearchComparatorMain {
         epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\mate-b3.epd");
 
         epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\Bratko-Kopec.epd");
-        //epdSearchComparatorMain.execute("C:\java\projects\chess\chess-utils\testing\EPD\database\\Kaufman.epd");
+        epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\Kaufman.epd");
 
 
         epdSearchComparatorMain.execute("C:\\java\\projects\\chess\\chess-utils\\testing\\EPD\\database\\wac-2018.epd");

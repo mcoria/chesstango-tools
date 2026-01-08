@@ -6,7 +6,7 @@
     <parent>
         <groupId>net.chesstango</groupId>
         <artifactId>engine-parent</artifactId>
-        <version>1.2.0</version>
+        <version>1.3.0-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -30,8 +30,6 @@
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
 
         <!-- Dependencies -->
-        <chesstango.version>1.2.0</chesstango.version>
-        <uci-arena.version>1.2.0</uci-arena.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
         <jenetics.version>8.0.0</jenetics.version>
         <py4j.version>0.10.9.7</py4j.version>
@@ -41,11 +39,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>net.chesstango</groupId>
-                <artifactId>engine-reports</artifactId>
-                <version>${chesstango.version}</version>
-            </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
                 <artifactId>epd-core</artifactId>
@@ -59,17 +52,17 @@
             <dependency>
                 <groupId>net.chesstango</groupId>
                 <artifactId>uci-arena-core</artifactId>
-                <version>${uci-arena.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
                 <artifactId>uci-arena-worker</artifactId>
-                <version>${uci-arena.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.chesstango</groupId>
                 <artifactId>uci-arena-master</artifactId>
-                <version>${uci-arena.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>

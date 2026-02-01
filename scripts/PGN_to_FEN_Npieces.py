@@ -1,42 +1,26 @@
 import chess.pgn
 
 # Define a constant for the target number of pieces on the board
-TARGET_PIECES = 5
-
-# Define a constant for the maximum depth reach the target number of pieces
-MAX_DEPTH  = 1
+TARGET_PIECES = 6
 
 # Main function to process PGN file and output FEN strings
 # at the point where the number of pieces reaches TARGET_PIECES
 # being at most MAX_DEPTH moves before that point.
 def main():
     # Abre el archivo PGN que contiene los games que comienzan con al menos TARGET_PIECES + 1
-    pgn = open(r"C:\java\projects\chess\chess-utils\testing\matches\LumbrasGigaBase\LumbrasGigaBase_OTB_2025_6_pieces_finalLessThan6_draw.pgn")
+    pgn = open(r"C:\java\projects\chess\chess-utils\testing\PGN\full\LumbrasGigaBase\OverTheBoard\LumbrasGigaBase_OTB_2025_no_clock.pgn", encoding="utf-8")
     while game := chess.pgn.read_game(pgn):
         if game is None:
             break
-        depth = depthToTargetPieces(game)
-        if depth > 0:
-            board = game.board()
-            if depth > MAX_DEPTH:
-                for move in game.mainline_moves():
-                    board.push(move)
-                    depth -= 1
-                    if depth == MAX_DEPTH:
-                        break
+        board = game.board()
+        if countPieces(board) == TARGET_PIECES:
             print(board.fen())
-
-# Determina la profundidad en la que el juego alcanza el número objetivo de piezas
-def depthToTargetPieces(game: chess.pgn.Game) -> int:
-    moveCounter = 0
-    board = game.board()
-    if countPieces(board) > TARGET_PIECES:
-        for move in game.mainline_moves():
-            board.push(move)
-            moveCounter += 1
-            if countPieces(board) == TARGET_PIECES:
-                break
-    return moveCounter
+        elif countPieces(board) > TARGET_PIECES:
+            for move in game.mainline_moves():
+                board.push(move)
+                if countPieces(board) == TARGET_PIECES:
+                    print(board.fen())
+                    break
 
 # Cuenta la cantidad de piezas en el tablero
 def countPieces(board: chess.Board) -> int:

@@ -6,7 +6,7 @@ white_wins = []
 black_wins = []
 draws = []
 
-inputFilePath = Path(r"C:\java\projects\chess\chess-utils\testing\matches\LumbrasGigaBase\LumbrasGigaBase_OTB_2025_6_pieces_finalLessThan6.fen")
+inputFilePath = Path(r"C:\java\projects\chess\chess-utils\testing\PGN\full\LumbrasGigaBase\OverTheBoard\LumbrasGigaBase_OTB_2025_6_pieces.fen")
 with chess.syzygy.open_tablebase(r"E:\syzygy") as tablebase:
         with inputFilePath.open("r", encoding="utf-8") as input_file:
             for fen in input_file: 
@@ -20,7 +20,7 @@ with chess.syzygy.open_tablebase(r"E:\syzygy") as tablebase:
                     draws.append(fen)
 
 
-outputFilePath = Path(r"C:\java\projects\chess\chess-utils\testing\matches\LumbrasGigaBase\LumbrasGigaBase_OTB_2025_6_pieces_finalLessThan6_results.txt")
+outputFilePath = Path(r"C:\java\projects\chess\chess-utils\testing\PGN\full\LumbrasGigaBase\OverTheBoard\LumbrasGigaBase_OTB_2025_6_pieces_results.txt")
 with outputFilePath.open("w", encoding="utf-8") as output_file:
     output_file.write("White Wins:\n")
     for fen in white_wins:

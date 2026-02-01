@@ -65,7 +65,7 @@ public class PgnToFENTest {
     @Disabled
     public void LumbrasGigaBase_Filter() throws IOException {
 
-        Path syzygyPath = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
+        String syzygyPath = "C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5";
         Syzygy syzygy = Syzygy.open(syzygyPath);
 
         Path filePath = Paths.get("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\LumbrasGigaBase\\LumbrasGigaBase_OTB_2025_5_pieces_finalLessThan6.fen");

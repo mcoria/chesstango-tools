@@ -12,7 +12,6 @@ import net.chesstango.arena.master.common.MatchSide;
 import net.chesstango.arena.worker.ControllerFactory;
 import net.chesstango.board.Game;
 import net.chesstango.evaluation.Evaluator;
-import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.pgn.PGN;
 import net.chesstango.gardel.pgn.PGNStringDecoder;
 import net.chesstango.uci.gui.Controller;
@@ -40,7 +39,7 @@ public class FitnessByMatch implements FitnessFunction {
 
     private ObjectPool<Controller> opponentPool;
 
-    private Stream<FEN> fenList;
+    private Stream<PGN> pgnStream;
 
 
     @Override
@@ -49,11 +48,10 @@ public class FitnessByMatch implements FitnessFunction {
             Supplier<Controller> opponentSupplier = () -> ControllerFactory.createProxyController(spike);
 
             Stream<PGN> pgnGames = new PGNStringDecoder().decodePGNs(MatchMain.class.getClassLoader().getResourceAsStream("Balsa_Top10.pgn"));
-            //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
-            //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
-            //this.fenList = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
+            //this.pgnStream = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top25.pgn"));
+            //this.pgnStream = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_Top50.pgn"));
+            //this.pgnStream = new Transcoding().pgnFileToFenPositions(FitnessByMatch.class.getClassLoader().getResourceAsStream("Balsa_v500.pgn"));
 
-            this.fenList = pgnGames.map(Game::from).map(Game::getCurrentFEN);
             this.opponentPool = new GenericObjectPool<>(new ControllerPoolFactory(opponentSupplier));
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -82,7 +80,7 @@ public class FitnessByMatch implements FitnessFunction {
                     .setSide(MatchSide.BOTH)
                     .setMatchListener(new MatchBroadcaster()
                             .addListener(new SavePGNGame()))
-                    .play(fenList);
+                    .play(pgnStream);
         }
     }
 

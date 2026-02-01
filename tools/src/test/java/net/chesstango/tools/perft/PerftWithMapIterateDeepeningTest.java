@@ -3,7 +3,6 @@ package net.chesstango.tools.perft;
 import net.chesstango.board.Game;
 import net.chesstango.board.Square;
 import net.chesstango.gardel.fen.FEN;
-import net.chesstango.gardel.fen.FENParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,18 +20,18 @@ public class PerftWithMapIterateDeepeningTest {
         perft.depth = 6;
         long result;
 
-        Long initialGameId = PerftWithMapIterateDeepening.getZobristGameId(Game.from(FEN.of(FENParser.INITIAL_FEN)));
+        Long initialGameId = PerftWithMapIterateDeepening.getZobristGameId(Game.from(FEN.START_POSITION));
         Long[] initialGameIdCounts = perft.transpositionTable.computeIfAbsent(initialGameId, k -> new Long[perft.depth]);
 
-        Long b1a3 = PerftWithMapIterateDeepening.getZobristGameId(Game.from(FEN.of(FENParser.INITIAL_FEN)).executeMove(Square.b1, Square.a3));
+        Long b1a3 = PerftWithMapIterateDeepening.getZobristGameId(Game.from(FEN.START_POSITION).executeMove(Square.b1, Square.a3));
 
         perft.maxLevel = 1;
-        result = perft.visitChild(Game.from(FEN.of(FENParser.INITIAL_FEN)), 1, initialGameIdCounts);
+        result = perft.visitChild(Game.from(FEN.START_POSITION), 1, initialGameIdCounts);
         assertEquals(20, result);
         assertEquals(20, initialGameIdCounts[0].longValue());
 
         perft.maxLevel = 2;
-        result = perft.visitChild(Game.from(FEN.of(FENParser.INITIAL_FEN)), 1, initialGameIdCounts);
+        result = perft.visitChild(Game.from(FEN.START_POSITION), 1, initialGameIdCounts);
         assertEquals(400, result);
 
         // main branch
@@ -44,7 +43,7 @@ public class PerftWithMapIterateDeepeningTest {
 
 
         perft.maxLevel = 3;
-        result = perft.visitChild(Game.from(FEN.of(FENParser.INITIAL_FEN)), 1, initialGameIdCounts);
+        result = perft.visitChild(Game.from(FEN.START_POSITION), 1, initialGameIdCounts);
         assertEquals(8902, result);
 
         // main branch
@@ -58,7 +57,7 @@ public class PerftWithMapIterateDeepeningTest {
         assertNull(perft.transpositionTable.get(b1a3)[2]);
 
         perft.maxLevel = 4;
-        result = perft.visitChild(Game.from(FEN.of(FENParser.INITIAL_FEN)), 1, initialGameIdCounts);
+        result = perft.visitChild(Game.from(FEN.START_POSITION), 1, initialGameIdCounts);
         assertEquals(197281, result);
 
         // main branch
@@ -74,7 +73,7 @@ public class PerftWithMapIterateDeepeningTest {
         assertNull(perft.transpositionTable.get(b1a3)[3]);
 
         perft.maxLevel = 5;
-        result = perft.visitChild(Game.from(FEN.of(FENParser.INITIAL_FEN)), 1, initialGameIdCounts);
+        result = perft.visitChild(Game.from(FEN.START_POSITION), 1, initialGameIdCounts);
         assertEquals(4865609, result);
 
         // main branch
@@ -92,7 +91,7 @@ public class PerftWithMapIterateDeepeningTest {
         assertNull(perft.transpositionTable.get(b1a3)[4]);
 
         perft.maxLevel = 6;
-        result = perft.visitChild(Game.from(FEN.of(FENParser.INITIAL_FEN)), 1, initialGameIdCounts);
+        result = perft.visitChild(Game.from(FEN.START_POSITION), 1, initialGameIdCounts);
         assertEquals(119060324, result);
 
         // main branch
@@ -118,10 +117,10 @@ public class PerftWithMapIterateDeepeningTest {
         perft.depth = 7;
         perft.maxLevel = 7;
 
-        Long initialGameId = PerftWithMapIterateDeepening.getZobristGameId(Game.from(FEN.of(FENParser.INITIAL_FEN)));
+        Long initialGameId = PerftWithMapIterateDeepening.getZobristGameId(Game.from(FEN.START_POSITION));
         Long[] initialGameIdCounts = perft.transpositionTable.computeIfAbsent(initialGameId, k -> new Long[perft.depth]);
 
-        long result = perft.visitChild(Game.from(FEN.of(FENParser.INITIAL_FEN)), 1, initialGameIdCounts);
+        long result = perft.visitChild(Game.from(FEN.START_POSITION), 1, initialGameIdCounts);
         assertEquals(3195901860L, result);
     }
 
@@ -130,7 +129,7 @@ public class PerftWithMapIterateDeepeningTest {
     public void initialPosition_level7_iterative() {
         PerftWithMapIterateDeepening<Long> perft = new PerftWithMapIterateDeepening<>(PerftWithMapIterateDeepening::getZobristGameId);
 
-        PerftResult result = perft.start(Game.from(FEN.of(FENParser.INITIAL_FEN)), 7);
+        PerftResult result = perft.start(Game.from(FEN.START_POSITION), 7);
         assertEquals(20, result.getMovesCount());
         assertEquals(3195901860L, result.getTotalNodes());
     }

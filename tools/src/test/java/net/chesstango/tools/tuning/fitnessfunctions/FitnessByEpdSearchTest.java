@@ -3,13 +3,12 @@ package net.chesstango.tools.tuning.fitnessfunctions;
 import net.chesstango.board.Game;
 import net.chesstango.board.Square;
 import net.chesstango.board.moves.Move;
-import net.chesstango.gardel.epd.EPD;
-import net.chesstango.gardel.fen.FEN;
-import net.chesstango.gardel.fen.FENParser;
 import net.chesstango.evaluation.evaluators.EvaluatorByMaterialAndPST;
 import net.chesstango.evaluation.evaluators.EvaluatorImp04;
 import net.chesstango.evaluation.evaluators.EvaluatorImp05;
 import net.chesstango.evaluation.evaluators.EvaluatorImp06;
+import net.chesstango.gardel.epd.EPD;
+import net.chesstango.gardel.fen.FEN;
 import net.chesstango.search.MoveEvaluation;
 import net.chesstango.search.MoveEvaluationType;
 import net.chesstango.search.SearchResult;
@@ -55,7 +54,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = Game.from(FEN.of(FENParser.INITIAL_FEN));
+        Game game = Game.from(FEN.START_POSITION);
 
         final Move bestMoveFound = game.getMove(Square.c2, Square.c3);
         final int bestMoveEvaluationFound = 100;
@@ -107,7 +106,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = Game.from(FEN.of(FENParser.INITIAL_FEN));
+        Game game = Game.from(FEN.START_POSITION);
 
         final Move bestMoveFound = game.getMove(Square.c2, Square.c3);
         final int bestMoveEvaluationFound = 100;
@@ -164,7 +163,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = Game.from(FEN.of(FENParser.INITIAL_FEN));
+        Game game = Game.from(FEN.START_POSITION);
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c2, Square.c3);
         final int bestEvaluationFoundBySearch = 100;
@@ -222,7 +221,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = Game.from(FEN.of(FENParser.INITIAL_FEN));
+        Game game = Game.from(FEN.START_POSITION);
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c2, Square.c3);
         final int bestEvaluationFoundBySearch = 100;
@@ -279,7 +278,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = Game.from(FEN.of(FENParser.INITIAL_FEN)).mirror();
+        Game game = Game.from(FEN.START_POSITION).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -331,7 +330,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = Game.from(FEN.of(FENParser.INITIAL_FEN)).mirror();
+        Game game = Game.from(FEN.START_POSITION).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -388,7 +387,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = Game.from(FEN.of(FENParser.INITIAL_FEN)).mirror();
+        Game game = Game.from(FEN.START_POSITION).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
@@ -445,7 +444,7 @@ public class FitnessByEpdSearchTest {
 
         FitnessByEpdBestMove fitnessFn = new FitnessByEpdBestMove(files, 2);
 
-        Game game = Game.from(FEN.of(FENParser.INITIAL_FEN)).mirror();
+        Game game = Game.from(FEN.START_POSITION).mirror();
 
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;

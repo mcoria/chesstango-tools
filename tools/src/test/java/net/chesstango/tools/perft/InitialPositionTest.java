@@ -2,7 +2,7 @@ package net.chesstango.tools.perft;
 
 import net.chesstango.board.Game;
 import net.chesstango.board.Square;
-import net.chesstango.gardel.fen.FENParser;
+import net.chesstango.gardel.fen.FEN;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class InitialPositionTest extends AbstractPerftTest {
     @BeforeEach
     public void setUp() throws Exception {
         perft = createPerft();
-        game = getGame(FENParser.INITIAL_FEN);
+        game = Game.from(FEN.START_POSITION);
     }
 
     @Test

@@ -1,6 +1,8 @@
 helm version
 
-helm repo add grafana https://grafana.github.io/helm-charts
+helm repo list
+helm repo remove ....
+helm repo add grafana https://grafana-community.github.io/helm-charts
 helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
 helm repo update
 
@@ -15,23 +17,25 @@ helm install loki grafana/loki -n observability  -f loki-values.yaml
 
 
 # Install grafana
-helm install grafana grafana/grafana -n observability
+helm install grafana grafana/grafana -n observability -f grafana-values.yaml
 
 # Obtener el pass
-kubectl get secret grafana -n observability -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+kubectl get secret grafana -n observability -o jsonpath="{.data.admin-password}"
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(""))
 
-pass: YfyjCFVAGPmMb7PNOOe0VfJq2HCD53tFgmr9Or99
+pass: sdAfglgrnW6g2PTW06vVuQeCdQVh5QlOff5v35iu
 
-# Abrir el puerto para ingresar
-kubectl -n observability port-forward grafana-84f6d89598-8mglk 3000
+# Port forward
+kubectl port-forward service/grafana 3000:80 -n observability
 
 # Para conectar Grafana a Loki
 http://loki-gateway.observability.svc.cluster.local
 
 
 
-
 ---------
+# Get pods
+kubectl get pods -o wide -n observability
 
 # Uninstall loki
 helm delete loki -n observability

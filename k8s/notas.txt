@@ -1,8 +1,8 @@
 helm version
 
 helm repo list
-helm repo remove ....
-helm repo add grafana https://grafana-community.github.io/helm-charts
+helm repo remove grafana
+helm repo add grafana https://grafana.github.io/helm-charts
 helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
 helm repo update
 
@@ -10,11 +10,23 @@ helm repo update
 helm list --all-namespaces
 
 # Create namespace
-kubectl create namespace 
+kubectl create namespace observability
 
+kubectl config set-context --current --namespace=observability
+
+--------- LOKI
 # Install loki
 helm install loki grafana/loki -n observability  -f loki-values.yaml
 
+# Para conectar Grafana a Loki
+http://loki-gateway.observability.svc.cluster.local
+
+
+http://loki-gateway.observability.svc.cluster.local/loki/api/v1/push
+
+--------- GRAFANA
+# Create grafana-values.yaml (once)
+helm show values grafana/grafana > grafana-values.yaml
 
 # Install grafana
 helm install grafana grafana/grafana -n observability -f grafana-values.yaml
@@ -23,15 +35,17 @@ helm install grafana grafana/grafana -n observability -f grafana-values.yaml
 kubectl get secret grafana -n observability -o jsonpath="{.data.admin-password}"
 [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(""))
 
-pass: sdAfglgrnW6g2PTW06vVuQeCdQVh5QlOff5v35iu
+pass: uOhLCuGGt5WscRqlkh89zGWeD4TfmNWrByvSilOn
 
 # Port forward
 kubectl port-forward service/grafana 3000:80 -n observability
 
-# Para conectar Grafana a Loki
-http://loki-gateway.observability.svc.cluster.local
 
 
+--------- Collector
+
+# Deamonset
+helm install otel-collector open-telemetry/opentelemetry-collector -n observability --values collector-deamonset-values.yaml
 
 ---------
 # Get pods
@@ -42,3 +56,6 @@ helm delete loki -n observability
 
 # Uninstall grafana
 helm delete grafana -n observability
+
+# Uninstall otel-collector
+helm delete otel-collector -n observability

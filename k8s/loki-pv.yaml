@@ -10,9 +10,6 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: "hostpath"
-  claimRef:
-    namespace: observability
-    name: storage-loki-0
   hostPath:
     path: "/mnt/host/d/k8s_shared/loki"
     type: DirectoryOrCreate

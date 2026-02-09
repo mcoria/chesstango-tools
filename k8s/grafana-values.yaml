@@ -59,8 +59,8 @@ automountServiceAccountToken: true
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 5
-  targetCPU: "60"
+  maxReplicas: 1
+  targetCPU: "30"
   targetMemory: ""
   behavior: {}
 

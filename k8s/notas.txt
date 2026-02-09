@@ -22,6 +22,7 @@ helm install loki grafana/loki -n observability  -f loki-values.yaml
 http://loki-gateway.observability.svc.cluster.local
 
 
+
 http://loki-gateway.observability.svc.cluster.local/loki/api/v1/push
 
 --------- GRAFANA
@@ -35,7 +36,7 @@ helm install grafana grafana/grafana -n observability -f grafana-values.yaml
 kubectl get secret grafana -n observability -o jsonpath="{.data.admin-password}"
 [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(""))
 
-pass: uOhLCuGGt5WscRqlkh89zGWeD4TfmNWrByvSilOn
+pass: h4wCWg1GvId9yJ2Fo5BHoxxquMBCSA67Jr6zF5zj
 
 # Port forward
 kubectl port-forward service/grafana 3000:80 -n observability

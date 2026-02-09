@@ -1,33 +1,50 @@
 loki:
   auth_enabled: false
+
   commonConfig:
+    path_prefix: /var/loki
     replication_factor: 1
+
   schemaConfig:
     configs:
-      - from: "2024-04-01"
+      - from: 2024-01-01
         store: tsdb
-        object_store: s3
+        object_store: filesystem
         schema: v13
         index:
           prefix: loki_index_
           period: 24h
-  pattern_ingester:
-      enabled: true
-  limits_config:
-    allow_structured_metadata: true
-    volume_enabled: true
-  ruler:
-    enable_api: true
 
-minio:
-  enabled: true
-      
+  storage:
+    type: filesystem
+
+  limits_config:
+    reject_old_samples: true
+    reject_old_samples_max_age: 168h
+    ingestion_rate_mb: 32
+    ingestion_burst_size_mb: 48
+    max_streams_per_user: 10000
+    max_line_size: 256kb
+    max_entries_limit_per_query: 5000
+    max_query_series: 500
+
 deploymentMode: SingleBinary
 
 singleBinary:
   replicas: 1
+  persistence:
+    enabled: true
+    size: 2Gi
+    storageClass: hostpath
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 500m
+      memory: 4Gi
 
-# Zero out replica counts of other deployment modes
+# Disable components not needed in single binary mode
 backend:
   replicas: 0
 read:
@@ -35,21 +52,32 @@ read:
 write:
   replicas: 0
 
-ingester:
-  replicas: 0
-querier:
-  replicas: 0
-queryFrontend:
-  replicas: 0
-queryScheduler:
-  replicas: 0
-distributor:
-  replicas: 0
-compactor:
-  replicas: 0
-indexGateway:
-  replicas: 0
-bloomCompactor:
-  replicas: 0
-bloomGateway:
-  replicas: 0
+# Gateway configuration
+gateway:
+  enabled: true
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  service:
+    type: ClusterIP
+    port: 80
+
+# Enable minio for object storage (optional)
+minio:
+  enabled: false
+
+# Monitoring
+monitoring:
+  dashboards:
+    enabled: false
+  rules:
+    enabled: false
+  serviceMonitor:
+    enabled: false
+    labels:
+      release: prometheus

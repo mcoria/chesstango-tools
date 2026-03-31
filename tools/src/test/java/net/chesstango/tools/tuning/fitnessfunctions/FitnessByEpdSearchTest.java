@@ -9,10 +9,7 @@ import net.chesstango.evaluation.evaluators.EvaluatorImp05;
 import net.chesstango.evaluation.evaluators.EvaluatorImp06;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.fen.FEN;
-import net.chesstango.search.MoveEvaluation;
-import net.chesstango.search.MoveEvaluationType;
-import net.chesstango.search.SearchResult;
-import net.chesstango.search.SearchResultByDepth;
+import net.chesstango.search.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -59,13 +56,13 @@ public class FitnessByEpdSearchTest {
         final Move bestMoveFound = game.getMove(Square.c2, Square.c3);
         final int bestMoveEvaluationFound = 100;
 
-        List<MoveEvaluation> moveEvaluations = new LinkedList<>();
+        List<RootMoveEvaluation> moveEvaluations = new LinkedList<>();
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFound)) {
-                moveEvaluations.add(new MoveEvaluation(move, bestMoveEvaluationFound, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestMoveEvaluationFound, Bound.EXACT));
             } else {
-                moveEvaluations.add(new MoveEvaluation(move, i, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
             }
             i++;
         }
@@ -114,15 +111,15 @@ public class FitnessByEpdSearchTest {
         final Move actualBestMove = game.getMove(Square.f2, Square.f4);
         final int actualBestMoveEvaluation = 90;
 
-        List<MoveEvaluation> moveEvaluations = new LinkedList<>();
+        List<RootMoveEvaluation> moveEvaluations = new LinkedList<>();
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFound)) {
-                moveEvaluations.add(new MoveEvaluation(move, bestMoveEvaluationFound, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestMoveEvaluationFound, Bound.EXACT));
             } else if (move.equals(actualBestMove)) {
-                moveEvaluations.add(new MoveEvaluation(move, actualBestMoveEvaluation, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT));
             } else {
-                moveEvaluations.add(new MoveEvaluation(move, i, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
             }
             i++;
         }
@@ -171,15 +168,15 @@ public class FitnessByEpdSearchTest {
         final Move actualBestMove = game.getMove(Square.f2, Square.f4);
         final int actualBestMoveEvaluation = -10;
 
-        List<MoveEvaluation> moveEvaluations = new LinkedList<>();
+        List<RootMoveEvaluation> moveEvaluations = new LinkedList<>();
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new MoveEvaluation(move, bestEvaluationFoundBySearch, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
             } else if (move.equals(actualBestMove)) {
-                moveEvaluations.add(new MoveEvaluation(move, actualBestMoveEvaluation, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT));
             } else {
-                moveEvaluations.add(new MoveEvaluation(move, i, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
             }
             i++;
         }
@@ -229,15 +226,15 @@ public class FitnessByEpdSearchTest {
         final Move actualBestMove = game.getMove(Square.f2, Square.f4);
         final int actualBestMoveEvaluation = 90;
 
-        List<MoveEvaluation> moveEvaluations = new LinkedList<>();
+        List<RootMoveEvaluation> moveEvaluations = new LinkedList<>();
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new MoveEvaluation(move, bestEvaluationFoundBySearch, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
             } else if (move.equals(actualBestMove)) {
-                //moveEvaluations.add(new MoveEvaluation(move, 90));
+                //moveEvaluations.add(new RootMoveEvaluation(move, 90));
             } else {
-                moveEvaluations.add(new MoveEvaluation(move, i, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
             }
             i++;
         }
@@ -283,13 +280,13 @@ public class FitnessByEpdSearchTest {
         final Move bestMoveFoundBySearch = game.getMove(Square.c7, Square.c6);
         final int bestEvaluationFoundBySearch = -100;
 
-        List<MoveEvaluation> moveEvaluations = new LinkedList<>();
+        List<RootMoveEvaluation> moveEvaluations = new LinkedList<>();
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new MoveEvaluation(move, bestEvaluationFoundBySearch, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
             } else {
-                moveEvaluations.add(new MoveEvaluation(move, i, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
             }
             i++;
         }
@@ -338,15 +335,15 @@ public class FitnessByEpdSearchTest {
         final Move actualBestMove = game.getMove(Square.f7, Square.f5);
         final int actualBestMoveEvaluation = -90;
 
-        List<MoveEvaluation> moveEvaluations = new LinkedList<>();
+        List<RootMoveEvaluation> moveEvaluations = new LinkedList<>();
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new MoveEvaluation(move, bestEvaluationFoundBySearch, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
             } else if (move.equals(actualBestMove)) {
-                moveEvaluations.add(new MoveEvaluation(move, actualBestMoveEvaluation, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT));
             } else {
-                moveEvaluations.add(new MoveEvaluation(move, -i, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, -i, Bound.EXACT));
             }
             i++;
         }
@@ -395,15 +392,15 @@ public class FitnessByEpdSearchTest {
         final Move actualBestMove = game.getMove(Square.f7, Square.f5);
         final int actualBestMoveEvaluation = 10;
 
-        List<MoveEvaluation> moveEvaluations = new LinkedList<>();
+        List<RootMoveEvaluation> moveEvaluations = new LinkedList<>();
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new MoveEvaluation(move, bestEvaluationFoundBySearch, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
             } else if (move.equals(actualBestMove)) {
-                moveEvaluations.add(new MoveEvaluation(move, actualBestMoveEvaluation, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT));
             } else {
-                moveEvaluations.add(new MoveEvaluation(move, -i, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, -i, Bound.EXACT));
             }
             i++;
         }
@@ -452,15 +449,15 @@ public class FitnessByEpdSearchTest {
         final Move actualBestMove = game.getMove(Square.f7, Square.f5);
         final int actualBestMoveEvaluation = -90;
 
-        List<MoveEvaluation> moveEvaluations = new LinkedList<>();
+        List<RootMoveEvaluation> moveEvaluations = new LinkedList<>();
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new MoveEvaluation(move, bestEvaluationFoundBySearch, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
             } else if (move.equals(actualBestMove)) {
-                //moveEvaluations.add(new MoveEvaluation(move, 90));
+                //moveEvaluations.add(new RootMoveEvaluation(move, 90));
             } else {
-                moveEvaluations.add(new MoveEvaluation(move, -i, MoveEvaluationType.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, -i, Bound.EXACT));
             }
             i++;
         }
@@ -485,12 +482,12 @@ public class FitnessByEpdSearchTest {
         return epd;
     }
 
-    private SearchResult createSearchMoveResult(Move bestMoveFoundBySearch, int bestEvaluationFoundBySearch, List<MoveEvaluation> moveEvaluations) {
+    private SearchResult createSearchMoveResult(Move bestMoveFoundBySearch, int bestEvaluationFoundBySearch, List<RootMoveEvaluation> moveEvaluations) {
         return new SearchResult()
                 .addSearchResultByDepth(
                         new SearchResultByDepth(1)
-                                .setBestMoveEvaluation(
-                                        new MoveEvaluation(bestMoveFoundBySearch, bestEvaluationFoundBySearch, MoveEvaluationType.EXACT)
+                                .setBestRootMoveEvaluation(
+                                        new RootMoveEvaluation(bestMoveFoundBySearch, bestEvaluationFoundBySearch, Bound.EXACT)
                                 )
                 );
     }

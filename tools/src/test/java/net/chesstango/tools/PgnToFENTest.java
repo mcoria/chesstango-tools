@@ -71,7 +71,7 @@ public class PgnToFENTest {
         Path filePath = Paths.get("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\LumbrasGigaBase\\LumbrasGigaBase_OTB_2025_5_pieces_finalLessThan6.fen");
         try (Stream<String> lines = Files.lines(filePath)) {
             lines.filter(s -> s != null && !s.trim().isEmpty())
-                    .map(FEN::of)
+                    .map(FEN::from)
                     .filter(fen -> "b".equals(fen.getActiveColor()))          // White turn
                     .filter(fen -> {
                         SyzygyPosition position = SyzygyPosition.from(fen);

@@ -22,7 +22,7 @@ public class PerftMainSingle {
 
         System.out.println(String.format("FEN =  %s", fen));
 
-        Game board = Game.from(FEN.of(fen));
+        Game board = Game.from(FEN.from(fen));
 
         //Perft main = new PerftWithMap();
         Perft main = new PerftBrute();

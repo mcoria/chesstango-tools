@@ -257,7 +257,7 @@ public class PerftMain {
     }
 
     private Game getGame() {
-        return Game.from(FEN.of(this.fen));
+        return Game.from(FEN.from(this.fen));
     }
 
 

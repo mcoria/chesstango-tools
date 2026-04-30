@@ -139,7 +139,7 @@ public class PerftWithMapIterateDeepeningTest {
     public void test_level7_iterative() {
         PerftWithMapIterateDeepening<Long> perft = new PerftWithMapIterateDeepening<>(PerftWithMapIterateDeepening::getZobristGameId);
 
-        PerftResult result = perft.start(Game.from(FEN.of("4k3/7p/8/8/8/8/P7/4K3 w - - 1 1")), 7);
+        PerftResult result = perft.start(Game.from(FEN.from("4k3/7p/8/8/8/8/P7/4K3 w - - 1 1")), 7);
         assertEquals(7, result.getMovesCount());
         assertEquals(1804144, result.getTotalNodes());
     }

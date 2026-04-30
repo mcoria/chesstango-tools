@@ -19,7 +19,7 @@ public abstract class AbstractPerftTest {
         //GameBuilder builder = new GameBuilderDebug();
         GameBuilder builder = new GameBuilder();
 
-        FEN.of(string).export(builder);
+        FEN.from(string).export(builder);
 
         return builder.getPositionRepresentation();
     }

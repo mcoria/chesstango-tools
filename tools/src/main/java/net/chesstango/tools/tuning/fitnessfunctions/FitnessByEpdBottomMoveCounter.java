@@ -53,7 +53,7 @@ public class FitnessByEpdBottomMoveCounter extends FitnessByEpdAbstract {
 
     @Override
     protected long getPoints(EPD epd, SearchResult searchResult) {
-        Game game = Game.from(FEN.of(epd.getFenWithoutClocks() + " 0 1"));
+        Game game = Game.from(FEN.from(epd.getFenWithoutClocks() + " 0 1"));
 
         int possibleMoves = game.getPossibleMoves().size();
 

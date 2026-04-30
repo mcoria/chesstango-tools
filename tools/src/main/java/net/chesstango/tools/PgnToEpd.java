@@ -1,7 +1,7 @@
 package net.chesstango.tools;
 
 
-import net.chesstango.gardel.pgn.PGNStringDecoder;
+import net.chesstango.gardel.pgn.PGNDecoder;
 import org.apache.commons.cli.*;
 
 import java.io.FileInputStream;
@@ -36,7 +36,7 @@ public class PgnToEpd {
     }
 
     private void process(InputStream inputStream, PrintStream out, PrintStream err) throws IOException {
-        PGNStringDecoder pgnStringDecoder = new PGNStringDecoder();
+        PGNDecoder pgnStringDecoder = new PGNDecoder();
         pgnStringDecoder.decodePGNs(inputStream)
                 .forEach(pgn -> pgn.toEPD()
                         .forEach(out::println)

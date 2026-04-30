@@ -1,16 +1,18 @@
 package net.chesstango.tools.tuning.fitnessfunctions;
 
 import lombok.Setter;
+import net.chesstango.epd.core.search.EpdSearch;
+import net.chesstango.epd.core.search.EpdSearchResult;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.gardel.epd.EPD;
 import net.chesstango.gardel.epd.EPDDecoder;
 import net.chesstango.search.Search;
 import net.chesstango.search.SearchResult;
-import net.chesstango.epd.core.search.EpdSearch;
-import net.chesstango.epd.core.search.EpdSearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -59,7 +61,13 @@ public abstract class FitnessByEpdAbstract implements FitnessFunction {
     public void start() {
         EPDDecoder reader = new EPDDecoder();
 
-        epdFiles.forEach(fileName -> edpEntries.addAll(reader.readEpdFile(fileName)));
+        epdFiles.forEach(fileName -> {
+            try {
+                edpEntries.addAll(reader.decodeEPDs(Path.of(fileName)).toList());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override

@@ -3,7 +3,7 @@ package net.chesstango.tools;
 import net.chesstango.board.Game;
 import net.chesstango.gardel.fen.FEN;
 import net.chesstango.gardel.pgn.PGN;
-import net.chesstango.gardel.pgn.PGNStringDecoder;
+import net.chesstango.gardel.pgn.PGNDecoder;
 import net.chesstango.piazzolla.syzygy.Syzygy;
 import net.chesstango.piazzolla.syzygy.SyzygyPosition;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,11 +24,11 @@ import java.util.stream.Stream;
  */
 public class PgnToFENTest {
 
-    private PGNStringDecoder decoder;
+    private PGNDecoder decoder;
 
     @BeforeEach
     public void settup() {
-        decoder = new PGNStringDecoder();
+        decoder = new PGNDecoder();
     }
 
 

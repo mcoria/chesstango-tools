@@ -47,9 +47,7 @@ public abstract class FitnessByEpdAbstract implements FitnessFunction {
 
         epdSearch.setDepth(depth);
 
-        epdSearch.setSearchSupplier(createSearchSupplier(gameEvaluatorSupplier));
-
-        List<EpdSearchResult> epdSearchResults = epdSearch.run(edpEntries.stream());
+        List<EpdSearchResult> epdSearchResults = epdSearch.run(createSearchSupplier(gameEvaluatorSupplier), edpEntries.stream());
 
         return epdSearchResults
                 .stream()

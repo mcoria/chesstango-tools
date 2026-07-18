@@ -473,7 +473,7 @@ public class FitnessByEpdSearchTest {
 
     private EPD createEpdEntry(Game game, List<Move> actualBestMove) {
         EPD epd = new EPD();
-        FEN fenGame = game.getCurrentFEN();
+        FEN fenGame = game.toFEN();
         epd.setPiecePlacement(fenGame.getPiecePlacement());
         epd.setActiveColor(fenGame.getActiveColor());
         epd.setCastingsAllowed(fenGame.getCastingsAllowed());

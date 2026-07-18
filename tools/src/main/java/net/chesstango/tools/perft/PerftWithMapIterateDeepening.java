@@ -133,8 +133,7 @@ public class PerftWithMapIterateDeepening<T> implements Perft {
 
     //TODO: este metodo se esta morfando una parte significativa de la ejecucion
     public static String getStringGameId(Game game) {
-        FEN fen = game.getCurrentFEN();
-        return String.format("%s %s %s %s", fen.getPiecePlacement(), fen.getActiveColor(), fen.getCastingsAllowed(), fen.getEnPassantSquare());
+        return PerftWithMap.getStringGameId(game);
     }
 
     public static Long getZobristGameId(Game game) {

@@ -135,7 +135,7 @@ public class PerftWithMap<T> implements Perft {
 
     //TODO: este metodo se esta morfando una parte significativa de la ejecucion
     public static String getStringGameId(Game game) {
-        FEN fen = game.getCurrentFEN();
+        FEN fen = game.toFEN();
         return String.format("%s %s %s %s", fen.getPiecePlacement(), fen.getActiveColor(), fen.getCastingsAllowed(), fen.getEnPassantSquare());
     }
 

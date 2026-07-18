@@ -12,7 +12,7 @@ import java.io.PrintStream;
 /**
  * @author Mauricio Coria
  */
-public class PgnToEpd {
+public class PGNConverter {
 
     /**
      * Run with -i C:\java\projects\chess\chess-utils\testing\positions\players\Kasparov.pgn
@@ -20,7 +20,7 @@ public class PgnToEpd {
      */
     public static void main(String[] args) {
 
-        PgnToEpd pgnToEpd = new PgnToEpd();
+        PGNConverter PGNConverter = new PGNConverter();
 
         CommandLine parsedArgs = parseArguments(args);
 
@@ -28,7 +28,7 @@ public class PgnToEpd {
                 ? new FileInputStream(parsedArgs.getOptionValue('i'))
                 : System.in) {
 
-            pgnToEpd.process(inputStream, System.out, System.err);
+            PGNConverter.process(inputStream, System.out, System.err);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

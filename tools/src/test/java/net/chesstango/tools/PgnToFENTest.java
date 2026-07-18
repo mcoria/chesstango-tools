@@ -54,7 +54,7 @@ public class PgnToFENTest {
                 .map(fenStram ->
                         fenStram.map(Game::from)
                                 .filter(game -> Long.bitCount(game.getPosition().getAllPositions()) == 9)
-                                .map(Game::getCurrentFEN)
+                                .map(Game::toFEN)
                                 .findFirst())
                 .filter(Optional::isPresent)
                 .map(Optional::get)

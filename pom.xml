@@ -12,7 +12,6 @@
 
     <artifactId>engine-tools-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.7.1</version>
 
     <modules>
         <module>tools</module>

@@ -21,7 +21,7 @@ public class PerftDifferentPositionsTest extends AbstractPerftTest {
     private Game game;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         perft = createPerft();
     }
 

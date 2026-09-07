@@ -1,12 +1,12 @@
 package net.chesstango.tools.tuning.factories;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import net.chesstango.evaluation.Evaluator;
 import net.chesstango.evaluation.evaluators.EvaluatorImp06;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.Arrays;
 
@@ -94,12 +94,7 @@ public class EvaluatorImp06Factory implements GameEvaluatorFactory {
                 mgPawnTbl, mgKnightTbl, mgBishopTbl, mgRookTbl, mgQueenTbl, mgKingTbl,
                 egPawnTbl, egKnightTbl, egBishopTbl, egRookTbl, egQueenTbl, egKingTbl);
 
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.writeValueAsString(obj);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        ObjectMapper mapper = JsonMapper.builder().build();
+        return mapper.writeValueAsString(obj);
     }
-
 }

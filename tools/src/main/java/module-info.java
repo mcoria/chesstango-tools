@@ -21,12 +21,13 @@ module net.chesstango.tools {
     requires net.chesstango.epd.worker;
 
     requires com.rabbitmq.client;
-    requires com.fasterxml.jackson.databind;
     requires org.slf4j;
     requires io.jenetics.base;
     requires org.apache.commons.pool2;
     requires org.apache.commons.cli;
     requires py4j;
+    requires com.fasterxml.jackson.annotation;
+    requires tools.jackson.databind;
 
     requires static lombok;
 }

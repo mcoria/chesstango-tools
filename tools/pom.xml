@@ -6,7 +6,7 @@
     <parent>
         <groupId>net.chesstango</groupId>
         <artifactId>engine-tools-parent</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>tools</artifactId>
@@ -59,7 +59,7 @@
             <artifactId>amqp-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
+            <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>

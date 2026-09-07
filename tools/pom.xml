@@ -6,7 +6,7 @@
     <parent>
         <groupId>net.chesstango</groupId>
         <artifactId>engine-tools-parent</artifactId>
-        <version>1.8.0</version>
+        <version>1.9.0</version>
     </parent>
 
     <artifactId>tools</artifactId>

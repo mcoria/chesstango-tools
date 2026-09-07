@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -66,7 +67,7 @@ public class PgnToFENTest {
     public void LumbrasGigaBase_Filter() throws IOException {
 
         String syzygyPath = "C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5";
-        Syzygy syzygy = Syzygy.open(syzygyPath);
+        Syzygy syzygy = Syzygy.open(Set.of(Path.of(syzygyPath)));
 
         Path filePath = Paths.get("C:\\java\\projects\\chess\\chess-utils\\testing\\matches\\LumbrasGigaBase\\LumbrasGigaBase_OTB_2025_5_pieces_finalLessThan6.fen");
         try (Stream<String> lines = Files.lines(filePath)) {

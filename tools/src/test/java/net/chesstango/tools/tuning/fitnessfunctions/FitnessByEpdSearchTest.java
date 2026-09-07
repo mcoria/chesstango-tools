@@ -60,9 +60,9 @@ public class FitnessByEpdSearchTest {
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFound)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, bestMoveEvaluationFound, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestMoveEvaluationFound, Bound.EXACT, null));
             } else {
-                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT, null));
             }
             i++;
         }
@@ -115,11 +115,11 @@ public class FitnessByEpdSearchTest {
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFound)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, bestMoveEvaluationFound, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestMoveEvaluationFound, Bound.EXACT, null));
             } else if (move.equals(actualBestMove)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT, null));
             } else {
-                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT, null));
             }
             i++;
         }
@@ -172,11 +172,11 @@ public class FitnessByEpdSearchTest {
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT, null));
             } else if (move.equals(actualBestMove)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT, null));
             } else {
-                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT, null));
             }
             i++;
         }
@@ -230,11 +230,11 @@ public class FitnessByEpdSearchTest {
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT, null));
             } else if (move.equals(actualBestMove)) {
                 //moveEvaluations.add(new RootMoveEvaluation(move, 90));
             } else {
-                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT, null));
             }
             i++;
         }
@@ -284,9 +284,9 @@ public class FitnessByEpdSearchTest {
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT, null));
             } else {
-                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, i, Bound.EXACT, null));
             }
             i++;
         }
@@ -339,11 +339,11 @@ public class FitnessByEpdSearchTest {
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT, null));
             } else if (move.equals(actualBestMove)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT, null));
             } else {
-                moveEvaluations.add(new RootMoveEvaluation(move, -i, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, -i, Bound.EXACT, null));
             }
             i++;
         }
@@ -396,11 +396,11 @@ public class FitnessByEpdSearchTest {
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT, null));
             } else if (move.equals(actualBestMove)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, actualBestMoveEvaluation, Bound.EXACT, null));
             } else {
-                moveEvaluations.add(new RootMoveEvaluation(move, -i, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, -i, Bound.EXACT, null));
             }
             i++;
         }
@@ -453,11 +453,11 @@ public class FitnessByEpdSearchTest {
         int i = 1;
         for (Move move : game.getPossibleMoves()) {
             if (move.equals(bestMoveFoundBySearch)) {
-                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, bestEvaluationFoundBySearch, Bound.EXACT, null));
             } else if (move.equals(actualBestMove)) {
                 //moveEvaluations.add(new RootMoveEvaluation(move, 90));
             } else {
-                moveEvaluations.add(new RootMoveEvaluation(move, -i, Bound.EXACT));
+                moveEvaluations.add(new RootMoveEvaluation(move, -i, Bound.EXACT, null));
             }
             i++;
         }
@@ -487,7 +487,7 @@ public class FitnessByEpdSearchTest {
                 .addSearchResultByDepth(
                         new SearchResultByDepth(1)
                                 .setBestRootMoveEvaluation(
-                                        new RootMoveEvaluation(bestMoveFoundBySearch, bestEvaluationFoundBySearch, Bound.EXACT)
+                                        new RootMoveEvaluation(bestMoveFoundBySearch, bestEvaluationFoundBySearch, Bound.EXACT, null)
                                 )
                 );
     }

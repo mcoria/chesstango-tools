@@ -16,7 +16,7 @@ import java.io.PrintStream;
 /**
  * @author Mauricio Coria
  */
-public class PgnToGameExtractor {
+public class GameExtractor {
 
     /**
      * Run with -i C:\java\projects\chess\chess-utils\testing\positions\players\Kasparov.pgn
@@ -24,7 +24,7 @@ public class PgnToGameExtractor {
      */
     public static void main(String[] args) {
 
-        PgnToGameExtractor PgnToGameExtractor = new PgnToGameExtractor();
+        GameExtractor GameExtractor = new GameExtractor();
 
         CommandLine parsedArgs = parseArguments(args);
 
@@ -32,7 +32,7 @@ public class PgnToGameExtractor {
                 ? new FileInputStream(parsedArgs.getOptionValue('i'))
                 : System.in) {
 
-            PgnToGameExtractor.process(inputStream, System.out, System.err);
+            GameExtractor.process(inputStream, System.out, System.err);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -53,6 +53,9 @@ public class PgnToGameExtractor {
                 .forEach(out::println);
     }
 
+    /**
+     * Blancas vs Negras difieren por una sola pieza
+     */
     private boolean filterGame(Game game) {
         long whitePosition = game.getPosition().getPositions(Color.WHITE);
         long blackPosition = game.getPosition().getPositions(Color.BLACK);

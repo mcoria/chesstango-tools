@@ -43,16 +43,22 @@ public abstract class FitnessByEpdAbstract implements FitnessFunction {
 
     @Override
     public long fitness(Supplier<Evaluator> gameEvaluatorSupplier) {
+        throw new RuntimeException("Reimplement");
+
+        /*
         EpdSearch epdSearch = new EpdSearch();
 
         epdSearch.setDepth(depth);
 
-        List<EpdSearchResult> epdSearchResults = epdSearch.run(createSearchSupplier(gameEvaluatorSupplier), edpEntries.stream());
+
+        List<EpdSearchResult> epdSearchResults = epdSearch.run(createSearchSupplier(gameEvaluatorSupplier), edpEntries.stream(), null);
 
         return epdSearchResults
                 .stream()
                 .mapToLong(epdSearchResult -> getPoints(epdSearchResult.getEpd(), epdSearchResult.getSearchResult()))
                 .sum();
+
+         */
     }
 
     @Override
